@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>まなびタブ 宅建 v1.6</title>
+<style>
+:root{--blue:#3478f6;--ink:#1b2c3d;--muted:#6e7e8d;--line:#dce6ee;--bg:#f6f9fc;--green:#25a86a;--red:#e95f5f;--yellow:#ffbf45;--purple:#7757d9}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;color:var(--ink);background:var(--bg)}button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}header b{font-size:20px}.wrap{max-width:1000px;margin:auto;padding:18px 16px 90px}.hero{background:linear-gradient(135deg,#2f73ed,#63a7ff);border-radius:24px;padding:22px;color:#fff;display:flex;justify-content:space-between;gap:18px;align-items:center}.hero h1{margin:0 0 7px;font-size:clamp(26px,5vw,38px)}.hero p{margin:0;line-height:1.65}.heroStat{min-width:126px;text-align:center;background:#ffffff22;border:1px solid #ffffff44;border-radius:18px;padding:13px}.heroStat strong{font-size:29px;display:block}.note{margin-top:12px;background:#fff8df;border:1px solid #ffe286;border-radius:15px;padding:12px 14px;line-height:1.6;font-size:14px}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.quick button,.subject,.cardBtn{border:1px solid var(--line);background:#fff;border-radius:18px;padding:16px;text-align:left;box-shadow:0 5px 16px #4a6e8a10}.quick button span,.subject span{display:block;font-size:28px;margin-bottom:7px}.quick button b,.subject b{display:block}.quick small,.subject small{display:block;color:var(--muted);margin-top:5px;line-height:1.4}h2{margin:26px 0 11px}.subjects{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.subject.active{border:2px solid #7fb0ff;background:#f0f6ff}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px}.stat small{display:block;color:var(--muted)}.stat strong{font-size:25px}.section{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:14px}.progress{height:9px;background:#edf2f6;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:var(--blue)}.muted{color:var(--muted)}.modal{position:fixed;inset:0;background:#10283c88;z-index:20;display:grid;place-items:center;padding:12px}.modalBox{width:min(760px,100%);max-height:94dvh;overflow:auto;background:#fff;border-radius:25px;padding:20px}.qhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.light{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;font-weight:800}.primary{border:0;background:var(--blue);color:#fff;border-radius:13px;padding:12px 16px;font-weight:900}.danger{border:1px solid #ffd0d0;background:#fff5f5;color:#b94444;border-radius:12px;padding:10px 12px;font-weight:800}.question{font-size:22px;line-height:1.62;margin:20px 0 15px}.options{display:grid;gap:10px}.option{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;text-align:left;font-weight:800;line-height:1.5}.option.ok{border-color:var(--green);background:#eefff7}.option.ng{border-color:var(--red);background:#fff2f2}.feedback{margin-top:14px;padding:14px;border-radius:14px;background:#f3f8fc;line-height:1.75}.actions{display:flex;gap:9px;margin-top:15px;flex-wrap:wrap}.actions .primary{margin-left:auto}.difficulty{font-size:12px;font-weight:900;padding:5px 8px;border-radius:99px;background:#eef5ff;color:#2565b5}.search{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px 14px;background:#fbfdff;font-size:16px}.filters{display:flex;gap:7px;overflow:auto;padding:10px 0}.filter{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 11px;font-weight:800}.filter.sel{background:#eaf3ff;border-color:#9fc4ff;color:#2762ae}.termList{display:grid;gap:9px}.term{border:1px solid var(--line);border-radius:15px;padding:13px 14px;background:#fff;text-align:left}.termTop{display:flex;justify-content:space-between;gap:10px}.term b{font-size:18px}.tag{font-size:11px;padding:4px 7px;border-radius:99px;background:#f1f4f7;color:#526575;white-space:nowrap}.plain{margin-top:7px;font-weight:800;color:#2c5e88}.termDetail h3{font-size:28px;margin:7px 0}.termDetail .boxy{border-radius:14px;padding:13px 14px;margin:10px 0;line-height:1.7}.easy{background:#eef8ff}.example{background:#f5f7fb}.trap{background:#fff5e8}.exam{background:#f2fff7}.phrase{border-left:4px solid var(--purple);padding:12px 14px;background:#f7f4ff;border-radius:0 14px 14px 0;margin:10px 0}.phrase b{display:block;margin-bottom:5px}.reviewRow{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.pill{display:inline-block;border-radius:99px;padding:5px 8px;font-size:12px;font-weight:900;background:#eef4f9}.empty{text-align:center;color:var(--muted);padding:24px}.explainTerm{display:inline-block;border-bottom:2px dotted #78a9db;color:#1d69b4;font-weight:800}.scoreCircle{font-size:48px;font-weight:900;text-align:center;padding:20px}.tiny{font-size:12px;color:var(--muted)}@media(max-width:760px){.quick,.subjects{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.hero{display:block}.heroStat{margin-top:14px}.question{font-size:20px}}@media(max-width:390px){.quick,.subjects{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+
+.devGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}.devSummary{background:#f4f8ff;border:1px solid #cfe0ff;border-radius:18px;padding:16px}.devSummary strong{font-size:34px;display:block}.mile{border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0;background:#fff}.mileTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.mileTitle{font-weight:900}.mileMeta{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5}.statusDone{color:var(--green);font-weight:900}.statusDoing{color:#9a6a00;font-weight:900}.statusTodo{color:var(--muted);font-weight:900}.nextBox{background:#fff8df;border:1px solid #ffe286;border-radius:16px;padding:14px;line-height:1.65}.criteria{margin:0;padding-left:20px;line-height:1.8}.versionTag{font-size:12px;color:var(--muted)}@media(max-width:760px){.devGrid{grid-template-columns:1fr}}
+
+.aiBox{background:#f6f2ff;border:1px solid #d9cdfb;border-radius:18px;padding:16px}.aiStats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0}.aiStat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.aiStat small{display:block;color:var(--muted)}.aiStat strong{font-size:22px}.causeGrid{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.causeBtn{border:1px solid #cfdbe5;background:#fff;border-radius:99px;padding:8px 10px;font-weight:800;font-size:12px}.causeBtn.sel{background:#eaf3ff;border-color:#82b4ff;color:#245f9d}.copyArea{width:100%;min-height:230px;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfdff;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical}.planArea{width:100%;min-height:140px;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}.aiPlan{background:#effbf5;border:1px solid #bde8d2;border-radius:15px;padding:13px;line-height:1.65;margin-top:10px}.warnBox{background:#fff8df;border:1px solid #ffe286;border-radius:14px;padding:12px;line-height:1.6}.causePicker{margin-top:12px;padding-top:12px;border-top:1px dashed #cfdbe5}.causePicker b{font-size:13px}.miniButton{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 9px;font-size:12px;font-weight:800}@media(max-width:760px){.aiStats{grid-template-columns:1fr 1fr}.copyArea{min-height:280px}}
+
+.breakText{font-size:20px;font-weight:800;line-height:1.75;background:#f7f9fc;border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}.breakGuide{background:#eef8ff;border:1px solid #c9e7ff;border-radius:14px;padding:12px 14px;line-height:1.6}.breakSteps{display:grid;gap:9px;margin-top:12px}.breakStep{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;text-align:left;font-weight:900}.breakStep small{display:block;color:var(--muted);margin-top:4px}.breakAnswer{margin:-3px 0 5px 10px;padding:11px 13px;border-left:4px solid var(--blue);background:#f2f7ff;border-radius:0 12px 12px 0;line-height:1.65}.breakPlain{background:#effbf5;border:1px solid #bde8d2;border-radius:14px;padding:13px;margin-top:12px;line-height:1.65}.breakHardDone{background:#fff4e5!important;border-color:#ffc76a!important}.breakCounter{font-size:12px;font-weight:900;color:var(--muted)}
+</style>
+</head>
+<body>
+<header><b>🏠 まなびタブ 宅建 <span class="versionTag">v1.6</span></b><div style="display:flex;gap:8px"><button id="openProgress" class="light">📊 開発進捗</button><button id="openDictHeader" class="light">📖 用語辞典</button></div></header>
+<div class="wrap">
+<section class="hero"><div><h1>「何が書いてある？」をなくす。</h1><p>難しい法律用語を、ふつうの日本語に翻訳してから問題を解きます。</p></div><div class="heroStat"><small>今日の問題</small><strong id="todayCount">0</strong><small>問</small></div></section>
+<div class="note">📌 <b>2026年度対応</b>：令和8年4月1日現在施行の法令を基準に学習。まずは宅建業法を厚くし、用語辞典は権利関係・法令制限・税の重要語も収録しています。</div>
+<div class="section" style="margin-top:14px"><div class="qhead"><div><b>📊 完成までの進捗</b><div class="muted tiny">完成条件を固定して、毎回ここを更新</div></div><strong id="devPctMini">-</strong></div><div class="progress" style="margin-top:10px"><i id="devBarMini" style="width:0%"></i></div><div id="devNextMini" class="tiny muted" style="margin-top:8px"></div></div>
+<div class="quick">
+<button id="start5"><span>🎯</span><b>今日の5問</b><small>宅建業法中心。解説つき</small></button>
+<button id="openDict"><span>📖</span><b>難しい用語辞典</b><small>法律語→ふつうの日本語</small></button>
+<button id="openPhrase"><span>🧩</span><b>文章ほどき</b><small>長い問題文を短く翻訳</small></button>
+<button id="openBreakdown"><span>🔍</span><b>問題文3分解</b><small>人物→行動→質問に分ける</small></button>
+<button id="startWeak"><span>🔁</span><b>苦手だけ復習</b><small>間違い・「わからない」を優先</small></button>
+<button id="startDue"><span>⏰</span><b>今日の復習 <em id="dueBadge" style="font-style:normal">0</em></b><small>翌日→3日→7日で忘れる前に</small></button>
+<button id="openAI"><span>🤖</span><b>ChatGPT苦手分析</b><small>間違い方をまとめて分析へ</small></button>
+<button id="startAI"><span>🧠</span><b>AIおすすめ5問</b><small>分析結果を次の学習へ反映</small></button>
+<button id="openUnits"><span>📚</span><b>宅建業法・単元別</b><small>8単元から苦手を5問</small></button>
+<button id="startMock20"><span>📝</span><b>20問ミニ模試</b><small>本番の科目配分を縮小再現</small></button>
+<button id="openBackup"><span>💾</span><b>バックアップ</b><small>学習記録を保存・復元</small></button>
+</div>
+<h2>分野</h2><div class="subjects">
+<button class="subject active" data-cat="宅建業法"><span>🏢</span><b>宅建業法</b><small>最優先・問題充実</small></button>
+<button class="subject" data-cat="権利関係"><span>⚖️</span><b>権利関係</b><small>用語から意味をつかむ</small></button>
+<button class="subject" data-cat="法令制限"><span>🗺️</span><b>法令上の制限</b><small>都市計画・建築</small></button>
+<button class="subject" data-cat="税・その他"><span>💴</span><b>税・その他</b><small>税・価格・5問免除系</small></button>
+</div>
+<h2>学習記録</h2><div class="stats"><div class="stat"><small>全体正答率</small><strong id="allAcc">-</strong></div><div class="stat"><small>宅建業法</small><strong id="lawAcc">-</strong></div><div class="stat"><small>苦手用語</small><strong id="weakTerms">0語</strong></div><div class="stat"><small>連続学習</small><strong id="streak">0日</strong></div></div>
+<div class="section"><div class="qhead"><div><b>⏰ 間隔復習</b><div class="muted tiny">誤答は翌日・迷いは3日後・自信あり正解は7日後</div></div><button id="startDue2" class="primary">今日の復習 <span id="dueCount">0</span>問</button></div><div id="reviewScheduleMini" class="tiny muted" style="margin-top:10px"></div></div>
+<div class="section"><div class="qhead"><div><b>用語理解度</b><div class="muted tiny">辞典問題の正答率</div></div><span id="termPct">-</span></div><div class="progress" style="margin-top:10px"><i id="termBar" style="width:0%"></i></div></div>
+<div class="section"><div class="qhead"><b>最近の苦手</b><button id="clearProgress" class="danger">記録をリセット</button></div><div id="recentWeak"></div></div>
+<div class="section aiBox"><div class="qhead"><div><b>🤖 ChatGPT学習コーチ</b><div class="tiny muted">苦手の「量」ではなく、間違い方の傾向を分析</div></div><button id="openAI2" class="primary">分析する</button></div><div id="aiPlanMini" class="aiPlan">まだ分析結果は登録されていません。</div></div>
+</div>
+
+<div id="devModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">📊 完成ロードマップ</b><div class="versionTag">まなびタブ宅建 v1.6｜基準日 2026-08-26</div></div><button class="light closeDev">閉じる</button></div><div class="devGrid"><div class="devSummary"><small>総合進捗</small><strong id="devPct">-</strong><div class="progress"><i id="devBar" style="width:0%"></i></div></div><div class="devSummary"><small>現在の収録</small><div id="devCounts" style="margin-top:8px;line-height:1.75;font-weight:800"></div></div></div><div id="devNext" class="nextBox"></div><h3>完成条件</h3><ol class="criteria"><li>学習基盤・端末保存が安定して動く</li><li>難しい用語辞典 250語</li><li>問題文の文章ほどき100表現＋3分解トレーニング40題</li><li>実戦オリジナル問題 600問（宅建業法200／権利関係200／法令120／税・その他80）</li><li>苦手登録＋間隔復習＋再出題を自動化</li><li>20問ミニ模試→最終的に50問本番形式模試を実装</li><li>2026年度法令基準で数値・期限・改正点を根拠確認</li><li>スマホ実機QA・バックアップ/復元・配布版を完成</li><li>ChatGPT弱点分析＋次回学習反映ループを完成</li></ol><h3>工程別進捗</h3><div id="milestones"></div></div></div>
+<div id="aiModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">🤖 ChatGPT苦手分析</b><div class="tiny muted">学習データを個人情報なしでまとめ、ChatGPTに貼り付けます</div></div><button class="light closeAI">閉じる</button></div>
+<div class="aiStats"><div class="aiStat"><small>記録済み誤答・迷い</small><strong id="aiStruggleCount">0</strong></div><div class="aiStat"><small>苦手用語</small><strong id="aiWeakCount">0</strong></div><div class="aiStat"><small>最多原因</small><strong id="aiTopCause" style="font-size:16px">-</strong></div></div>
+<div id="causeSummary" class="section" style="margin-top:8px"></div>
+<h3>① ChatGPTへ渡す</h3><div class="warnBox">問題文・選択した誤答・正解・苦手用語・間違い原因をまとめます。氏名などの個人情報は含めません。</div><textarea id="aiPrompt" class="copyArea" readonly></textarea><div class="actions"><button id="copyAI" class="primary">分析文をコピー</button><button id="openChatGPT" class="light">ChatGPTを開く</button></div><div id="copyStatus" class="tiny muted"></div>
+<h3>② ChatGPTの分析結果を戻す</h3><div class="tiny muted">ChatGPT回答の <b>MANABI_PLAN_START</b> ～ <b>MANABI_PLAN_END</b> を含む部分を貼り付けてください。</div><textarea id="aiResult" class="planArea" placeholder='MANABI_PLAN_START
+{"focus_category":"宅建業法","focus_terms":["手付解除"],"focus_causes":["原則と例外"],"note":"次回は適用条件を重点復習"}
+MANABI_PLAN_END'></textarea><div class="actions"><button id="importAIPlan" class="primary">次回学習に反映</button><button id="clearAIPlan" class="light">AI設定を解除</button></div><div id="aiImportStatus" class="tiny muted"></div><div id="aiPlanView"></div></div></div>
+<div id="unitModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">📚 宅建業法・単元別</b><div class="tiny muted">100問を8単元に整理。苦手なところだけ5問ずつ</div></div><button class="light closeUnit">閉じる</button></div><div id="unitList" class="termList" style="margin-top:14px"></div></div></div>
+<div id="backupModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">💾 学習データのバックアップ</b><div class="tiny muted">機種変更・ブラウザ変更に備えて保存できます</div></div><button class="light closeBackup">閉じる</button></div><div class="warnBox" style="margin-top:12px">学習履歴・苦手語・復習予定・ChatGPT学習プランをJSONとして保存します。氏名などは保存していません。</div><h3>① バックアップを作る</h3><textarea id="backupArea" class="copyArea" readonly></textarea><div class="actions"><button id="makeBackup" class="primary">最新データを表示</button><button id="copyBackup" class="light">コピー</button><button id="downloadBackup" class="light">JSON保存</button></div><h3>② 復元する</h3><textarea id="restoreArea" class="planArea" placeholder="ここにバックアップJSONを貼り付け"></textarea><div class="actions"><button id="restoreBackup" class="primary">このデータで復元</button><label class="light" style="display:inline-block">ファイルを選ぶ<input id="backupFile" type="file" accept="application/json,.json" style="display:none"></label></div><div id="backupStatus" class="tiny muted" style="margin-top:8px"></div></div></div>
+<div id="dictModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">📖 難しい用語辞典</b><div class="muted tiny">「法律の日本語」を「ふつうの日本語」に</div></div><button class="light close">閉じる</button></div><input id="dictSearch" class="search" placeholder="例：善意、媒介、履行、手付…"><div id="filters" class="filters"></div><div id="termList" class="termList"></div></div></div>
+<div id="termModal" class="modal hidden"><div class="modalBox termDetail"><div class="qhead"><span id="termCat" class="tag"></span><button class="light closeTerm">閉じる</button></div><h3 id="termName"></h3><div id="termReading" class="muted"></div><div class="boxy easy"><b>🟦 超やさしく</b><div id="termEasy"></div></div><div class="boxy example"><b>👀 具体例</b><div id="termExample"></div></div><div class="boxy exam"><b>📝 試験文では</b><div id="termExam"></div></div><div class="boxy trap"><b>⚠️ ひっかけ注意</b><div id="termTrap"></div></div><div class="actions"><button id="markWeak" class="danger">まだ分からない</button><button id="termQuizBtn" class="primary">この言葉を1問</button></div></div></div>
+<div id="phraseModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">🧩 文章ほどき</b><div class="muted tiny">問題文で出る表現を、一行で翻訳</div></div><button class="light close">閉じる</button></div><div id="phraseList"></div><div class="actions"><button id="phraseQuizBtn" class="primary">文章ほどき5問</button></div></div></div>
+
+<div id="breakModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">🔍 問題文3分解</b><div class="muted tiny">まず自分で考えてから、①→②→③をタップ</div></div><button class="light closeBreak">閉じる</button></div><div class="qhead" style="margin-top:12px"><span class="pill" id="breakCat">-</span><span id="breakProgress" class="breakCounter">1 / 5</span></div><div id="breakText" class="breakText"></div><div class="breakGuide"><b>読む順番は固定</b><br>① 誰が出ている？ → ② 何をした？ → ③ 結局、何を聞かれている？</div><div class="breakSteps"><button class="breakStep" data-break="people">① 登場人物は？<small>主語・立場を整理</small></button><div id="breakPeople" class="breakAnswer hidden"></div><button class="breakStep" data-break="action">② 何をした？<small>契約・売却・解除などの行動</small></button><div id="breakAction" class="breakAnswer hidden"></div><button class="breakStep" data-break="ask">③ 何を聞かれている？<small>最後の問いを普通の日本語へ</small></button><div id="breakAsk" class="breakAnswer hidden"></div></div><div id="breakPlain" class="breakPlain hidden"></div><div class="actions"><button id="breakHard" class="danger">まだ難しい</button><button id="breakNext" class="primary" disabled>次の問題文</button></div><div id="breakStatus" class="tiny muted" style="margin-top:8px"></div></div></div>
+<div id="quizModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b id="quizTitle"></b> <span id="quizDiff" class="difficulty"></span></div><span id="quizProgress"></span></div><div id="quizQuestion" class="question"></div><div id="quizOptions" class="options"></div><div id="quizFeedback" class="feedback hidden"></div><div class="actions"><button id="quizQuit" class="light">やめる</button><button id="quizUnsure" class="light">🤔 迷った</button><button id="quizUnknown" class="danger">言葉が分からない</button><button id="quizNext" class="primary hidden">つぎへ</button></div></div></div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)], localDateKey=d=>{d=d||new Date();let z=new Date(d.getTime()-d.getTimezoneOffset()*60000);return z.toISOString().slice(0,10)}, today=()=>localDateKey(new Date()), shuffle=a=>[...a].sort(()=>Math.random()-.5), pick=a=>a[Math.floor(Math.random()*a.length)];
+const STORAGE_KEY='manabi_takken_v1';let fallbackRaw='';function readSaved(){try{return localStorage.getItem(STORAGE_KEY)||''}catch(e){return fallbackRaw}}function writeSaved(raw){fallbackRaw=raw;try{localStorage.setItem(STORAGE_KEY,raw)}catch(e){}}let state={answers:[],weak:{},struggles:[],breakdownHistory:[],reviews:{},streak:0,lastStudy:'',aiPlan:null};try{state={...state,...JSON.parse(readSaved()||'{}')}}catch(e){}state.answers=Array.isArray(state.answers)?state.answers:[];state.weak=state.weak||{};state.struggles=Array.isArray(state.struggles)?state.struggles:[];state.breakdownHistory=Array.isArray(state.breakdownHistory)?state.breakdownHistory:[];state.reviews=state.reviews||{};const save=()=>writeSaved(JSON.stringify(state));
+const G=[
+['媒介','ばいかい','宅建業法','売主と買主の間に入って、契約がまとまるように手伝うこと。','Aさんの家を、不動産会社が買主を探して条件調整する。会社自身が買うわけではない。','「媒介する」＝間に入る。「自ら売主」と区別する。','媒介と代理は別。媒介業者は原則として本人の代わりに契約を成立させる権限までは持たない。'],
+['代理','だいり','宅建業法','本人の代わりに法律行為をすること。','売主Aから権限をもらったBが、Aの代理人として買主Cと契約する。','「代理して契約」＝本人の代わりに意思表示する。','媒介は仲介、代理は本人の代わり。ここを混ぜない。'],
+['自ら売主','みずからうりぬし','宅建業法','宅建業者自身が売る側になること。','不動産会社が自社所有の新築住宅を一般の人へ売る。','「宅建業者が自ら売主となり、宅建業者でない者が買主」なら8種制限を疑う。','業者同士の取引では8種制限の多くは適用されない。'],
+['宅地建物取引業','たくちたてものとりひきぎょう','宅建業法','宅地・建物の売買や交換、または売買・交換・貸借の代理・媒介を、仕事として繰り返し行うこと。','他人の賃貸アパートを繰り返し仲介する不動産会社。','「業として」＝不特定多数に反復継続して行うイメージ。','自分の物件を自分で貸すだけは、宅建業法上の「取引」に含まれない。'],
+['免許','めんきょ','宅建業法','宅建業を営業してよいという行政からの許可。','1都道府県だけに事務所→知事免許、2以上の都道府県に事務所→国土交通大臣免許。','「免許権者」を事務所の所在地で判断する。','営業エリアが全国だから大臣免許、ではない。事務所の所在地で決まる。'],
+['免許の有効期間','めんきょのゆうこうきかん','宅建業法','宅建業免許が使える期間。現在は5年間。','2026年時点でも宅建業免許の有効期間は5年。','「有効期間5年」「更新申請は満了日の90日前から30日前まで」が基本。','宅建士証の有効期間など、別の5年制度と混同しない。'],
+['事務所','じむしょ','宅建業法','宅建業を継続的に行い、契約を締結する権限を持つ人が置かれる営業拠点。','本店や、宅建業を継続して行う支店。','免許区分や専任宅建士の設置人数を考える基準になる。','単なる物件案内所と事務所は同じではない。'],
+['専任の宅地建物取引士','せんにんのたくちたてものとりひきし','宅建業法','その事務所に常勤し、主にその宅建業務に専念する宅建士。','従事者10人の事務所なら、原則2人以上必要。','事務所ごとに、宅建業従事者5人に1人以上。','単に宅建士証を持っているだけでは「専任」とは限らない。'],
+['重要事項説明','じゅうようじこうせつめい','宅建業法','契約するか決める前に、物件や権利関係など重要なことを説明する手続。','買主が契約書にサインする前に、宅建士が法令上の制限などを説明する。','35条。契約成立前に、宅建士が説明する。','37条書面は契約成立後。順番を逆にしない。'],
+['35条書面','さんじゅうごじょうしょめん','宅建業法','重要事項説明の内容を書いた書面。','用途地域、登記された権利、飲用水などの重要事項を記載。','「契約前」「重要事項」「宅建士が説明」が合図。','契約内容そのものを確認する37条書面と区別。'],
+['37条書面','さんじゅうななじょうしょめん','宅建業法','契約が成立した後、その契約内容を確認するために交付する書面。','代金額、支払時期、引渡し時期など契約内容を記載。','「契約成立後」「契約内容」が合図。','35条は契約前、37条は契約後。'],
+['媒介契約','ばいかいけいやく','宅建業法','売主などが宅建業者に「買主探しなどを手伝って」と依頼する契約。','自宅を売りたいAが不動産会社Bに売却仲介を依頼。','一般・専任・専属専任の違いが頻出。','売買契約そのものではない。'],
+['一般媒介契約','いっぱんばいかいけいやく','宅建業法','複数の宅建業者に同時に媒介を頼める契約。','AがB社とC社の両方に売却を依頼する。','複数業者への依頼が可能。','専任・専属専任と違い、指定流通機構への登録義務は原則ない。'],
+['専任媒介契約','せんにんばいかいけいやく','宅建業法','媒介を頼める宅建業者を1社に絞る契約。ただし自分で見つけた相手とは契約できる。','AはB社だけに依頼したが、自分の知人Cに売ることはできる。','自己発見取引は可能。業務処理状況の報告は2週間に1回以上。','「自分で見つけてもダメ」なのは専属専任。'],
+['専属専任媒介契約','せんぞくせんにんばいかいけいやく','宅建業法','媒介を1社に絞り、自分で見つけた相手とも直接契約できない契約。','Aが知人Cを見つけても、依頼したB社を通す必要がある。','自己発見取引不可。業務処理状況の報告は1週間に1回以上。','専任媒介との最大の差は自己発見取引。'],
+['指定流通機構（REINS）','していりゅうつうきこう・れいんず','宅建業法','宅建業者どうしで物件情報を共有する仕組み。','専任媒介・専属専任媒介の物件情報を登録し、他社も検索できる。','「レインズ」と出たら媒介契約の登録義務を連想。','一般媒介は原則登録義務なし。'],
+['営業保証金','えいぎょうほしょうきん','宅建業法','宅建業者が取引相手に損害を与えた場合に備えて供託するお金。','本店分などを供託所に供託してから営業を開始する。','保証協会に入らない業者の制度。主たる事務所1000万円、従たる事務所1か所500万円。','保証協会の弁済業務保証金分担金と金額を混同しない。'],
+['保証協会','ほしょうきょうかい','宅建業法','宅建業者の保証制度などを行う団体。加入すると営業保証金の代わりに分担金を納付する制度を利用できる。','協会の社員になった業者が分担金を協会へ納付。','「社員」という語は会社員ではなく、保証協会の加入業者の意味で出ることがある。','一般企業の従業員という意味の社員と混同注意。'],
+['弁済業務保証金分担金','べんさいぎょうむほしょうきんぶんたんきん','宅建業法','保証協会に加入する宅建業者が、営業保証金の代わりに協会へ納めるお金。','主たる事務所60万円、従たる事務所1か所30万円。','「業者→保証協会へ納付」が分担金。','「保証協会→供託所へ供託」する弁済業務保証金と区別。'],
+['供託','きょうたく','共通','お金や有価証券などを、法務局などの供託所に預けること。','営業保証金を供託所に預ける。','「供託する」＝公的な場所に預けて法的効果を生じさせる。','銀行に普通預金する意味ではない。'],
+['還付','かんぷ','宅建業法','保証金などから、取引で損害を受けた人にお金を支払うこと。','宅建業者の取引で損害を受けた相手が、要件を満たして営業保証金から弁済を受ける。','「還付を受ける」＝保証金から支払いを受ける。','単なる返金とは違い、保証制度の文脈。'],
+['8種制限','はっしゅせいげん','宅建業法','宅建業者が自ら売主、買主が宅建業者ではないとき、買主を守るためにかかる特別ルールの総称。','クーリングオフ、手付額の制限、損害賠償予定額の制限など。','「業者売主×一般人買主」が合図。','業者同士なら基本的に適用されない。'],
+['クーリングオフ','くーりんぐおふ','宅建業法','一定の場所で申込み・契約した買主が、一定期間内なら理由なく撤回・解除できる制度。','喫茶店など宅建業者の事務所等以外で勧誘され契約した場合を検討。','場所・説明・期間・引渡し等の条件をセットで判断。','どこで契約しても必ず使える制度ではない。'],
+['手付','てつけ','権利関係','契約時に一方から相手へ渡すお金。宅建の売買では解約手付として扱う場面が多い。','買主が売主へ手付金を渡す。','「履行に着手するまで」とセットで出やすい。','頭金と同じ意味とは限らない。'],
+['解約手付','かいやくてつけ','権利関係','相手が履行に着手する前なら、買主は手付放棄、売主は手付倍返しで契約を解除できる手付。','買主が100万円の手付を放棄して解除する。','買主＝放棄、売主＝倍額を現実に提供。','いつまでも解除できるわけではない。相手方の履行着手が区切り。'],
+['履行','りこう','権利関係','契約で約束したことを実際に行うこと。','売主が建物を引き渡す、買主が代金を支払う。','「債務を履行する」＝約束を実行する。','契約を結ぶこと自体とは別。'],
+['履行に着手','りこうにちゃくしゅ','権利関係','契約を実行するための行動を、外から見ても分かる形で実際に始めること。','売主が所有権移転登記の手続を進めるなど。','解約手付の解除期限を考える重要語。','単に心の中で準備しただけでは通常足りない。'],
+['善意','ぜんい','権利関係','ある事実を「知らない」こと。性格が優しいという意味ではない。','土地に別の権利があることを知らずに取引した。','法律問題では「知らない」。','日常語の「親切」とは完全に別物。'],
+['悪意','あくい','権利関係','ある事実を「知っている」こと。性格が悪いという意味ではない。','売主に権限がないことを知りながら契約した。','法律問題では「知っている」。','嫌がらせの気持ちという意味ではない。'],
+['過失','かしつ','権利関係','注意すれば気づけたのに、注意不足で気づかなかったこと。','確認すべき登記を確認しなかった。','「落ち度・注意不足」と訳す。','故意＝わざと、過失＝うっかり。'],
+['善意無過失','ぜんいむかしつ','権利関係','知らなかったし、知らないことについて注意不足もなかったこと。','必要な確認をしても分からなかった。','「知らない＋落ち度なし」。','善意だけで足りる条文と、善意無過失まで必要な条文を分ける。'],
+['第三者','だいさんしゃ','権利関係','その契約の当事者ではない別の人。','AとBの売買契約に対するC。','「第三者に対抗できるか」などで登場。','単に3番目の人という意味ではなく、当事者以外。'],
+['対抗','たいこう','権利関係','自分の権利を、別の人に対して「これは私の権利だ」と主張すること。','土地を買ったAが、後から権利を主張するBに所有権を主張する。','「第三者に対抗する」＝第三者に権利を主張する。','争う・攻撃するという日常語とは少し違う。'],
+['登記','とうき','権利関係','不動産の権利関係などを公の帳簿に記録する制度。','土地の所有権移転を登記する。','不動産の物権変動で「第三者への対抗要件」として頻出。','契約成立の要件と、第三者へ主張する要件を混同しない。'],
+['取消し','とりけし','権利関係','いったん有効に成立した法律行為を、後からさかのぼって効力をなくすこと。','詐欺による契約を取り消す。','「取り消すことができる」＝最初から当然無効ではない。','無効と取消しは別。'],
+['無効','むこう','権利関係','最初から法律上の効力が認められないこと。','公序良俗に反する契約など。','「無効」＝原則として最初から効力なし。','取消しのように誰かが取り消すまで有効、ではない。'],
+['追認','ついにん','権利関係','あとから「その行為を有効なものとして認める」こと。','無権代理を本人が後から認める。','「追認する」＝あとからOKを出す。','契約を新しく結び直すこととは違う。'],
+['催告','さいこく','権利関係','相手に「期限までにやってください」と正式に求めること。','代金を支払わない買主へ相当期間を定めて支払いを求める。','解除の場面で「相当の期間を定めて催告」が頻出。','単なるお願いより法的な意味を持つ要求。'],
+['解除','かいじょ','権利関係','いったん成立した契約関係を解消すること。','相手が重大な債務不履行をしたため売買契約を解除。','「契約を終わらせる」イメージ。','取消し・無効とは理由と効果の考え方が違う。'],
+['債権','さいけん','権利関係','特定の相手に「これをして」と求められる権利。','売主が買主に代金を請求する権利。','請求できる側の権利。','土地そのものを直接支配する物権と区別。'],
+['債務','さいむ','権利関係','相手に対して「これをしなければならない」という義務。','買主の代金支払義務。','やるべき側の義務。','借金だけを意味するわけではない。'],
+['債務不履行','さいむふりこう','権利関係','契約上の義務をきちんと果たさないこと。','期限までに代金を払わない。','解除・損害賠償とセットで出る。','単に気に入らない、ではない。契約上の義務違反。'],
+['損害賠償','そんがいばいしょう','権利関係','相手に与えた損害を金銭などで埋め合わせること。','契約違反で100万円の損害を与えたため賠償する。','「賠償額の予定」「違約金」などと関連。','解除しても損害賠償請求が別に問題になることがある。'],
+['抵当権','ていとうけん','権利関係','不動産を担保にし、返済されないときにその不動産から優先的に回収できる権利。','住宅ローンで銀行が土地建物に抵当権を設定。','担保物権。登記・順位・第三取得者などと出る。','抵当権を設定しても、通常は所有者がその家を使い続けられる。'],
+['契約不適合責任','けいやくふてきごうせきにん','権利関係','引き渡された物が、種類・品質・数量など契約内容に合っていないときの売主の責任。','「雨漏りなし」として売った家に重大な雨漏りがあった。','追完・代金減額・損害賠償・解除などを検討。','旧法の「瑕疵担保責任」という言葉だけで覚えない。'],
+['都市計画区域','としけいかくくいき','法令制限','まちづくりを計画的に行うため、都市計画法のルールを広く適用する区域。','市街化区域や市街化調整区域などを定める土台。','まず「都市計画区域内か」を確認する問題が多い。','用途地域と同じ意味ではない。'],
+['市街化区域','しがいかくかくいき','法令制限','すでに市街地になっている、または概ね10年以内に優先的に市街化する区域。','住宅や店舗などの市街地形成を進める区域。','「市街化を進める側」。','市街化調整区域と反対。'],
+['市街化調整区域','しがいかちょうせいくいき','法令制限','市街化を抑える区域。開発や建築が厳しく制限される。','農地や自然を残すため、むやみに宅地開発しない区域。','「市街化を抑制」。','絶対に何も建てられない、とは限らない。例外あり。'],
+['用途地域','ようとちいき','法令制限','地域ごとに、建てられる建物の用途などを分けるルール。','住宅中心の地域、商業中心の地域など。','建築物の用途制限を判断するキーワード。','都市計画区域の全域に必ず定めるわけではない。'],
+['建ぺい率','けんぺいりつ','法令制限','敷地面積に対して、建物を真上から見た面積（建築面積）をどこまで使えるかの割合。','100㎡の土地で建ぺい率60%なら、原則建築面積60㎡まで。','「土地の何％を建物で覆えるか」。','延べ面積の割合は容積率。'],
+['容積率','ようせきりつ','法令制限','敷地面積に対する建物の延べ面積の割合。','100㎡の土地で容積率200%なら、原則延べ面積200㎡まで。','「延べ床面積÷敷地面積」。','建ぺい率と混同しない。'],
+['開発許可','かいはつきょか','法令制限','一定の土地造成などの開発行為をするときに必要となる行政の許可。','大規模な宅地造成のため区画形質を変更する。','区域・規模・行為内容で要否を判断。','建築確認と同じ手続ではない。'],
+['接道義務','せつどうぎむ','法令制限','建築物の敷地は、原則として建築基準法上の道路に一定以上接していなければならないというルール。','敷地が道路にまったく接していないと建築できない場合がある。','建築基準法の道路と敷地の接し方を確認。','普通の通路なら何でも「道路」となるわけではない。'],
+['農地転用','のうちてんよう','法令制限','農地を住宅地・駐車場など農地以外の用途に変えること。','田を宅地にして家を建てる。','農地法の許可・届出を検討。','土地の見た目だけで農地かどうか決めない。'],
+['不動産取得税','ふどうさんしゅとくぜい','税・その他','土地や建物を取得したときに、原則として一度かかる都道府県税。','中古住宅を購入して所有権を取得。','「取得したとき」「都道府県税」。','毎年かかる固定資産税と区別。'],
+['固定資産税','こていしさんぜい','税・その他','土地・家屋などを所有している人に毎年かかる市町村税（原則）。','1月1日時点の所有者に課税されるのが基本。','「所有」「毎年」「市町村」。','取得時に一度だけの税ではない。'],
+['登録免許税','とうろくめんきょぜい','税・その他','不動産の登記などをするときにかかる国税。','所有権移転登記や抵当権設定登記。','「登記するとき」「国税」。','不動産取得税と名前が似ていても課税場面が違う。'],
+['印紙税','いんしぜい','税・その他','一定の契約書などの課税文書を作成したときにかかる国税。','不動産売買契約書など。','「文書を作成」。','取引しただけで必ず課税、ではなく課税文書かどうかを見る。'],
+['公示価格','こうじかかく','税・その他','国が毎年公示する、標準地の1月1日時点の正常な価格。','土地取引の価格の目安として使われる。','地価公示法・標準地・1月1日。','固定資産税評価額や路線価と同じではない。'],
+["免許換え","めんきょがえ","宅建業法","事務所の増減などで免許権者が変わるときに、新しい免許へ切り替える手続。","知事免許の業者が別の都道府県にも事務所を設け、大臣免許が必要になる。","「事務所がどこにあるか」が変わったら、免許権者の変化を確認する。","単なる住所変更と、免許そのものを切り替える場面を混同しない。"],
+["免許欠格","めんきょけっかく","宅建業法","一定の事情があるため、宅建業の免許を受けられない状態。","法律で定める一定の処分歴などがある場合に問題になる。","問題文では「免許を受けることができるか」を見る合図。","悪いことをした人が全部永久にダメ、という意味ではない。要件と期間を条文ごとに確認。"],
+["名義貸し","めいぎがし","宅建業法","自分の免許や宅建士の名義を、実際には資格のない他人に使わせること。","免許を持つA社の名前だけをB社に使わせて営業させる。","「名前だけ貸す」「実際の業務主体が別」が合図。","共同で仕事をすること全部が名義貸しになるわけではない。"],
+["宅地建物取引士","たくちたてものとりひきし","宅建業法","試験合格後に登録などを行い、宅建士証の交付を受けて宅建士として業務を行う人。","重要事項説明など、宅建士にしかできない業務を担当する。","「宅建士が行うべき行為か」を問う問題で中心になる。","試験に合格しただけで、直ちに宅建士としてすべての業務ができるわけではない。"],
+["宅地建物取引士証","たくちたてものとりひきししょう","宅建業法","宅建士であることを示す証明書。","重要事項説明の際に提示する場面がある。","「取引士証を提示」「有効期間」などの表現に注意。","従業者証明書とは別の証明書。"],
+["登録","とうろく","宅建業法","宅建士になるために、一定の要件を満たして都道府県知事の名簿に載る手続。","試験合格者が実務経験などの要件を満たして登録を受ける。","「試験合格→登録→宅建士証」という順序を意識する。","宅建業者の「免許」と、宅建士個人の「登録」を混同しない。"],
+["登録の移転","とうろくのいてん","宅建業法","宅建士の登録先を、一定の場合に別の都道府県へ移す手続。","勤務先の変更などにより、他県への登録移転を検討する。","「必ず移転しなければならないのか」「できるのか」を読み分ける。","住所が変わっただけで自動的に登録が移るわけではない。"],
+["従業者証明書","じゅうぎょうしゃしょうめいしょ","宅建業法","宅建業者の従業者であることを示す証明書。","従業者が業務中に携帯する。","宅建士証とは役割が違う。","宅建士だけが持つ証明書ではなく、従業者の証明。"],
+["帳簿","ちょうぼ","宅建業法","宅建業の取引内容などを記録しておく帳面・記録。","事務所ごとに取引の情報を記録する。","「事務所ごと」「保存」「記載事項」などが問われる。","従業者名簿や標識と同じものではない。"],
+["標識","ひょうしき","宅建業法","その場所で宅建業を行う者などを外部に示すための表示。","事務所や一定の案内所などに掲示する。","「どこに掲示が必要か」を場面ごとに確認する。","広告看板そのものとは別。"],
+["誇大広告","こだいこうこく","宅建業法","実際より著しく良く見せるなど、相手を誤解させる広告。","実際には駅徒歩20分なのに「駅前」と誤解させる表示をする。","広告の内容が事実と合っているか、著しく誤認させないかを見る。","成約しなければ何を書いてもよい、ではない。"],
+["広告開始時期","こうこくかいしじき","宅建業法","物件について広告を始めてよい時期を考えるルール。","未完成物件などで、必要な許可等との前後関係が問われる。","「広告してよいか」と「契約してよいか」は別々に読む。","広告できる時期と契約締結できる時期を同じだと思わない。"],
+["契約締結時期","けいやくていけつじき","宅建業法","物件について契約を結んでよい時期を考えるルール。","未完成物件で必要な許可等がまだない場合などを検討する。","問題文で「広告」なのか「契約」なのかを丸で囲む。","広告の可否と契約の可否は別問題。"],
+["報酬額","ほうしゅうがく","宅建業法","媒介・代理などの仕事に対して宅建業者が受け取る報酬の額。","売買の仲介が成立し、宅建業者が依頼者から報酬を受ける。","「誰から」「どの取引で」「上限はいくらか」を分けて読む。","売買代金そのものではない。"],
+["手付金等の保全措置","てつけきんとうのほぜんそち","宅建業法","業者売主の取引で、一定の手付金等を買主が取り戻せるよう安全策をとる制度。","買主から大きな手付金を受け取る前に、保証などの保全を行う。","8種制限の一つ。「業者売主×一般人買主」を先に確認。","すべての手付金に必ず同じ保全が必要、ではない。"],
+["損害賠償額の予定","そんがいばいしょうがくのよてい","宅建業法","契約違反があったときの損害賠償額を、あらかじめ契約で決めておくこと。","「違反したら200万円を支払う」と事前に定める。","違約金と合算して上限を考える問題に注意。","実際の損害額を後で計算する制度とは違う。"],
+["違約金","いやくきん","宅建業法","契約違反があった場合に支払うと定めた金銭。","契約書に「債務不履行なら違約金を支払う」と定める。","損害賠償額の予定との関係を読む。","手付金と同じものではない。"],
+["自己発見取引","じこはっけんとりひき","宅建業法","媒介を依頼した本人が、自分で契約相手を見つけて直接契約すること。","売主Aが自分の知人Bを買主として見つけた。","専任媒介と専属専任媒介の違いを見抜く重要語。","「専任」という言葉だけで直接契約不可と決めつけない。"],
+["指定流通機構への登録","していりゅうつうきこうへのとうろく","宅建業法","媒介を受けた物件情報をREINSなどの指定流通機構へ登録すること。","専任系の媒介契約で登録義務が問題になる。","媒介契約の種類と登録期限をセットで整理する。","一般媒介・専任・専属専任を同じ扱いにしない。"],
+["業務処理状況の報告","ぎょうむしょりじょうきょうのほうこく","宅建業法","媒介を依頼した人へ、相手探しなどの進み具合を報告すること。","宅建業者が依頼者へ「問い合わせが何件あった」などを報告する。","専任と専属専任で報告頻度が違う。","REINSへの登録期限とは別の数字。"],
+["意思表示","いしひょうじ","権利関係","契約する・解除するなど、自分の法律上の意思を外に示すこと。","AがBに「この土地を1000万円で売ります」と申し出る。","契約問題では「誰が、誰に、何を伝えたか」を見る。","心の中で思っただけでは、通常は相手に伝わる意思表示にならない。"],
+["錯誤","さくご","権利関係","重要な点について勘違いしたまま意思表示をすること。","100番地の土地と思って、実は101番地の土地を買う意思表示をした。","「勘違い」が合図。取消しの要件を条文に沿って判断する。","気が変わったこととは違う。"],
+["詐欺","さぎ","権利関係","だまして相手に誤った判断をさせ、意思表示をさせること。","Bが重要な事実について嘘をつき、Aに契約させた。","「だました人は誰か」「第三者はいるか」を整理する。","単なる説明不足が必ず詐欺になるわけではない。"],
+["強迫","きょうはく","権利関係","害を加えるなどと脅して、怖がらせて意思表示をさせること。","「契約しないと危害を加える」と脅して契約させる。","詐欺との違いは「だます」か「脅す」か。","日常語の強い勧誘と、法律上の強迫を同じにしない。"],
+["制限行為能力者","せいげんこういのうりょくしゃ","権利関係","判断能力などを保護するため、単独でできる法律行為に一定の制限がある人の総称。","未成年者などが契約をする場面。","誰がどの類型か、同意が必要かを分けて考える。","すべての契約が当然に無効になるわけではない。"],
+["未成年者","みせいねんしゃ","権利関係","法律上まだ成年に達していない人。","未成年者Aが親の同意なく高額な契約をした。","法定代理人の同意や取消しの可否を考える。","未成年者の行為が全部無効、ではない。"],
+["法定代理人","ほうていだいりにん","権利関係","法律の規定によって本人を代理する権限を持つ人。","未成年者の親権者が子を代理する。","任意代理人との違いは、権限の根拠が法律か本人の依頼か。","代理人なら誰でも法定代理人、ではない。"],
+["無権代理","むけんだいり","権利関係","代理権がないのに、本人の代理人として法律行為をすること。","BがAから権限をもらっていないのに「Aの代理人」としてCと契約した。","本人・無権代理人・相手方の3者を必ず書き出す。","代理人が権限を少しでも超えた場合など、具体的事情を確認する。"],
+["表見代理","ひょうけんだいり","権利関係","本当は代理権がなくても、外から見て代理権があるように見える一定の場合に本人へ効果を帰属させる制度。","本人側の事情で、相手が代理権ありと信じる外観が生じた。","「本当の権限」と「外から見える権限」を分ける。","相手が信じればいつでも成立する制度ではない。"],
+["時効","じこう","権利関係","一定の事実状態が長く続くことに、法律上の効果を認める制度。","長期間権利を行使しなかった場合など。","取得時効と消滅時効のどちらかを先に判別する。","単に時間が過ぎれば何でも消える、ではない。"],
+["消滅時効","しょうめつじこう","権利関係","一定期間権利を行使しないことなどにより、その権利の行使ができなくなる制度。","貸金返還請求権を長期間行使しなかった。","「いつから期間を数えるか」「完成を主張するのは誰か」が重要。","期限が来た瞬間に自動的にすべて消える、と単純化しない。"],
+["所有権","しょゆうけん","権利関係","物を使用・収益・処分できる基本的な物権。","土地の所有者Aが土地を利用し、売却する。","誰が所有者か、第三者へ主張できるかを整理する。","占有している人と所有者が必ず同じとは限らない。"],
+["共有","きょうゆう","権利関係","一つの物を複数人が持分を持って共同で所有すること。","AとBが土地を2分の1ずつ所有する。","保存・管理・変更など、行為の種類をまず見分ける。","共有物全体と自分の持分を同じように扱わない。"],
+["連帯債務","れんたいさいむ","権利関係","複数の債務者が、それぞれ全部について履行する責任を負う関係。","AとBがCに対して100万円の連帯債務を負う。","債権者・各債務者・負担部分を分ける。","単純に人数で債務額を割るだけの関係ではない。"],
+["保証","ほしょう","権利関係","主たる債務者が履行しないとき、保証人が代わりに履行する責任を負う制度。","Bの借金をAが保証する。","主債務者・保証人・債権者の3者を書く。","保証人が最初から主債務者と全く同じ立場とは限らない。"],
+["連帯保証","れんたいほしょう","権利関係","通常の保証より保証人の責任が重い保証。","Bの借金をAが連帯保証する。","普通保証との違いを問われたら「保証人の抗弁」を確認する。","「連帯債務」と「連帯保証」は名前が似るが構造が違う。"],
+["相殺","そうさい","権利関係","お互いに同種の債権を持つとき、一定の範囲で差し引いて消すこと。","AがBに100万円、BがAに60万円を払う関係で差し引く。","誰が誰にいくらの債権を持つか矢印にする。","単なる値引きではない。"],
+["弁済","べんさい","権利関係","債務の内容どおりに履行して、債務を消滅させること。","借りた100万円を返済する。","「支払う・引き渡す」など約束を果たす場面。","損害賠償と同じ意味ではない。"],
+["同時履行の抗弁権","どうじりこうのこうべんけん","権利関係","相手が自分の義務を履行するまで、自分も履行を拒める一定の権利。","売主が引渡しをしない間、買主が代金支払いを拒む。","双方が向かい合う義務を図にする。","契約自体を解除する権利とは別。"],
+["賃貸借","ちんたいしゃく","権利関係","物を使わせる代わりに賃料を支払う契約。","大家Aが借主Bに建物を貸し、Bが家賃を払う。","貸主・借主・賃料・目的物を整理する。","無償で貸す使用貸借とは違う。"],
+["敷金","しききん","権利関係","賃貸借で、賃料不払いなどの債務を担保するため借主が貸主に渡す金銭。","入居時に借主Bが大家Aへ敷金を預ける。","退去時の返還と未払債務の控除を分けて考える。","礼金と同じではない。"],
+["原状回復","げんじょうかいふく","権利関係","賃貸借終了時などに、借主が負担すべき範囲で元の状態へ戻すこと。","借主の故意で壊した部分を修繕する。","通常損耗・経年変化と、借主の責任による損傷を分ける。","新品同様に戻す義務、という意味ではない。"],
+["借地権","しゃくちけん","権利関係","建物所有を目的として他人の土地を借りる権利。","Aの土地をBが借り、その上にB所有の建物を建てる。","土地所有者と借地人、土地と建物を別々に書く。","単なる駐車場の土地賃貸借などとは扱いが異なる。"],
+["借家権","しゃくやけん","権利関係","建物を借りて使用する権利を表す一般的な言い方。","大家AのアパートをBが借りて住む。","借地と借家を土地/建物で区別する。","建物の所有権を持つことではない。"],
+["定期建物賃貸借","ていきたてものちんたいしゃく","権利関係","契約で定めた期間の満了により、更新なく終了する仕組みの建物賃貸借。","3年間の定期建物賃貸借を結ぶ。","普通借家との違い、書面・説明などの要件を確認する。","期間が決まっている賃貸借が全部自動的に定期借家になるわけではない。"],
+["区域区分","くいきくぶん","法令制限","都市計画区域を、市街化区域と市街化調整区域に分けること。","都市計画で「進める区域」と「抑える区域」を分ける。","いわゆる線引き。まず区域区分の有無を確認する。","用途地域を決めることと同じではない。"],
+["準都市計画区域","じゅんとしけいかくくいき","法令制限","都市計画区域外でも、将来の土地利用を整える必要がある地域に指定される区域。","幹線道路沿いなどで無秩序な開発を防ぐため指定される。","都市計画区域内か外かを先に確認する。","都市計画区域の一部ではない。"],
+["開発行為","かいはつこうい","法令制限","主として建築物などの建築を目的として、土地の区画や形・性質を変える行為。","宅地分譲のため土地を造成し区画を変える。","「何の目的で」「土地をどう変えるか」を読む。","土地を触る行為が全部開発行為になるわけではない。"],
+["建築確認","けんちくかくにん","法令制限","建築工事の前に、計画が建築基準関係規定に適合するか確認を受ける手続。","一定の建物を新築する前に確認申請をする。","開発許可とは別手続。どの行為についての許可・確認かを分ける。","行政の許可という言葉だけで開発許可と混同しない。"],
+["防火地域","ぼうかちいき","法令制限","火災の危険が高い市街地などで、建物の防火性能を強く求める区域。","中心市街地などで指定される。","建物の規模・構造とセットで考える。","用途地域とは別の都市計画上の指定。"],
+["準防火地域","じゅんぼうかちいき","法令制限","防火地域に準じて、建物の防火性能を求める区域。","市街地の周辺などで指定されることがある。","「防火」か「準防火」かを問題文で正確に読む。","名前が似るので数字・構造条件を混ぜない。"],
+["建築基準法上の道路","けんちくきじゅんほうじょうのどうろ","法令制限","建築基準法で、接道義務などの基準となる「道路」。","見た目は道でも、法上の道路に該当するか確認が必要。","「幅員」「道路種別」「接道」をセットで見る。","車が通れる道なら必ず法上の道路、ではない。"],
+["セットバック","せっとばっく","法令制限","一定の狭い道路に接する敷地で、道路中心線などから後退して建築する考え方。","道路幅を将来確保するため、敷地の一部を道路側へ空ける。","2項道路などの問題で「後退」を連想する。","建物を好きなだけ奥に置けばよい、という一般語ではない。"],
+["宅地造成等工事規制区域","たくちぞうせいとうこうじきせいくいき","法令制限","盛土等による災害を防ぐため、一定の工事を規制する区域。","市街地やその周辺で危険な盛土等を規制する。","盛土規制法の区域名。工事の種類・規模と許可等を確認する。","旧制度の名称だけで覚えない。"],
+["特定盛土等規制区域","とくていもりどとうきせいくいき","法令制限","市街地等から離れていても、盛土等の崩落で人家等に危害が及ぶおそれがある区域。","山間部の盛土が下流の人家に影響する場合など。","宅地造成等工事規制区域との違いは区域の考え方。","「宅地」という言葉がないから規制が弱い、と決めつけない。"],
+["土地区画整理事業","とちくかくせいりじぎょう","法令制限","道路や公園を整えながら、土地の区画を組み直してまちを整備する事業。","入り組んだ宅地を整理し、道路や公園を配置し直す。","仮換地・換地処分などの用語とセットで出る。","土地を単純に買収して全部取り上げる制度ではない。"],
+["課税標準","かぜいひょうじゅん","税・その他","税額を計算するときの基礎になる金額や数量。","評価額などを基に「課税標準×税率」で税額を考える。","税率だけでなく、何に税率を掛けるかを見る。","売買価格と必ず同じとは限らない。"],
+["路線価","ろせんか","税・その他","道路に面する土地の1㎡当たりの価額を示し、相続税等の土地評価に使われる指標。","道路ごとに示された価額を基に宅地を評価する。","公示価格・固定資産税評価額との使い道を分ける。","実際の売買価格そのものではない。"],
+["基準地標準価格","きじゅんちひょうじゅんかかく","税・その他","都道府県が行う地価調査で公表される基準地の標準価格。","土地取引の目安となる地価情報として公表される。","地価公示の標準地と、都道府県地価調査の基準地を区別する。","公示価格と全く同じ制度ではない。"],
+["鑑定評価","かんていひょうか","税・その他","不動産の経済価値を専門的に判定し、価格として示すこと。","不動産鑑定士が土地の価格を鑑定評価する。","価格の3方式などと関連して出る。","不動産会社の売出価格を決めることと同義ではない。"],
+["譲渡所得","じょうとしょとく","税・その他","土地や建物などの資産を譲渡して生じる所得。","買った土地を後に売却して利益が生じる。","収入金額そのものではなく、取得費などを考えて所得を計算する。","不動産を取得したときにかかる不動産取得税とは別。"]
+
+,
+["免許権者", "めんきょけんじゃ", "宅建業法", "宅建業の免許を出す行政機関。事務所が1都道府県内だけなら知事、2以上の都道府県なら国土交通大臣。", "大阪府内だけに事務所がある会社なら大阪府知事が免許権者。", "営業する地域ではなく、事務所が置かれている都道府県の数を見る。", "全国の物件を扱うだけで大臣免許になるわけではない。"],
+["更新申請", "こうしんしんせい", "宅建業法", "免許の有効期間が終わる前に、引き続き営業するため行う申請。", "免許満了が近い宅建業者が、期限内に更新を申請する。", "免許は5年。更新申請の時期も数字問題で狙われる。", "期限を過ぎてから普通に更新すればよい、ではない。"],
+["変更の届出", "へんこうのとどけで", "宅建業法", "免許申請書に記載した重要事項に変更が生じたとき、行政庁へ知らせる手続。", "商号や役員、事務所など法定の事項が変わった場合に届け出る。", "「何が変わったか」「いつまでに届けるか」を区別する。", "免許そのものを切り替える免許換えとは別。"],
+["廃業等の届出", "はいぎょうとうのとどけで", "宅建業法", "宅建業をやめた、法人が解散した等のときに行う届出。", "会社が宅建業を廃止したため行政庁へ届け出る。", "廃業・死亡・合併・解散など、誰が届けるかも問われる。", "単なる事務所移転とは違う。"],
+["監督処分", "かんとくしょぶん", "宅建業法", "宅建業者や宅建士の違反に対して行政庁が行う処分の総称。", "違反内容に応じて指示、業務停止、免許取消しなどが行われる。", "誰に対する処分か、どの行政庁が行うかを整理する。", "刑罰と行政上の監督処分は同じではない。"],
+["指示処分", "しじしょぶん", "宅建業法", "違反を是正するよう行政庁が宅建業者等に命じる処分。", "不適切な業務を改めるよう指示を受ける。", "監督処分のうち比較的軽い段階として整理。", "業務停止や免許取消しと混同しない。"],
+["業務停止処分", "ぎょうむていししょぶん", "宅建業法", "一定期間、宅建業の全部または一部の業務を行えなくする監督処分。", "重大な法令違反により一定期間の業務停止を命じられる。", "「営業できるか」を問う場面では処分期間中か確認する。", "免許そのものが消える免許取消しとは別。"],
+["免許取消処分", "めんきょとりけししょぶん", "宅建業法", "宅建業免許を取り消し、宅建業を営めなくする重い監督処分。", "重大な違反や一定の法定事由により免許が取り消される。", "取消し後の欠格期間などとセットで出やすい。", "業務停止が終われば営業再開できる場合と違う。"],
+["IT重説", "あいてぃーじゅうせつ", "宅建業法", "テレビ会議などを使い、対面と同じように行う重要事項説明。", "宅建士と買主が画面と音声で双方向に確認しながら説明する。", "通信環境、書面の事前交付、本人確認など実施条件を確認する。", "単に動画を一方的に送るだけでは重要事項説明にならない。"],
+["書面の電子化", "しょめんのでんしか", "宅建業法", "35条・37条書面などを、要件を満たして紙ではなく電子データで提供すること。", "相手方の承諾を得てPDF等で重要事項説明書を提供する。", "電子化は無条件ではなく、承諾や改変防止等の要件がある。", "紙が完全に禁止されたわけではない。"],
+["電磁的方法", "でんじてきほうほう", "宅建業法", "電子メールやWebダウンロードなど、電子的に情報を提供する方法。", "重要事項説明書を要件に沿って電子データで交付する。", "相手方の承諾が必要な制度では、先に承諾の有無を確認。", "LINEで送れば何でも法律上の電子交付になる、ではない。"],
+["供託所等に関する説明", "きょうたくしょとうにかんするせつめい", "宅建業法", "取引相手に、営業保証金などの供託所や保証制度を知らせる説明。", "契約相手が損害を受けた場合の弁済制度を確認できるようにする。", "営業保証金制度か保証協会制度かで説明内容を整理。", "35条の重要事項そのものと全く同じ枠組みと決めつけない。"],
+["案内所", "あんないじょ", "宅建業法", "分譲地などで物件案内や申込み受付を行う臨時の場所。", "新築マンションの現地販売センター。", "事務所と案内所では、専任宅建士や標識等の扱いが異なる場合がある。", "案内所なら常に事務所と同じ扱い、ではない。"],
+["契約締結権限を有する使用人", "けいやくていけつけんげんをゆうするしようにん", "宅建業法", "事務所で、その宅建業者の代わりに契約を締結できる権限を持つ人。", "支店長などが会社を代表して宅建取引の契約を締結する。", "事務所性を判断する材料の一つ。", "単に受付をする従業員とは違う。"],
+["専任性", "せんにんせい", "宅建業法", "その事務所に常勤し、主としてその宅建業務に従事している状態。", "別会社で常勤しながら名義だけ置くのは専任とはいえない。", "専任宅建士は資格保有だけでなく勤務実態を見る。", "名義だけの登録で足りるわけではない。"],
+["常勤性", "じょうきんせい", "宅建業法", "通常の勤務時間にその事務所で継続して勤務していること。", "営業日に継続して事務所で業務をする。", "専任宅建士の要件を考えるときの重要な視点。", "たまに来るだけでは常勤とはいいにくい。"],
+["クーリングオフの告知", "くーりんぐおふのこくち", "宅建業法", "買主にクーリングオフができることや方法を法定の形で知らせること。", "事務所以外で契約した一般買主に、撤回できる旨を書面等で告げる。", "8日の起算点は告知と結び付けて覚える。", "契約日だけを見て機械的に8日を数えない。"],
+["手付額の制限", "てつけがくのせいげん", "宅建業法", "業者売主・一般買主の取引で、受け取れる手付額に上限を設けるルール。", "代金に対して過大な手付を要求できない。", "8種制限。代金の20%という数字を押さえる。", "買主も宅建業者なら同じ制限が当然にかかる、ではない。"],
+["所有権留保", "しょゆうけんりゅうほ", "宅建業法", "代金完済まで売主が所有権を自分に残す扱い。宅建業者売主の割賦販売では制限がある。", "買主が住み始めても、完済まで名義を売主に残す形を検討する。", "8種制限の一つとして、所有権留保等の禁止を連想。", "一般の売買すべてで絶対禁止という意味ではない。"],
+["割賦販売", "かっぷはんばい", "宅建業法", "代金を複数回に分けて支払う形の売買。", "住宅代金を長期の分割払いで支払う。", "業者売主・一般買主では解除や所有権留保に特別ルールがある。", "住宅ローンを利用することと完全に同じ意味ではない。"],
+["意思能力", "いしのうりょく", "権利関係", "自分がする法律行為の意味や結果を理解して判断できる能力。", "契約の意味を全く理解できない状態で意思表示をした場合を考える。", "行為能力とは別に、まず意思能力があるかを見る。", "年齢だけで機械的に判断する概念ではない。"],
+["行為能力", "こういのうりょく", "権利関係", "単独で有効な法律行為をすることができる法律上の能力。", "未成年者が単独で高額な売買契約をする場面。", "制限行為能力者制度とセットで整理。", "意思能力と同じ意味ではない。"],
+["取消権", "とりけしけん", "権利関係", "一定の契約や意思表示を後から取り消せる権利。", "未成年者本人や法定代理人が契約を取り消す。", "誰が取消権者か、追認したかを確認する。", "無効のように最初から当然に効力がないわけではない。"],
+["代理権", "だいりけん", "権利関係", "代理人が本人のために法律行為をする権限。", "AがBに土地売却の代理権を与える。", "代理行為が本人に効くかは、代理権の範囲を確認。", "頼まれたという事実だけで無制限の権限があるわけではない。"],
+["復代理", "ふくだいり", "権利関係", "代理人がさらに別の人を代理人として選ぶこと。", "本人Aの代理人Bが、Cを復代理人として選任する。", "任意代理・法定代理で選任要件や責任が異なる。", "単なる使者とは違う。"],
+["無権代理人の責任", "むけんだいりにんのせきにん", "権利関係", "代理権がないのに代理行為をした人が、一定の場合に相手方へ負う責任。", "Bが権限なしでAの代理人を名乗りCと契約する。", "本人の追認がない場合、相手方保護のルールを検討。", "無権代理なら必ず本人が契約責任を負う、ではない。"],
+["条件", "じょうけん", "権利関係", "将来起こるかどうか不確実な事実に、法律効果の発生や消滅をかからせるもの。", "融資が承認されたら売買契約の効力が生じる、という条件。", "不確実な出来事かどうかを見る。", "必ず来る期日を定める「期限」と区別。"],
+["期限", "きげん", "権利関係", "将来必ず到来する時点に、法律効果の発生や消滅を結び付けるもの。", "4月1日から賃貸借を開始する。", "到来が確実なら期限。", "起こるか不明な出来事は条件。"],
+["占有", "せんゆう", "権利関係", "物を事実上支配している状態。", "家を実際に使用し管理している。", "所有権があるかとは別に、現実に支配しているかを見る。", "占有者＝所有者とは限らない。"],
+["物権変動", "ぶっけんへんどう", "権利関係", "所有権などの物権が発生・移転・消滅すること。", "土地売買で所有権がAからBへ移る。", "不動産では第三者への対抗に登記が重要。", "契約成立と第三者への対抗を分けて考える。"],
+["地上権", "ちじょうけん", "権利関係", "他人の土地を使って建物などを所有するための物権。", "Aの土地にBが地上権を設定して建物を所有する。", "物権なので賃借権との違いを意識。", "土地の所有権そのものを取得する権利ではない。"],
+["地役権", "ちえきけん", "権利関係", "自分の土地の便益のために他人の土地を一定の目的で利用する物権。", "自分の土地へ行くため隣地を通行する権利を設定する。", "要役地・承役地の関係を整理。", "個人の生活上の都合だけでなく土地の便益のための権利。"],
+["留置権", "りゅうちけん", "権利関係", "関係する債権の支払いを受けるまで、相手の物を返さず留めておける担保物権。", "修理代を払ってもらうまで修理品を留置する。", "物との牽連性など要件を確認。", "その物を自由に売却して回収できる権利とは違う。"],
+["質権", "しちけん", "権利関係", "担保として物などを受け取り、返済がなければ優先弁済を受ける担保物権。", "債務者から動産を預かり担保にする。", "抵当権との違いは占有移転の有無など。", "不動産担保は何でも抵当権、とは限らない。"],
+["物上代位", "ぶつじょうだいい", "権利関係", "担保の目的物が売却代金や保険金など別の価値に変わったとき、その価値に担保権を及ぼす仕組み。", "抵当建物が滅失し保険金請求権が生じた場面。", "差押えの時期なども論点になる。", "単に別の物へ自動で所有権が移る制度ではない。"],
+["根抵当権", "ねていとうけん", "権利関係", "継続的な取引から生じる不特定の債権を、極度額の範囲で担保する抵当権。", "銀行との継続取引をまとめて担保する。", "普通抵当権との違いは担保する債権の範囲。", "極度額＝必ず実際の借金額、ではない。"],
+["債権譲渡", "さいけんじょうと", "権利関係", "債権者が持つ請求権を別の人へ移すこと。", "AがBへの代金請求権をCへ譲る。", "債務者や第三者への対抗要件を整理する。", "債務そのものを移す債務引受とは別。"],
+["危険負担", "きけんふたん", "権利関係", "双方に責任がない事情で給付できなくなったとき、反対給付をどうするかという問題。", "引渡し前に天災で目的物が滅失した場面。", "誰の責任でもない履行不能かを確認。", "債務不履行による損害賠償とは別問題。"],
+["贈与", "ぞうよ", "権利関係", "無償で財産を相手に与える契約。", "Aが土地を無償でBに与える約束をする。", "売買との違いは対価がないこと。", "相続とは異なり、生前の契約。"],
+["請負", "うけおい", "権利関係", "仕事の完成を約束し、相手がその完成に対して報酬を払う契約。", "建築業者が建物を完成させ、注文者が報酬を払う。", "目的は仕事の完成。", "委任のように事務処理そのものを目的とする契約と区別。"],
+["委任", "いにん", "権利関係", "法律行為などの事務処理を相手に任せる契約。", "不動産売却の手続きを専門家へ委任する。", "結果の完成より、事務を適切に処理することが中心。", "請負と混同しない。"],
+["使用貸借", "しようたいしゃく", "権利関係", "物を無償で借りて使用し、後で返す契約。", "親の家を家賃なしで借りる。", "無償がキーワード。", "家賃を払う賃貸借とは違う。"],
+["転貸", "てんたい", "権利関係", "借りた物をさらに別の人へ貸すこと。", "AがBから借りた建物をCへ又貸しする。", "賃貸人の承諾や解除の可否が論点。", "賃借権を完全に譲ることとは別。"],
+["普通借地権", "ふつうしゃくちけん", "権利関係", "建物所有を目的とする借地権のうち、更新制度がある一般的な借地権。", "土地を借りて住宅を建てる。", "定期借地権との違いは更新の有無。", "期間が来れば必ず終了する定期型とは違う。"],
+["定期借地権", "ていきしゃくちけん", "権利関係", "一定の要件で更新なく期間満了により終了する借地権。", "期間を定めて土地を借り、満了後に返還する。", "普通借地権との最大の違いは更新の扱い。", "単に長期間の借地ならすべて定期借地権、ではない。"],
+["都市計画", "としけいかく", "法令制限", "土地利用や道路、公園など都市の将来像を定める計画。", "用途地域や都市施設などを都市計画として定める。", "都市計画区域・地域地区などの上位概念として整理。", "都市計画＝用途地域だけ、ではない。"],
+["地域地区", "ちいきちく", "法令制限", "都市計画で土地利用のルールを区域ごとに定める仕組みの総称。", "用途地域、防火地域、高度地区など。", "用途地域以外にも多くの種類がある。", "市街化区域・市街化調整区域そのものとは別分類。"],
+["高度地区", "こうどちく", "法令制限", "市街地の環境などを守るため、建築物の高さの最高限度・最低限度を定める地区。", "住宅地で建物の高さ上限を定める。", "高さ制限の地域地区。", "高度利用地区と名前が似ているので注意。"],
+["特別用途地区", "とくべつようとちく", "法令制限", "用途地域のルールを地域の事情に応じて補完する地区。", "観光地や文教地区など、地域独自の用途制限を加える。", "用途地域の指定がある区域で使われる。", "用途地域をなくす制度ではない。"],
+["地区計画", "ちくけいかく", "法令制限", "比較的小さな地区単位で道路配置や建物の用途・形態などを細かく定める都市計画。", "住宅街で壁面位置や建物用途を細かくルール化する。", "地区レベルのまちづくりルール。", "用途地域と同じ広域的なルールだけではない。"],
+["建築物", "けんちくぶつ", "法令制限", "土地に定着する工作物のうち、屋根や柱・壁などを持つものを中心とする建築基準法上の概念。", "住宅、店舗、倉庫など。", "建築基準法では日常語より定義が広い場合がある。", "見た目だけで建築物か判断しない。"],
+["建築面積", "けんちくめんせき", "法令制限", "建物を真上から見た水平投影面積を基本とする面積。", "建ぺい率の計算に使う。", "建ぺい率＝建築面積÷敷地面積。", "延べ面積と混同しない。"],
+["延べ面積", "のべめんせき", "法令制限", "建物の各階の床面積を合計した面積。", "1階60㎡、2階40㎡なら延べ面積100㎡。", "容積率の計算に使う。", "建築面積とは別。"],
+["国土利用計画法の事後届出", "こくどりようけいかくほうのじごとどけで", "法令制限", "一定面積以上の土地取引をした後、権利取得者が都道府県知事等へ届け出る制度。", "一定規模以上の土地を買った買主が契約後に届出をする。", "誰が・いつまでに・どの面積から、をセットで覚える。", "売主だけが届ける制度ではない。"],
+["換地", "かんち", "法令制限", "土地区画整理事業で、従前の土地に代えて新しく割り当てられる土地。", "道路整備後に形を整えた別の土地が割り当てられる。", "従前地・仮換地・換地処分の流れを整理。", "単純な売買による土地交換とは違う。"],
+["都市計画税", "としけいかくぜい", "税・その他", "市街化区域内の土地・家屋などに課されることがある市町村税。都市計画事業等の費用に充てる。", "市街化区域内の土地所有者に固定資産税とあわせて課税されることがある。", "固定資産税と一緒に出やすい。", "不動産を取得したとき一度だけかかる税ではない。"],
+["固定資産税評価額", "こていしさんぜいひょうかがく", "税・その他", "固定資産税などの課税計算の基礎となる土地・家屋の評価額。", "市町村が土地や家屋を評価し課税標準の基礎にする。", "実際の売買価格や公示価格と同じとは限らない。", "市場価格そのものと決めつけない。"],
+["地価公示", "ちかこうじ", "税・その他", "国土交通省が標準地の正常な価格を毎年公示する制度。", "1月1日時点の標準地価格を公示する。", "公示価格・標準地・国土交通省をセットで覚える。", "都道府県地価調査とは主体や基準日が異なる。"],
+["都道府県地価調査", "とどうふけんちかちょうさ", "税・その他", "都道府県が基準地の標準価格を公表する制度。", "基準地の価格を調査し土地取引の指標とする。", "地価公示と比較して主体・基準日を整理。", "国が行う地価公示と同じ制度ではない。"],
+["収益還元法", "しゅうえきかんげんほう", "税・その他", "不動産が将来生み出す収益に着目して価格を求める鑑定評価の手法。", "賃貸ビルの賃料収入などから価値を考える。", "収益性の高い不動産で重要。", "過去の取引事例だけを見る手法ではない。"],
+["弁済業務保証金", "べんさいぎょうむほしょうきん", "宅建業法", "保証協会が、取引相手への弁済に備えて供託所へ供託するお金。", "宅建業者は協会へ分担金を払い、保証協会がまとめて供託する。", "業者→協会は分担金、協会→供託所は弁済業務保証金。", "弁済業務保証金分担金と同じものではない。"],
+["営業保証金の供託所", "えいぎょうほしょうきんのきょうたくしょ", "宅建業法", "営業保証金を預ける法務局などの供託所。", "宅建業者が営業保証金を供託し、その後に必要な届出をする。", "営業開始前の保証制度として登場する。", "保証協会へ払う分担金の納付先とは違う。"],
+["社員（保証協会）", "しゃいん", "宅建業法", "保証協会に加入している宅建業者のこと。会社の従業員という意味ではない。", "『保証協会の社員A』なら、Aは協会に加入する宅建業者。", "保証協会の問題で『社員』が出たら加入業者と読む。", "一般的な会社員の意味に引っ張られない。"],
+["媒介契約書面", "ばいかいけいやくしょめん", "宅建業法", "媒介契約を結んだ内容を確認するための書面。", "売却を依頼した人に、契約類型や報酬などを書面で示す。", "媒介契約を締結したときの書面を意識する。", "35条書面・37条書面とは役割が違う。"],
+["媒介価額", "ばいかいかがく", "宅建業法", "媒介で売買しようとする価格。", "売主が3,000万円で売りたいと不動産会社に依頼する場合の価格。", "宅建業者が価格について意見を述べるときは根拠を示す。", "業者が自由に価格を決めるという意味ではない。"],
+["登録済証", "とうろくずみしょう", "宅建業法", "指定流通機構に物件を登録したことを示す証明。", "専任媒介の物件をREINSに登録し、登録済証を依頼者へ渡す。", "REINS登録後の依頼者への確認資料。", "宅建士証や免許証ではない。"],
+["成約情報", "せいやくじょうほう", "宅建業法", "売買契約が成立した後に指定流通機構へ通知する契約成立情報。", "REINS登録物件が売れたら成約した旨などを通知する。", "REINSは登録だけでなく成約情報も扱う。", "広告掲載の終了だけで成約報告になるわけではない。"],
+["守秘義務", "しゅひぎむ", "宅建業法", "仕事で知った秘密を、正当な理由なく外部へ漏らさない義務。", "売主の個人的事情を無関係な第三者へ話さない。", "宅建業者・従業者の業務上の秘密に関する義務。", "退職すれば自由に漏らせる、という意味ではない。"],
+["不当な履行遅延", "ふとうなりこうちえん", "宅建業法", "契約上やるべきことを、正当な理由なく不当に遅らせること。", "代金を受け取ったのに、理由なく登記や引渡しを長く遅らせる。", "業務規制の『不当に遅延』を普通の日本語にする。", "単に予定より少し遅れた全てが直ちに違反とは限らない。"],
+["威迫", "いはく", "宅建業法", "相手を怖がらせて判断を迫るような行為。", "契約を断ろうとする相手に強い圧力をかける。", "勧誘・契約解除妨害の問題で注意する語。", "正当な説明や通常の交渉まで威迫になるわけではない。"],
+["不実告知", "ふじつこくち", "宅建業法", "重要なことについて事実と違う説明をすること。", "本当は制限があるのに『制限はありません』と説明する。", "事実に反する説明をしていないかを確認する。", "単なる言い間違いと故意の不実告知を問題文で区別する。"],
+["断定的判断", "だんていてきはんだん", "宅建業法", "将来どうなるか不確かなことを、確実であるかのように言い切ること。", "『この土地は必ず値上がりします』と断定して勧誘する。", "将来利益について断定していないかを見る。", "客観的根拠を示す市場説明と同じではない。"],
+["手付金の貸付け", "てつけきんのかしつけ", "宅建業法", "契約を取るために、買主の手付金を宅建業者が貸すこと。", "『手付がないなら当社が貸します』として契約を誘う。", "手付について信用を供与して契約を誘引する行為に注意。", "単なる住宅ローンの案内とは別。"],
+["重要事項説明書の電子提供", "じゅうようじこうせつめいしょのでんしていきょう", "宅建業法", "相手方の承諾などの要件を満たして35条書面を電子データで提供すること。", "PDFなどで重要事項説明書を事前提供し、IT重説を行う。", "35条書面は説明開始前に相手へ提供する。", "承諾なしに一方的に電子化すればよいわけではない。"],
+["37条書面の電子提供", "さんじゅうななじょうしょめんのでんしていきょう", "宅建業法", "契約成立後の37条書面を、要件を満たして電子データで提供すること。", "売買契約成立後にPDF等で契約内容の書面を提供する。", "37条は契約成立後に遅滞なく提供する。", "35条と違い、契約前に交付して義務を済ませることはできない。"],
+["宅建士証の提示", "たっけんししょうのていじ", "宅建業法", "重要事項説明のときに、宅建士が自分の宅建士証を相手に見せること。", "35条の説明を始める前に宅建士証を提示する。", "『35条説明＋宅建士証』をセットで覚える。", "相手から請求されなければ不要、ではない。"],
+["免許証番号", "めんきょしょうばんごう", "宅建業法", "宅建業免許を識別するための番号。", "広告や標識などで免許に関する表示を確認する。", "免許権者・更新回数などを読む手がかりになる。", "宅建士の登録番号とは別。"],
+["事務所の専任宅建士不足", "じむしょのせんにんたっけんしぶそく", "宅建業法", "事務所で必要な人数の専任宅建士を欠いている状態。", "従事者数に対し5人に1人以上を満たさなくなった。", "専任宅建士の設置義務を人数で確認する。", "一時的に不足しても放置してよいわけではない。"],
+["免許の更新", "めんきょのこうしん", "宅建業法", "5年の免許期間が終わる前に、引き続き営業できるよう更新する手続。", "満了前の所定期間に更新申請をする。", "免許は自動で永久に続かない。", "宅建士証の更新と宅建業免許の更新を混同しない。"],
+["取引態様の明示", "とりひきたいようのめいじ", "宅建業法", "その取引で自社が売主・代理・媒介のどの立場なのかを明らかにすること。", "広告や注文を受けた際に『当社は媒介です』と示す。", "自ら売主・代理・媒介を区別する。", "立場が途中で変わっても説明不要、ではない。"],
+["停止条件", "ていしじょうけん", "権利関係", "条件が成就したときに効力が発生する条件。", "『融資が承認されたら契約の効力が生じる』という形。", "条件が起きるまでは効力発生を待つ。", "解除条件と逆に覚えない。"],
+["解除条件", "かいじょじょうけん", "権利関係", "条件が成就したときに、すでに生じている効力が消える条件。", "『一定の出来事が起きたら契約の効力を失う』という形。", "最初は効力があり、条件成就で消える。", "停止条件と逆。"],
+["取得時効", "しゅとくじこう", "権利関係", "一定期間、要件を満たして占有を続けることで権利を取得する制度。", "他人の土地を自分のものとして長期間占有し、要件を満たす場合。", "時効には権利を得る取得時効もある。", "消滅時効と混同しない。"],
+["債権者代位権", "さいけんしゃだいいけん", "権利関係", "債権者が、自分の債権を守るために債務者の権利を代わりに行使する制度。", "債務者が回収できる債権を放置しているとき、債権者が一定要件で行使する。", "『債務者の権利を代わりに』がポイント。", "代理権をもらって行う通常の代理とは別。"],
+["詐害行為取消権", "さがいこういとりけしけん", "権利関係", "債務者が財産を不当に減らして債権者を害する行為を、一定要件で取り消す制度。", "借金返済を免れる目的で財産を第三者へ移すケース。", "債権者保護の制度として出る。", "契約当事者が自由に取消せる一般的な取消権ではない。"],
+["更改", "こうかい", "権利関係", "古い債務を消して、新しい債務に置き換えること。", "当事者が合意し、従来の債務に代えて新たな債務を成立させる。", "債務が新しい内容に置き換わる。", "単なる支払期限の相談とは限らない。"],
+["免除", "めんじょ", "権利関係", "債権者が債務者に『もう払わなくてよい』として債務を消すこと。", "貸主が借主の残債務を免除する意思表示をする。", "債務消滅原因の一つ。", "弁済して消える場合とは違う。"],
+["混同", "こんどう", "権利関係", "同じ人が債権者と債務者の立場を同時に持つことで、原則として債権が消えること。", "相続などで貸主と借主の立場が同一人に集まる。", "権利と義務が同じ人に集まる。", "いつでも全ての権利が必ず消えるわけではなく例外もある。"],
+["相続", "そうぞく", "権利関係", "人が亡くなったとき、その人の財産上の権利義務を一定の人が引き継ぐこと。", "親が亡くなり、子が土地や債務を引き継ぐ。", "不動産の権利関係でも頻出。", "プラス財産だけを自動で選んで引き継ぐ制度ではない。"],
+["相続放棄", "そうぞくほうき", "権利関係", "相続人が、相続人としての地位を放棄する手続。", "多額の債務がある相続について家庭裁判所で放棄する。", "放棄すると原則として初めから相続人でなかったものとして扱われる。", "単に『財産はいらない』と家族に言うだけとは違う。"],
+["遺留分", "いりゅうぶん", "権利関係", "一定の相続人に保障された最低限の取り分。", "遺言で財産の大半を他人に与えても、一定の相続人には遺留分の問題が生じる。", "相続分とは別に最低限保障される部分。", "兄弟姉妹には遺留分がない点など、相続人の範囲に注意。"],
+["所有権移転登記", "しょゆうけんいてんとうき", "権利関係", "不動産の所有者が変わったことを登記記録に反映する登記。", "土地をAからBへ売買し、B名義へ所有権移転登記をする。", "第三者対抗の問題とセットで出やすい。", "契約が成立することと登記をすることは同じではない。"],
+["用途制限", "ようとせいげん", "法令制限", "用途地域などに応じて、建てられる建物の用途を制限するルール。", "住宅地で大規模な工場を自由に建てられない場合がある。", "用途地域→建物用途の制限を連想する。", "用途地域が違っても全て同じ建物が建てられるわけではない。"],
+["道路斜線制限", "どうろしゃせんせいげん", "法令制限", "道路側の採光・通風などを確保するため、建物の高さや形を制限する仕組み。", "道路境界から一定の斜線を想定し、その範囲に建物を収める。", "高さ制限の一つ。", "建ぺい率や容積率と同じ数値規制ではない。"],
+["隣地斜線制限", "りんちしゃせんせいげん", "法令制限", "隣地側の環境を確保するため、建物の高さや形を制限する仕組み。", "隣の敷地との境界付近で高い建物を建てるときに問題になる。", "高さ制限の種類として整理。", "道路斜線制限とは基準となる境界が違う。"],
+["北側斜線制限", "きたがわしゃせんせいげん", "法令制限", "北側隣地の日照などに配慮するための高さ制限。", "低層住宅地などで北側の建物への日照を守る。", "住宅系地域での高さ制限として出る。", "全ての用途地域で一律にかかるわけではない。"],
+["日影規制", "にちえいきせい", "法令制限", "建物が周囲に落とす日影の時間を一定範囲に抑える高さ規制。", "中高層建物が近隣へ長時間の日影を生じさせないよう制限する。", "日照・高さ規制の問題。", "建物の用途だけを決める用途制限とは別。"],
+["前面道路幅員による容積率制限", "ぜんめんどうろふくいんによるようせきりつせいげん", "法令制限", "前面道路が狭い場合、指定容積率とは別に道路幅から計算した上限がかかる仕組み。", "指定容積率が高くても、前面道路が狭いと使える容積率が小さくなることがある。", "容積率は指定値だけ見ず前面道路も確認する。", "建ぺい率の前面道路制限と混同しない。"],
+["課税主体", "かぜいしゅたい", "税・その他", "その税金を課税する国や地方公共団体のこと。", "固定資産税は市町村、不動産取得税は都道府県が課税する。", "誰が税をかけるのかを整理する言葉。", "税を実際に納める人＝課税主体、ではない。"],
+["住宅用地の特例", "じゅうたくようちのとくれい", "税・その他", "住宅の敷地について固定資産税などの負担を軽くする仕組み。", "住宅が建つ土地では課税標準について特例が適用される場合がある。", "固定資産税と住宅用地をセットで覚える。", "建物そのものの税額が全てゼロになる制度ではない。"]
+].map((x,i)=>({id:i+1,name:x[0],reading:x[1],cat:x[2],easy:x[3],example:x[4],exam:x[5],trap:x[6]}));
+const PHRASES=[
+['遅滞なく','正当な理由がない限り、できるだけ早く。'],['直ちに','すぐに。時間的な猶予をほとんど置かない。'],['あらかじめ','その出来事より前に。先に。'],['相当の期間を定めて','状況に応じた妥当な期限を決めて。'],['正当な事由','法律上「それなら仕方ない」と認められるだけの理由。'],['善意の第三者','事情を知らない、その契約の当事者ではない人。'],['善意無過失の第三者','事情を知らず、知らないことにも落ち度がない第三者。'],['相手方が履行に着手するまで','相手が契約を実行する具体的行動を始める前まで。'],['自ら売主となる場合','宅建業者自身が売る側になる場合。'],['宅地建物取引業者でない者','一般消費者など、宅建業者ではない人。'],['第三者に対抗することができない','その第三者に「自分の権利だ」と主張できない。'],['その旨を通知しなければならない','その内容を相手に知らせる義務がある。'],['書面により','口頭だけではなく、書面の形で。電子的方法が認められる制度ではその要件も確認。'],['みなす','法律上、実際がどうであってもその状態として扱う。'],['推定する','いったんその状態だと考えるが、反対の証明で覆る余地がある。'],
+["ただし","ここから例外・条件が続く合図。「でも、この場合は別」と読む。"],
+["原則として","基本ルールはこう、という意味。後ろに例外がないか探す。"],
+["〜に限り","その条件に当てはまる場合だけ。範囲を狭くする表現。"],
+["〜を除き","その人・場合だけは対象から外す。"],
+["〜にかかわらず","前に書いた事情がどうであっても、後ろの結論を適用する。"],
+["〜することができる","してもよい・権限がある。必ずしなければならない、ではない。"],
+["〜しなければならない","必ずする義務がある。任意ではない。"],
+["〜してはならない","禁止されている。してはいけない。"],
+["〜を要しない","必要ない。しなくてもよい。"],
+["〜を超えない","その数字を上回ってはいけない。ちょうど同じ数字は含む。"],
+["〜以上","その数字と同じ場合を含み、それより大きい。"],
+["〜以下","その数字と同じ場合を含み、それより小さい。"],
+["〜未満","その数字より小さい。ちょうど同じ数字は含まない。"],
+["〜以内","限界となる数字・期間を含めて、その範囲の内側。"],
+["〜に先立って","その出来事より前に。順番を問う合図。"],
+["〜以後","その時点を含み、それより後。"],
+["〜につき","一つ・一件などを単位として。例「1事務所につき」。"],
+["〜ごとに","それぞれの単位ごとに。まとめて一つではない。"],
+["〜において","その場所・場面・状況で。"],
+["〜に関して","その事柄について。"],
+["〜に対して","相手・対象を示す。「誰が誰に」を見つける合図。"],
+["〜とき","条件や時点を示す。前後を読んで「いつなら？」に直す。"],
+["〜場合","条件を示す。「どんなケースなら？」に直す。"],
+["別段の定めがある場合を除き","特別な取り決めがない通常の場合は、後ろのルールになる。"],
+["反対の意思表示がない限り","当事者が逆の意思を示していない間は、後ろの扱いになる。"]
+,
+["〜前に", "その出来事より前。順番を確認する合図。"],
+["〜後に", "その出来事が終わった後。前後関係を問う合図。"],
+["〜まで", "その時点を限界として含むことが多い。"],
+["〜までに", "指定された時点より遅くならないうちに。"],
+["〜の日から", "その日を起点として期間を数える表現。"],
+["〜の日の翌日から", "その日は数えず、次の日を起点にする。"],
+["〜を経過するまで", "決められた時間・期間が過ぎ終わる前まで。"],
+["〜の期間内", "決められた期間の中に入っている間。"],
+["〜の期間が満了するまで", "決められた期間の最後の日が終わる前まで。"],
+["〜の申出があったとき", "相手からその内容の申し出があった場合。"],
+["〜の承諾を得て", "相手からOKをもらってから。"],
+["〜の同意を得て", "相手が賛成していることを確認して。"],
+["〜を受けた後", "その処分・説明・交付などを受けたあと。"],
+["〜を受ける前", "その処分・説明・交付などが行われるより前。"],
+["〜をした者", "その行為を実際に行った人。主語を特定する表現。"],
+["〜を受ける者", "その説明・交付・処分などの対象になる人。"],
+["〜に該当する", "法律が示す条件に当てはまる。"],
+["〜に該当しない", "法律が示す条件には当てはまらない。"],
+["〜の範囲内", "決められた限界を超えない内側。"],
+["〜を限度とする", "そこが最大。そこを超えてはいけない。"],
+["〜の割合", "全体に対してどれくらいかという比率。"],
+["〜の数に応じて", "数が増減すると、それに合わせて必要数・金額も変わる。"],
+["〜の一以上", "最低でも1つ以上。1を含む。"],
+["〜の五分の一", "全体を5で割ったうちの1。人数なら不足しないよう必要数を考える。"],
+["〜を相手方として", "その人・業者を契約などの相手として。"],
+["〜を目的として", "何のために行うのかを示す。"],
+["〜に供する", "その用途のために使う・利用できる状態にする。"],
+["〜に供した", "その用途のために実際に使った。"],
+["〜を妨げない", "その行為を禁止しない・してもよい余地を残す。"],
+["〜するものとする", "法律上、そのように扱う・行うというルールを示す。"]
+];
+const BREAKDOWNS=[{"cat":"宅建業法","text":"宅地建物取引業者Aが自ら売主となり、宅地建物取引業者でないBに宅地を売却した。AがBから受領する手付金について、宅地建物取引業法上の制限が問題となる。","people":"A＝宅建業者で売主。B＝宅建業者ではない買主。","action":"Aが自分の宅地をBへ売り、Bから手付金を受け取ろうとしている。","ask":"業者売主×一般人買主の手付金に、どんな制限があるか。","plain":"不動産会社が一般の人に自社物件を売る。手付金の特別ルールは？"},{"cat":"宅建業法","text":"Aは宅地建物取引業者Bと専任媒介契約を締結した後、自ら買主Cを発見した。この場合にAがCと直接売買契約を締結できるか。","people":"A＝売主・依頼者。B＝媒介を受けた宅建業者。C＝Aが自分で見つけた買主。","action":"AがBに専任媒介を頼んだ後、自分でCを見つけた。","ask":"AはBを通さずCと直接契約できるか。","plain":"専任媒介中に、自分で買主を見つけた。直接売っていい？"},{"cat":"宅建業法","text":"宅地建物取引業者Aは、買主Bとの売買契約を締結する前に、宅地建物取引士Cをして重要事項を説明させた。説明の時期として適切か。","people":"A＝宅建業者。B＝買主。C＝説明する宅建士。","action":"契約前にCがBへ重要事項説明をした。","ask":"重要事項説明をしたタイミングは正しいか。","plain":"契約の前に宅建士が説明した。順番は合っている？"},{"cat":"宅建業法","text":"宅地建物取引業者Aは、専属専任媒介契約を締結した依頼者Bに対し、業務の処理状況を報告した。報告頻度が法定の基準を満たすかが問われている。","people":"A＝媒介業者。B＝依頼者。","action":"AがBへ媒介業務の進み具合を報告した。","ask":"専属専任媒介で必要な報告頻度を満たしているか。","plain":"専属専任の進捗報告。何日ごとならOK？"},{"cat":"権利関係","text":"Aが所有する土地をBに売却した後、Aは同じ土地をCにも売却した。BとCのどちらが土地の所有権を第三者に対抗できるかが問題となる。","people":"A＝元の所有者・二重に売った人。B＝先の買主。C＝後の買主。","action":"Aが同じ土地をBとCの二人に売った。","ask":"BとCのどちらが自分の所有権を相手に主張できるか。","plain":"同じ土地を二人に売った。どちらが「自分の土地」と主張できる？"},{"cat":"権利関係","text":"AはBの詐欺によって土地をBに売却し、その後Bはその土地をCに売却した。Aが売買契約を取り消した場合のCとの関係が問われている。","people":"A＝だまされた元売主。B＝Aをだまして買った人。C＝Bから土地を買った第三者。","action":"BがAをだまして土地を買い、その後Cへ売った。Aは取消しをした。","ask":"取消しをしたAと第三者Cのどちらが保護されるか。","plain":"だまされて売った土地が第三者へ渡った。取消し後は誰の権利が優先？"},{"cat":"権利関係","text":"Aから代理権を与えられていないBが、Aの代理人であると称してCとの間で土地の売買契約を締結した。契約の効果がAに帰属するか。","people":"A＝本人。B＝権限のない自称代理人。C＝契約の相手方。","action":"Bが権限なしでAの代理人としてCと契約した。","ask":"その契約の効果が本人Aに及ぶか。","plain":"勝手に代理人を名乗って契約した。その契約は本人のものになる？"},{"cat":"権利関係","text":"売主Aと買主Bが土地の売買契約を締結したが、Bが代金を支払わないため、Aは相当の期間を定めて支払いを催告した。Aが契約を解除できるか。","people":"A＝売主。B＝代金を払わない買主。","action":"AがBに期限を決めて「代金を払って」と正式に求めた。","ask":"その後Aが契約を解除できるか。","plain":"買主が払わない。売主が期限を切って請求した。契約を終わらせられる？"},{"cat":"権利関係","text":"賃貸人Aは賃借人Bから敷金を受領していた。賃貸借が終了し、Bが建物を明け渡したとき、敷金の返還範囲が問題となる。","people":"A＝大家・貸主。B＝借主。","action":"Bが退去して建物を返した。AはBから敷金を預かっている。","ask":"敷金をいくら返すべきか、何を差し引けるか。","plain":"退去した。大家が預かる敷金はどこまで返す？"},{"cat":"権利関係","text":"AはBから建物を期間3年の定期建物賃貸借で借りた。期間満了後も当然に契約が更新されるか。","people":"A＝借主。B＝貸主。","action":"3年の定期建物賃貸借を結んだ。","ask":"3年が終わった後、自動的に更新されるか。","plain":"定期借家が3年で終了。自動更新する？"},{"cat":"法令制限","text":"100平方メートルの敷地に建ぺい率60パーセントの指定がある。建築面積の上限を求める。","people":"人物は登場しない。主役は「100㎡の敷地」と「建ぺい率60%」。","action":"100㎡の土地に建物を建てようとしている。","ask":"真上から見た建物面積を最大何㎡にできるか。","plain":"土地100㎡の60%まで建物で覆える。何㎡？"},{"cat":"法令制限","text":"100平方メートルの敷地に容積率200パーセントの指定がある。延べ面積の上限を求める。","people":"人物は登場しない。主役は「100㎡の敷地」と「容積率200%」。","action":"100㎡の土地に複数階を含む建物を建てようとしている。","ask":"延べ床面積を最大何㎡にできるか。","plain":"土地100㎡に延べ床200%まで。合計何㎡？"},{"cat":"法令制限","text":"市街化調整区域内でAが宅地分譲を目的として土地の区画形質を変更しようとしている。都市計画法上の許可の要否が問われている。","people":"A＝土地を開発しようとしている人。","action":"市街化調整区域で、宅地分譲のため土地を造成・区画変更しようとしている。","ask":"都市計画法上、開発許可が必要か・認められるか。","plain":"市街化を抑える区域で宅地開発したい。許可はどうなる？"},{"cat":"法令制限","text":"A所有の敷地は幅員の狭い道路に接している。建築物を建築する際、道路境界から後退する必要があるかが問題となる。","people":"A＝土地所有者。","action":"狭い道路に接する土地へ建物を建てようとしている。","ask":"道路から後退して建てる必要があるか。","plain":"細い道路沿いに家を建てる。セットバックが必要？"},{"cat":"法令制限","text":"農地を所有するAが、その土地を宅地として利用する目的で農地以外のものに変更しようとしている。農地法上の手続が問題となる。","people":"A＝農地の所有者。","action":"自分の農地を宅地へ変えようとしている。","ask":"農地転用にどんな許可・届出が必要か。","plain":"田畑を宅地に変えたい。農地法の手続は？"},{"cat":"税・その他","text":"AはBから土地を購入して所有権を取得した。Aに課される不動産取得税について問われている。","people":"A＝土地を取得した買主。B＝売主。","action":"AがBから土地を買って取得した。","ask":"不動産を取得したときの税がどうかかるか。","plain":"土地を買った。取得時にかかる税は？"},{"cat":"税・その他","text":"1月1日現在、土地を所有しているAに対する固定資産税の課税関係が問われている。","people":"A＝1月1日時点の土地所有者。","action":"Aが基準日時点で土地を所有している。","ask":"固定資産税の納税義務者をどう判断するか。","plain":"1月1日に土地を持っていた。固定資産税は誰に？"},{"cat":"税・その他","text":"Aが土地の所有権移転登記を申請する場合に、登録免許税がどの場面で課されるかが問われている。","people":"A＝登記をする人。","action":"土地の所有権移転登記を申請する。","ask":"登記に伴う税が何か、どの場面でかかるか。","plain":"土地の名義を登記で変える。登記の税は？"},{"cat":"権利関係","text":"A所有の土地にはBのために抵当権が設定されている。Aが債務を履行しない場合、Bがどのように優先弁済を受けられるかが問われている。","people":"A＝土地所有者・債務者側。B＝抵当権者。","action":"Aの土地にBの抵当権があり、Aが債務を履行しない。","ask":"Bが担保である土地からどのように回収できるか。","plain":"借金が返らない。抵当権を持つBは土地から優先して回収できる？"},{"cat":"法令制限","text":"防火地域内に建築物を新築しようとする場合、建築物に求められる防火上の構造制限が問われている。","people":"人物は重要ではない。主役は「防火地域」と「新築する建物」。","action":"防火地域で建物を新築しようとしている。","ask":"どのような防火性能・構造が必要か。","plain":"火災対策が厳しい地域で建てる。建物の構造ルールは？"},
+{"cat": "宅建業法", "text": "宅地建物取引業者Aは大阪府と兵庫県にそれぞれ事務所を設置して宅地建物取引業を営もうとしている。Aが受けるべき免許の免許権者が問われている。", "people": "A＝宅建業者。大阪府・兵庫県＝事務所の所在地。", "action": "Aが2つの都道府県に事務所を置いて営業しようとしている。", "ask": "知事免許か国土交通大臣免許か、どちらが必要か。", "plain": "事務所が2都道府県。誰の免許を取る？"},
+{"cat": "宅建業法", "text": "宅地建物取引業者Aは、買主Bの承諾を得た上で、宅地建物取引士Cが記名した重要事項説明書を電磁的方法によりBへ提供しようとしている。", "people": "A＝宅建業者。B＝買主。C＝宅建士。", "action": "Bの承諾を取り、35条書面を電子データで渡そうとしている。", "ask": "要件を満たせば電子交付できるか。", "plain": "35条書面は、相手がOKなら電子で渡せる？"},
+{"cat": "宅建業法", "text": "宅地建物取引業者Aが自ら売主となり、宅地建物取引業者ではないBに代金3000万円の建物を売却し、手付金800万円を受領しようとしている。", "people": "A＝業者売主。B＝一般買主。", "action": "3000万円の物件で800万円の手付を受け取ろうとしている。", "ask": "8種制限の手付額上限に違反しないか。", "plain": "業者→一般人。手付800万円は多すぎない？"},
+{"cat": "宅建業法", "text": "宅地建物取引業者Aが自ら売主となり、宅地建物取引業者ではないBとの売買契約で、債務不履行時の損害賠償額と違約金を合計して代金の30%と定めた。", "people": "A＝業者売主。B＝一般買主。", "action": "違約時に合計30%支払う特約を置いた。", "ask": "損害賠償額の予定等の上限に違反しないか。", "plain": "業者→一般人。違約金など合計30%はOK？"},
+{"cat": "宅建業法", "text": "宅地建物取引業者Aは、建築確認が必要な新築建物について、まだ建築確認を受けていない段階で販売広告を開始しようとしている。", "people": "A＝販売する宅建業者。", "action": "必要な建築確認を受ける前に広告を出そうとしている。", "ask": "広告開始時期の規制に違反しないか。", "plain": "確認前に新築物件を広告していい？"},
+{"cat": "宅建業法", "text": "保証協会の社員である宅地建物取引業者Aが新たに従たる事務所を1か所設置した。追加で必要となる弁済業務保証金分担金が問われている。", "people": "A＝保証協会に加入している宅建業者。", "action": "支店を1つ増やした。", "ask": "追加で協会へ納める分担金はいくらか。", "plain": "保証協会加入業者が支店1つ追加。追加分はいくら？"},
+{"cat": "宅建業法", "text": "宅地建物取引業者Aは買主Bとの売買契約が成立した後、契約内容を記載した書面をBに交付した。この書面が35条書面か37条書面かが問われている。", "people": "A＝宅建業者。B＝買主。", "action": "契約成立後に契約内容の書面を渡した。", "ask": "35条・37条のどちらの書面か。", "plain": "契約の後に渡す契約内容の書面は何条？"},
+{"cat": "宅建業法", "text": "ある宅建業者の事務所で宅地建物取引業に従事する者が6人いる。必要な成年者である専任の宅地建物取引士の最低人数が問われている。", "people": "主役は事務所の従業者6人と専任宅建士。", "action": "6人が宅建業に従事している。", "ask": "5分の1以上という基準から最低何人必要か。", "plain": "従事者6人。専任宅建士は最低何人？"},
+{"cat": "宅建業法", "text": "宅地建物取引業者Aの事務所以外の喫茶店で、Aが自ら売主となり一般消費者Bと建物の売買契約を締結し、Bはクーリングオフについて法定の告知を受けた。", "people": "A＝業者売主。B＝一般買主。場所＝喫茶店。", "action": "事務所以外で契約し、クーリングオフの告知を受けた。", "ask": "Bが一定期間内に撤回できる可能性があるか。", "plain": "喫茶店で業者から買った。クーリングオフを検討する？"},
+{"cat": "宅建業法", "text": "宅地建物取引業者Aは専任媒介契約を締結した依頼者Bに対し、3週間に1回の頻度で業務処理状況を報告することとした。", "people": "A＝媒介業者。B＝依頼者。", "action": "専任媒介なのに3週間に1回だけ報告する。", "ask": "法定の報告頻度を満たすか。", "plain": "専任媒介で3週間に1回報告。少なすぎない？"}
+];
+const SC=[
+{cat:'宅建業法',q:'宅建業者Aが、自社所有のマンションを宅建業者ではないBに売る。この取引でまず意識するべき特別ルールは？',a:'8種制限',w:['一般媒介契約','農地転用','公示価格'],ex:'「宅建業者が自ら売主」＋「買主が宅建業者ではない」ので、8種制限を疑います。'},
+{cat:'宅建業法',q:'重要事項説明は、原則としていつ行う？',a:'契約が成立する前',w:['契約成立後だけ','引渡し後','登記完了後'],ex:'35条の重要事項説明は、相手が契約するか判断できるよう契約成立前に行います。'},
+{cat:'宅建業法',q:'37条書面の役割として最も近いものは？',a:'成立した契約内容を確認する',w:['免許を申請する','税額を計算する','都市計画を変更する'],ex:'35条＝契約前の重要事項、37条＝契約成立後の契約内容確認、と整理します。'},
+{cat:'宅建業法',q:'宅建業者が2以上の都道府県に事務所を置く場合の免許権者は？',a:'国土交通大臣',w:['市町村長','税務署長','法務局長'],ex:'営業エリアではなく「事務所の所在地」が基準です。2以上の都道府県なら大臣免許です。'},
+{cat:'宅建業法',q:'宅建業免許の有効期間は？',a:'5年',w:['1年','3年','10年'],ex:'2026年時点で免許の有効期間は5年間です。'},
+{cat:'宅建業法',q:'宅建業従事者が10人いる事務所で、原則必要な専任宅建士の最低人数は？',a:'2人',w:['1人','3人','5人'],ex:'事務所ごとに従事者5人に1人以上。10人なら2人以上です。'},
+{cat:'宅建業法',q:'専任媒介契約で、依頼者が自分で買主を見つけた。原則どうできる？',a:'その相手と自分で契約できる',w:['必ず契約を破棄する','絶対に直接契約できない','免許が必要になる'],ex:'専任媒介は自己発見取引が可能。専属専任は不可です。'},
+{cat:'宅建業法',q:'専属専任媒介契約で、依頼者が自分で買主を見つけた。原則どうなる？',a:'依頼した宅建業者を通す必要がある',w:['自由に直接契約できる','売買自体が無効になる','国土交通大臣の許可が必要'],ex:'専属専任の特徴は自己発見取引ができないことです。'},
+{cat:'宅建業法',q:'専任媒介契約の業務処理状況の報告頻度は？',a:'2週間に1回以上',w:['毎日','1週間に1回以上','1か月に1回以上'],ex:'専任＝2週間に1回以上、専属専任＝1週間に1回以上。'},
+{cat:'宅建業法',q:'専属専任媒介契約の業務処理状況の報告頻度は？',a:'1週間に1回以上',w:['2週間に1回以上','1か月に1回以上','報告義務なし'],ex:'「専属」がつく方が拘束が強く、報告も1週間に1回以上です。'},
+{cat:'宅建業法',q:'保証協会に加入した宅建業者が主たる事務所について納付する弁済業務保証金分担金はいくら？',a:'60万円',w:['30万円','500万円','1000万円'],ex:'保証協会の分担金は主60万円・従30万円。営業保証金の主1000万円・従500万円と分けます。'},
+{cat:'宅建業法',q:'保証協会に加入しない宅建業者が主たる事務所について供託する営業保証金はいくら？',a:'1000万円',w:['60万円','500万円','30万円'],ex:'営業保証金は主1000万円、従たる事務所1か所500万円です。'},
+{cat:'権利関係',q:'法律問題で「善意」と書いてある。意味は？',a:'ある事実を知らない',w:['親切である','悪気がない','契約に賛成している'],ex:'法律の善意＝知らない。日常語の「良い心」と切り離します。'},
+{cat:'権利関係',q:'「善意無過失」を最も分かりやすく言い換えると？',a:'知らなかったし、知らないことに落ち度もない',w:['知っていたが謝った','知らなかったが確認もしなかった','必ず第三者である'],ex:'善意＝知らない、無過失＝落ち度がない、を足し算します。'},
+{cat:'権利関係',q:'「第三者に対抗できない」の意味として最も近いものは？',a:'その第三者に自分の権利を主張できない',w:['第三者を訴えてはいけない','契約が必ず無効になる','第三者と会話できない'],ex:'対抗＝権利を主張する、です。'},
+{cat:'権利関係',q:'「相手方が履行に着手するまで」を簡単に言うと？',a:'相手が契約を実行する行動を始める前まで',w:['契約書を読むまで','相手が考え始めるまで','登記から10年まで'],ex:'履行＝約束を実行、着手＝具体的に始める。言葉を分解すると読めます。'},
+{cat:'法令制限',q:'建ぺい率60%の土地100㎡。単純化して考えると建築面積の上限は？',a:'60㎡',w:['40㎡','100㎡','160㎡'],ex:'建ぺい率＝建築面積÷敷地面積。100㎡×60%=60㎡。'},
+{cat:'法令制限',q:'容積率200%の土地100㎡。単純化して考えると延べ面積の上限は？',a:'200㎡',w:['50㎡','100㎡','300㎡'],ex:'容積率＝延べ面積÷敷地面積。100㎡×200%=200㎡。'},
+{cat:'法令制限',q:'「市街化調整区域」の基本イメージは？',a:'市街化を抑える区域',w:['必ず商業を進める区域','税金がかからない区域','登記が不要な区域'],ex:'調整区域＝市街化を抑制。絶対建築不可ではなく例外があります。'},
+{cat:'税・その他',q:'不動産取得税は、基本的にどんなときの税？',a:'不動産を取得したとき',w:['毎年1月1日に所有しているときだけ','登記簿を閲覧したとき','賃貸募集をしたとき'],ex:'取得時＝不動産取得税。毎年の所有＝固定資産税。'},
+{cat:'税・その他',q:'固定資産税の基本イメージは？',a:'不動産などを所有していることに毎年かかる税',w:['契約書を作る税','登記をする税','取得時に一度だけの税'],ex:'所有・毎年・市町村税、をセットで覚えます。'}
+,
+{"cat": "宅建業法", "q": "自分が所有するアパートを自分で繰り返し貸す行為は、宅建業法上の『宅地建物取引業』に当然に含まれる？", "a": "含まれない", "w": ["必ず含まれる", "年間2回以上なら含まれる", "法人なら必ず含まれる"], "ex": "宅建業の取引には貸借そのものは含まれず、貸借の代理・媒介が含まれます。自ら貸主となるだけは宅建業に当たりません。"},
+{"cat": "宅建業法", "q": "大阪府と兵庫県に事務所を置く宅建業者が必要とする免許は？", "a": "国土交通大臣免許", "w": ["大阪府知事免許だけ", "兵庫県知事免許だけ", "両府県知事の免許を2つ"], "ex": "2以上の都道府県に事務所を置く場合は国土交通大臣免許です。営業エリアではなく事務所所在地で判断します。"},
+{"cat": "宅建業法", "q": "大阪府内に本店と支店の2事務所があるだけの宅建業者。免許権者は？", "a": "大阪府知事", "w": ["国土交通大臣", "本店所在地の市長", "支店所在地の市長"], "ex": "事務所が複数でも1つの都道府県内だけなら、その都道府県知事の免許です。"},
+{"cat": "宅建業法", "q": "宅地建物取引業の免許の有効期間は？", "a": "5年", "w": ["1年", "3年", "10年"], "ex": "宅建業免許の有効期間は5年です。"},
+{"cat": "宅建業法", "q": "宅建業免許を更新する場合、申請時期の基本は？", "a": "満了日の90日前から30日前まで", "w": ["満了日の1年前から前日まで", "満了後30日以内", "満了日の30日前から当日まで"], "ex": "引き続き営業する場合、期間満了日の90日前から30日前までに更新申請するのが基本です。"},
+{"cat": "宅建業法", "q": "宅建業に従事する者が10人いる事務所。専任の宅建士は原則最低何人必要？", "a": "2人", "w": ["1人", "3人", "5人"], "ex": "事務所ごとに従事者5人に1人以上の割合で専任宅建士が必要です。"},
+{"cat": "宅建業法", "q": "宅建業に従事する者が6人いる事務所。専任の宅建士は原則最低何人必要？", "a": "2人", "w": ["1人", "3人", "6人"], "ex": "5人に1人以上なので、6人なら1人では不足し、最低2人必要です。"},
+{"cat": "宅建業法", "q": "保証協会に加入しない宅建業者の主たる事務所分の営業保証金は？", "a": "1000万円", "w": ["60万円", "500万円", "2000万円"], "ex": "営業保証金は主たる事務所1000万円、従たる事務所1か所につき500万円です。"},
+{"cat": "宅建業法", "q": "保証協会に加入しない宅建業者が従たる事務所を1か所追加。営業保証金の追加額は？", "a": "500万円", "w": ["30万円", "60万円", "1000万円"], "ex": "従たる事務所1か所につき営業保証金500万円を追加します。"},
+{"cat": "宅建業法", "q": "保証協会の社員となる宅建業者が主たる事務所について納付する弁済業務保証金分担金は？", "a": "60万円", "w": ["30万円", "500万円", "1000万円"], "ex": "保証協会への分担金は主たる事務所60万円、従たる事務所1か所30万円です。"},
+{"cat": "宅建業法", "q": "保証協会加入業者が従たる事務所を1か所増設したときの分担金追加額は？", "a": "30万円", "w": ["60万円", "500万円", "1000万円"], "ex": "従たる事務所1か所につき30万円です。営業保証金の500万円と混同しないでください。"},
+{"cat": "宅建業法", "q": "専任媒介契約の物件をREINSへ登録する法定期間の基本は？", "a": "契約締結の日から7日以内（休業日は算入しない）", "w": ["3日以内", "5日以内", "14日以内"], "ex": "専任媒介は7日以内。期間計算では宅建業者の休業日は算入しません。"},
+{"cat": "宅建業法", "q": "専属専任媒介契約の物件をREINSへ登録する法定期間の基本は？", "a": "契約締結の日から5日以内（休業日は算入しない）", "w": ["3日以内", "7日以内", "14日以内"], "ex": "専属専任媒介は5日以内。専任の7日と区別します。"},
+{"cat": "宅建業法", "q": "専任媒介契約で、業務処理状況の報告頻度は最低どの程度？", "a": "2週間に1回以上", "w": ["毎日1回以上", "1週間に1回以上", "1か月に1回以上"], "ex": "専任媒介は2週間に1回以上。専属専任は1週間に1回以上です。"},
+{"cat": "宅建業法", "q": "専属専任媒介契約で、業務処理状況の報告頻度は最低どの程度？", "a": "1週間に1回以上", "w": ["2週間に1回以上", "1か月に1回以上", "3日に1回以上"], "ex": "専属専任は1週間に1回以上です。"},
+{"cat": "宅建業法", "q": "専任媒介契約中、依頼者が自分で買主を見つけた。直接契約できる？", "a": "できる", "w": ["できない", "宅建業者の許可があれば必ずできない", "REINS登録前だけできる"], "ex": "専任媒介では自己発見取引が可能です。"},
+{"cat": "宅建業法", "q": "専属専任媒介契約中、依頼者が自分で買主を見つけた。直接契約できる？", "a": "できない", "w": ["自由にできる", "契約後1週間ならできる", "REINS登録後ならできる"], "ex": "専属専任媒介は自己発見取引ができません。"},
+{"cat": "宅建業法", "q": "重要事項説明は原則いつまでに行う？", "a": "売買・賃貸借などの契約が成立する前", "w": ["契約成立後1週間以内", "引渡し後", "代金全額支払い後"], "ex": "35条の重要事項説明は、契約するか判断できるよう契約成立前に行います。"},
+{"cat": "宅建業法", "q": "重要事項説明を行う者として適切なのは？", "a": "宅地建物取引士", "w": ["宅建業者の従業者なら誰でもよい", "売主本人だけ", "司法書士でなければならない"], "ex": "重要事項説明は宅地建物取引士が行います。"},
+{"cat": "宅建業法", "q": "37条書面を交付する基本的なタイミングは？", "a": "契約成立後", "w": ["広告前", "重要事項説明より必ず前", "物件を見せる前"], "ex": "37条書面は成立した契約内容を確認するため、契約成立後に交付します。"},
+{"cat": "宅建業法", "q": "35条書面や37条書面は、現在、要件を満たせば電子データで提供できる？", "a": "できる", "w": ["一切できない", "賃貸だけできる", "売買だけできる"], "ex": "相手方の承諾や提供方法の要件等を満たせば電磁的方法による提供が可能です。"},
+{"cat": "宅建業法", "q": "35条書面を電子提供しようとする場合、相手方の承諾は？", "a": "必要", "w": ["不要", "宅建業者側の判断だけでよい", "契約後にもらえば必ずよい"], "ex": "電磁的方法による提供を行う際は、用いる方法等を示して相手方の承諾を得る必要があります。"},
+{"cat": "宅建業法", "q": "IT重説で、映像や音声が途切れて十分にやり取りできなくなった。宅建士はどうする？", "a": "状況が解消するまで説明を中断する", "w": ["そのまま続ける", "音声だけで必ず続ける", "後日書面だけ送れば説明は不要"], "ex": "対面と同様に理解・質問できる環境が必要です。視認・聴取できない状況では中断します。"},
+{"cat": "宅建業法", "q": "IT重説の前に重要事項説明書等を相手方へ交付しておく必要は？", "a": "ある", "w": ["ない", "説明終了後だけでよい", "契約から1年以内ならよい"], "ex": "IT重説では、宅建士が記名した重要事項説明書等をあらかじめ交付していることが条件の一つです。"},
+{"cat": "宅建業法", "q": "8種制限をまず疑う典型的な組合せは？", "a": "宅建業者が自ら売主で、買主が宅建業者ではない", "w": ["一般人同士の売買", "宅建業者同士の売買だけ", "宅建業者が媒介するだけの取引"], "ex": "業者売主×一般買主が8種制限の基本パターンです。"},
+{"cat": "宅建業法", "q": "宅建業者同士の売買で、8種制限は原則どう扱われる？", "a": "適用除外となる", "w": ["すべて適用される", "クーリングオフだけ必ず適用", "手付だけ必ず10%上限"], "ex": "買主も宅建業者なら、8種制限の規定は適用除外となります。"},
+{"cat": "宅建業法", "q": "事務所等以外で業者売主から一般買主が契約し、法定のクーリングオフ告知を受けた場合。基本の期間は？", "a": "告知を受けた日から8日以内", "w": ["3日以内", "14日以内", "30日以内"], "ex": "クーリングオフは場所などの条件を満たす場合、告知を受けた日から8日以内が基本です。"},
+{"cat": "宅建業法", "q": "宅建業者の事務所で、一般買主が自ら売買契約を締結した場合、クーリングオフは原則？", "a": "できない", "w": ["必ずできる", "30日以内ならできる", "代金額に関係なくできる"], "ex": "クーリングオフは事務所等以外の場所での申込み等を保護する制度で、事務所での契約は原則対象外です。"},
+{"cat": "宅建業法", "q": "業者売主・一般買主の売買で、損害賠償額の予定と違約金を合算した上限は代金の何%？", "a": "20%", "w": ["10%", "30%", "50%"], "ex": "法38条の制限で、損害賠償額の予定と違約金の合計は代金の20%を超えられません。"},
+{"cat": "宅建業法", "q": "業者売主・一般買主の売買で、受領できる手付額の上限は代金の何%？", "a": "20%", "w": ["5%", "10%", "30%"], "ex": "8種制限では手付額は代金の20%を超えることができません。"},
+{"cat": "宅建業法", "q": "代金3000万円の業者売主・一般買主の取引。手付金700万円は上限内？", "a": "上限を超える", "w": ["上限内", "手付に上限はない", "1000万円までなら必ず上限内"], "ex": "3000万円の20%は600万円。700万円は上限を超えます。"},
+{"cat": "宅建業法", "q": "代金4000万円の業者売主・一般買主の取引。損害賠償予定額と違約金の合計1000万円は上限内？", "a": "上限を超える", "w": ["上限内", "合計2000万円まで可", "上限規制はない"], "ex": "4000万円の20%は800万円。1000万円は上限を超えます。"},
+{"cat": "宅建業法", "q": "宅建業者が自ら売主として、まだ自分の所有になっていない物件を一般買主へ売る契約は？", "a": "原則として制限される", "w": ["常に自由", "広告だけすれば自由", "買主が一般人なら無制限"], "ex": "8種制限には自己の所有に属しない宅地建物の売買契約締結の制限があります。例外要件は別途確認します。"},
+{"cat": "宅建業法", "q": "保証協会の社員となった宅建業者は、営業保証金を自ら供託する必要がある？", "a": "原則として必要ない", "w": ["必ず1000万円供託する", "支店分だけ1000万円供託する", "保証協会加入とは無関係"], "ex": "保証協会の社員は営業保証金の代わりに弁済業務保証金分担金を協会へ納付します。"},
+{"cat": "宅建業法", "q": "宅建業者が営業を開始する時期として適切なのは？", "a": "営業保証金の供託等、法定の保証制度の手続きを整えた後", "w": ["免許申請書を提出した直後", "会社設立登記だけ終えた時", "最初の契約後"], "ex": "免許を受けたうえで、営業保証金の供託または保証協会の手続などを整えてから営業します。"},
+{"cat": "宅建業法", "q": "建築確認が必要な新築建物について、確認前に宅建業者が販売広告を開始することは？", "a": "できない", "w": ["自由にできる", "価格を書かなければできる", "SNS広告だけならできる"], "ex": "必要な許可・確認等を受ける前の広告開始には規制があります。"},
+{"cat": "宅建業法", "q": "宅建業者の従業者が業務中に携帯すべきものとして重要なのは？", "a": "従業者証明書", "w": ["住民票", "印鑑証明書", "登記事項証明書"], "ex": "従業者証明書は従業者がその業務に従事する際の身分証明に用いられます。"},
+{"cat": "宅建業法", "q": "宅建業者が物件広告で、実際より著しく有利だと誤認させる表示をすることは？", "a": "禁止される", "w": ["契約前なら自由", "口頭広告なら自由", "買主が同意すれば自由"], "ex": "誇大広告等は禁止されています。"},
+{"cat": "宅建業法", "q": "宅建業者が自分の免許名義を他人に貸して宅建業を営ませることは？", "a": "禁止される", "w": ["報酬を取らなければ可能", "親族なら可能", "同じ都道府県内なら可能"], "ex": "免許の名義貸しは禁止されています。"},
+{"cat": "宅建業法", "q": "宅建業者が事務所等に掲示するものとして重要なのは？", "a": "法定の標識", "w": ["固定資産税納税通知書", "従業員全員の住民票", "買主一覧"], "ex": "事務所等では、法令に基づく標識の掲示が必要です。"},
+{"cat": "宅建業法", "unit": "license", "q": "自分が所有するアパートを、自ら貸主として繰り返し賃貸するだけの場合、原則として宅建業の免許は？", "a": "不要", "w": ["必ず必要", "国土交通大臣免許が必要", "宅建士登録だけ必要"], "ex": "自ら貸借する行為は、宅建業法上の「取引」に含まれないため、原則として宅建業免許は不要です。"},
+{"cat": "宅建業法", "unit": "license", "q": "多数の宅地を仕入れて、一般の買主へ反復継続して販売する行為は？", "a": "宅建業に当たり得る", "w": ["自ら売主なので宅建業ではない", "1年に数件なら必ず免許不要", "法人だけが宅建業になる"], "ex": "宅地・建物の売買を業として反復継続して行う場合は、自ら売主でも宅建業に含まれます。"},
+{"cat": "宅建業法", "unit": "license", "q": "事務所が大阪府と奈良県の2府県にある宅建業者の免許権者は？", "a": "国土交通大臣", "w": ["大阪府知事だけ", "奈良県知事だけ", "市町村長"], "ex": "2以上の都道府県に事務所を設置する場合は国土交通大臣免許です。"},
+{"cat": "宅建業法", "unit": "license", "q": "事務所は大阪府内だけだが、京都府の物件も多数仲介する宅建業者の免許は？", "a": "大阪府知事免許", "w": ["必ず国土交通大臣免許", "京都府知事免許も追加で必要", "営業地域ごとに市長免許"], "ex": "免許区分は営業地域ではなく、事務所の所在地が1都道府県か2以上かで判断します。"},
+{"cat": "宅建業法", "unit": "license", "q": "宅建業免許の有効期間は現在何年？", "a": "5年", "w": ["3年", "6年", "10年"], "ex": "宅建業免許の有効期間は5年です。"},
+{"cat": "宅建業法", "unit": "license", "q": "宅建業免許を更新したい。更新申請の基本的な時期として正しいのは？", "a": "有効期間満了日の90日前から30日前まで", "w": ["満了後30日以内", "満了日の1年前だけ", "いつでも同じ"], "ex": "国土交通省の案内では、更新申請は満了日の90日前から30日前までが基本です。"},
+{"cat": "宅建業法", "unit": "takkenshi", "q": "宅建業に従事する者が12人いる事務所で、必要な専任宅建士の最低人数は？", "a": "3人", "w": ["1人", "2人", "4人"], "ex": "事務所ごとに従事者5人に1人以上なので、12人なら3人以上が必要です。"},
+{"cat": "宅建業法", "unit": "takkenshi", "q": "「専任の宅建士」の説明として最も近いものは？", "a": "その事務所に常勤し、主に宅建業務に従事する宅建士", "w": ["資格を持つ人なら全員専任", "週1回だけ来る宅建士", "他社に常勤する宅建士"], "ex": "専任性は、その事務所で常勤し主として宅建業務に従事できることがポイントです。"},
+{"cat": "宅建業法", "unit": "takkenshi", "q": "重要事項説明を実際に行える者は？", "a": "宅地建物取引士", "w": ["宅建業者の従業者なら誰でも", "売主本人だけ", "行政書士なら必ず可能"], "ex": "35条の重要事項説明は宅地建物取引士が行います。"},
+{"cat": "宅建業法", "unit": "takkenshi", "q": "重要事項説明をする宅建士が、説明時に行うべきことは？", "a": "宅建士証を提示する", "w": ["免許証だけを提示する", "住民票を渡す", "会社の名刺だけでよい"], "ex": "重要事項説明の際、宅建士は宅建士証を提示します。"},
+{"cat": "宅建業法", "unit": "takkenshi", "q": "37条書面について、35条の重要事項説明と同じような「口頭での説明義務」は？", "a": "宅建業法上は同じ形では定められていない", "w": ["必ず宅建士が30分説明する", "買主が不要と言えば書面も不要", "契約前に説明すれば交付不要"], "ex": "37条書面は契約成立後の契約内容確認書面で、35条のような重要事項説明義務とは役割が異なります。"},
+{"cat": "宅建業法", "unit": "takkenshi", "q": "宅建業者の従業者が業務に従事する際、携帯すべき重要な証明書は？", "a": "従業者証明書", "w": ["固定資産評価証明書", "印鑑登録証明書", "宅建業免許証の原本"], "ex": "従業者証明書は業務に従事する従業者の身分を示すためのものです。"},
+{"cat": "宅建業法", "unit": "guarantee", "q": "保証協会に加入しない宅建業者が本店だけで営業する場合、営業保証金の基本額は？", "a": "1,000万円", "w": ["60万円", "500万円", "2,000万円"], "ex": "主たる事務所は1,000万円です。保証協会の分担金60万円と混同しないでください。"},
+{"cat": "宅建業法", "unit": "guarantee", "q": "営業保証金制度で、従たる事務所1か所を追加する場合の基本額は？", "a": "500万円", "w": ["30万円", "60万円", "1,000万円"], "ex": "従たる事務所1か所につき500万円が基本です。"},
+{"cat": "宅建業法", "unit": "guarantee", "q": "保証協会に加入する宅建業者が、本店分として納付する弁済業務保証金分担金は？", "a": "60万円", "w": ["30万円", "500万円", "1,000万円"], "ex": "本店分の分担金は60万円です。"},
+{"cat": "宅建業法", "unit": "guarantee", "q": "保証協会に加入する宅建業者が、支店1か所分として追加納付する分担金は？", "a": "30万円", "w": ["60万円", "300万円", "500万円"], "ex": "従たる事務所1か所につき30万円です。"},
+{"cat": "宅建業法", "unit": "guarantee", "q": "保証協会に加入した宅建業者について正しい流れは？", "a": "業者が協会へ分担金を納付し、協会が弁済業務保証金を供託する", "w": ["業者が分担金を買主へ払う", "業者が営業保証金と分担金を必ず両方供託する", "買主が協会へ分担金を払う"], "ex": "業者→保証協会が分担金、保証協会→供託所が弁済業務保証金です。"},
+{"cat": "宅建業法", "unit": "guarantee", "q": "営業保証金を供託する目的として最も近いものは？", "a": "取引相手の損害に備えるため", "w": ["宅建士の給与を保証するため", "広告費を積み立てるため", "固定資産税を前払いするため"], "ex": "営業保証金は宅建業者との取引で生じる損害に備える保証制度です。"},
+{"cat": "宅建業法", "unit": "mediation", "q": "一般媒介契約の特徴として正しいものは？", "a": "複数の宅建業者に同時に媒介を依頼できる", "w": ["必ず1社だけに依頼する", "自己発見取引は禁止", "REINS登録が必ず5日以内"], "ex": "一般媒介は複数業者への依頼が可能です。"},
+{"cat": "宅建業法", "unit": "mediation", "q": "専任媒介契約で、依頼者が自分で買主を見つけた場合は？", "a": "原則として自分で契約できる", "w": ["必ず媒介業者を通す", "契約自体が無効になる", "国土交通大臣の許可が必要"], "ex": "専任媒介では自己発見取引が可能です。"},
+{"cat": "宅建業法", "unit": "mediation", "q": "専属専任媒介契約で、依頼者が自分で買主を見つけた場合は？", "a": "原則として直接契約できない", "w": ["自由に直接契約できる", "一般媒介に自動変更される", "媒介契約が当然無効になる"], "ex": "専属専任は自己発見取引ができない点が専任媒介との大きな違いです。"},
+{"cat": "宅建業法", "unit": "mediation", "q": "専任媒介契約の有効期間について正しいものは？", "a": "3か月を超えることはできない", "w": ["6か月が最低", "1年固定", "期間制限はない"], "ex": "専任媒介・専属専任媒介の有効期間は3か月を超えることができません。"},
+{"cat": "宅建業法", "unit": "mediation", "q": "専任媒介契約の物件をREINSへ登録する期限の基本は？", "a": "7日以内（休業日は算入しない）", "w": ["1日以内", "5日以内だけ", "30日以内"], "ex": "専任媒介は7日、専属専任は5日が基本で、休業日は算入しません。"},
+{"cat": "宅建業法", "unit": "mediation", "q": "専属専任媒介契約で、依頼者への業務処理状況の報告頻度は？", "a": "1週間に1回以上", "w": ["2週間に1回以上", "月1回以上", "報告義務なし"], "ex": "専属専任は1週間に1回以上、専任は2週間に1回以上です。"},
+{"cat": "宅建業法", "unit": "documents", "q": "35条書面を使う重要事項説明のタイミングは？", "a": "売買契約が成立する前", "w": ["契約成立後だけ", "引渡し後", "登記完了後"], "ex": "重要事項説明は契約するか判断できるよう、契約成立前に行います。"},
+{"cat": "宅建業法", "unit": "documents", "q": "37条書面を交付するタイミングは？", "a": "契約成立後、遅滞なく", "w": ["契約成立の1年前", "重要事項説明より必ず前", "登記後だけ"], "ex": "37条書面は契約が成立した後、その契約内容を確認するために交付します。"},
+{"cat": "宅建業法", "unit": "documents", "q": "35条書面を電磁的方法で提供する場合、適切なタイミングは？", "a": "重要事項説明を始める前に相手へ提供する", "w": ["説明が全部終わった後だけ", "契約成立後でよい", "登記完了後"], "ex": "国土交通省FAQでも、35条書面は重要事項説明の実施前に提供する必要があるとされています。"},
+{"cat": "宅建業法", "unit": "documents", "q": "37条書面を電磁的方法で提供することは？", "a": "相手方の承諾など所定の要件を満たせば可能", "w": ["現在も一切禁止", "宅建業者同士だけ可能", "紙を捨てれば自動的に可能"], "ex": "35条・37条などは、所定の要件を満たせば電磁的方法による提供が可能です。"},
+{"cat": "宅建業法", "unit": "documents", "q": "IT重説について正しいものは？", "a": "要件を満たせばオンラインで重要事項説明を行える", "w": ["賃貸でも売買でも現在は全面禁止", "宅建士でなくても説明できる", "35条書面は不要になる"], "ex": "IT重説でも説明者は宅建士であり、35条の重要事項説明義務がなくなるわけではありません。"},
+{"cat": "宅建業法", "unit": "documents", "q": "35条書面と37条書面の役割の組合せで正しいものは？", "a": "35条＝契約前の重要事項、37条＝契約後の契約内容", "w": ["35条＝契約後、37条＝契約前", "どちらも広告用", "どちらも免許更新用"], "ex": "契約前の判断材料が35条、成立した契約内容の確認が37条です。"},
+{"cat": "宅建業法", "unit": "eight", "q": "8種制限をまず検討する典型的な組合せは？", "a": "宅建業者が自ら売主で、買主が宅建業者ではない", "w": ["一般人が売主で宅建業者が買主", "宅建業者同士の売買だけ", "個人同士の売買"], "ex": "8種制限は宅建業者自ら売主×非宅建業者買主の保護ルールです。"},
+{"cat": "宅建業法", "unit": "eight", "q": "宅建業者Aが売主、宅建業者Bが買主の売買で、8種制限は？", "a": "原則として適用されない", "w": ["必ず全て適用される", "クーリングオフだけ必ず適用", "媒介契約に自動変更される"], "ex": "買主も宅建業者なら、8種制限による一般消費者保護の対象ではありません。"},
+{"cat": "宅建業法", "unit": "eight", "q": "宅建業者が自ら売主となる場合、受領できる手付の額についての基本的な上限は？", "a": "代金の20%", "w": ["代金の50%", "上限なし", "必ず10万円"], "ex": "8種制限では手付額は代金の20%を超えることができません。"},
+{"cat": "宅建業法", "unit": "eight", "q": "宅建業者が自ら売主のとき、損害賠償額の予定と違約金を合算した上限の基本は？", "a": "代金の20%", "w": ["代金の5%", "代金の50%", "上限なし"], "ex": "損害賠償額の予定と違約金の合計は代金の20%を超えることができません。"},
+{"cat": "宅建業法", "unit": "eight", "q": "宅建業者が自ら売主で一般の買主と契約する場合、契約不適合責任について買主に一方的に不利な特約を置くことは？", "a": "原則として制限される", "w": ["常に自由", "口頭なら自由", "広告に書けば自由"], "ex": "8種制限では民法より買主に不利な特約を制限します。引渡しから2年以上となる期間を定める特約など例外を整理します。"},
+{"cat": "宅建業法", "unit": "eight", "q": "宅建業者の事務所で買主が申込みと契約をした通常のケースで、宅建業法上のクーリングオフは？", "a": "原則としてできない", "w": ["必ず8日以内ならできる", "30日以内なら自由", "売主が業者なら場所に関係なく必ずできる"], "ex": "クーリングオフは申込み・契約の場所などの要件が重要で、宅建業者の事務所等では原則対象外です。"},
+{"cat": "宅建業法", "unit": "advertising", "q": "実際の物件より著しく良い条件だと誤認させる広告は？", "a": "禁止される", "w": ["契約前なら自由", "SNSだけなら自由", "小さく注記すれば常に可能"], "ex": "誇大広告等は禁止され、実際に契約が成立したかどうかだけで決まりません。"},
+{"cat": "宅建業法", "unit": "advertising", "q": "建築確認が必要な建物について、確認を受ける前に販売広告を開始することは？", "a": "できない", "w": ["価格を書かなければできる", "ネット広告だけできる", "買主が同意すればできる"], "ex": "必要な許可・確認等を受ける前の広告開始には規制があります。"},
+{"cat": "宅建業法", "unit": "advertising", "q": "宅建業者が広告をするとき、自社が売主・代理・媒介のどれかを示すことを何という？", "a": "取引態様の明示", "w": ["免許換え", "供託", "相続登記"], "ex": "取引態様を明示して、相手が業者の立場を誤解しないようにします。"},
+{"cat": "宅建業法", "unit": "advertising", "q": "宅建業者が自分の免許名義を他人に使わせ、他人が宅建業を営むことは？", "a": "禁止される", "w": ["無報酬なら可能", "親族なら可能", "同一県なら可能"], "ex": "宅建業免許の名義貸しは禁止されています。"},
+{"cat": "宅建業法", "unit": "advertising", "q": "宅建業者が事務所に掲示するものとして重要なのは？", "a": "法定の標識", "w": ["従業員全員の戸籍", "買主名簿", "固定資産税通知書"], "ex": "事務所等では法令に基づく標識の掲示が必要です。"},
+{"cat": "宅建業法", "unit": "advertising", "q": "将来の値上がりが不確かなのに「絶対に値上がりする」と言い切って契約を勧める行為は？", "a": "問題となる", "w": ["常に適法", "宅建士が言えば自由", "書面で言えば自由"], "ex": "将来利益について断定的判断を提供して勧誘するような行為は業務規制上問題となります。"},
+{"cat": "宅建業法", "unit": "supervision", "q": "宅建業者に対する監督処分として代表的なものは？", "a": "指示・業務停止・免許取消し", "w": ["逮捕だけ", "固定資産税増税だけ", "登記抹消だけ"], "ex": "宅建業法上の監督処分として、指示処分・業務停止処分・免許取消処分などがあります。"},
+{"cat": "宅建業法", "unit": "supervision", "q": "業務停止処分を受けた宅建業者について正しいものは？", "a": "処分期間中、命じられた範囲の業務を行えない", "w": ["免許が必ず永久消滅する", "宅建士全員の資格が自動消滅する", "何も制限されない"], "ex": "業務停止は免許取消しとは別の監督処分です。"},
+{"cat": "宅建業法", "unit": "supervision", "q": "免許取消処分と業務停止処分の違いとして正しいものは？", "a": "免許取消しは免許そのものを失わせる処分", "w": ["どちらも全く同じ", "業務停止の方が必ず永久", "取消しは単なる注意"], "ex": "取消しは免許を失わせる重い処分で、一定期間の業務停止とは性質が違います。"},
+{"cat": "宅建業法", "unit": "supervision", "q": "宅建業者が重大な法令違反をした場合、行政上の監督処分とは別に刑事罰が問題となることは？", "a": "あり得る", "w": ["絶対にない", "行政処分と刑事罰は同時に存在できない", "宅建士だけが刑事罰を受ける"], "ex": "行政上の監督処分と、法違反に対する刑事罰は別の制度です。"},
+{"cat": "宅建業法", "unit": "supervision", "q": "免許申請で重要な事項について虚偽の内容を用いることは？", "a": "免許・監督上の重大な問題になる", "w": ["自由", "申請後に直せば必ず問題なし", "広告で訂正すればよい"], "ex": "免許制度は申請内容の真実性を前提としており、虚偽は重大な問題になります。"},
+{"cat": "宅建業法", "unit": "supervision", "q": "宅建業法上の「指示処分」のイメージとして最も近いものは？", "a": "違反を是正するよう行政から必要な指示を受ける処分", "w": ["直ちに刑務所へ入る処分", "固定資産税を免除する処分", "売買契約を必ず無効にする処分"], "ex": "指示処分は、宅建業者に法令遵守・是正を求める監督処分の一つです。"}
+];
+let quiz=null,currentTerm=null,dictCat='全部',selectedCat='宅建業法';
+const LAW_UNITS=[
+ {id:'license',name:'① 宅建業・免許',hint:'宅建業に当たる？ 知事/大臣・5年・更新'},
+ {id:'takkenshi',name:'② 宅建士・事務所',hint:'専任5人に1人・35条説明・従業者'},
+ {id:'guarantee',name:'③ 営業保証金・保証協会',hint:'1000/500万円と60/30万円を整理'},
+ {id:'mediation',name:'④ 媒介契約・REINS',hint:'一般/専任/専属専任・5日/7日・報告'},
+ {id:'documents',name:'⑤ 35条・37条',hint:'契約前/契約後・宅建士・電子提供'},
+ {id:'eight',name:'⑥ 8種制限',hint:'業者売主×一般買主・手付・解除・責任'},
+ {id:'advertising',name:'⑦ 広告・業務規制',hint:'誇大広告・取引態様・標識・勧誘'},
+ {id:'supervision',name:'⑧ 監督処分・罰則',hint:'指示・業務停止・免許取消し'}
+];
+function lawUnitOf(x){if(x.unit)return x.unit;let t=(x.q||'')+' '+(x.ex||'');if(/営業保証金|保証協会|弁済業務|供託|還付/.test(t))return'guarantee';if(/媒介|REINS|レインズ|指定流通|自己発見|業務処理状況/.test(t))return'mediation';if(/35条|37条|重要事項|IT重説|電磁|電子/.test(t))return'documents';if(/8種|手付|クーリング|損害賠償|違約金|契約不適合|所有権留保|割賦/.test(t))return'eight';if(/監督|指示処分|業務停止|免許取消|罰則|刑事/.test(t))return'supervision';if(/専任.*宅建|宅建士|従業者|事務所|証明書/.test(t))return'takkenshi';if(/免許|宅建業に当|国土交通大臣|知事|更新申請/.test(t))return'license';return'advertising'}
+function lawUnitCounts(){let m={};LAW_UNITS.forEach(u=>m[u.id]=0);SC.filter(x=>x.cat==='宅建業法').forEach(x=>m[lawUnitOf(x)]++);return m}
+
+const PROJECT={
+ version:'1.6',updated:'2026-08-26',
+ targets:{terms:250,phrases:100,breakdowns:40,questions:600,law:200,rights:200,limits:120,tax:80},
+ fixed:[
+  {id:'base',title:'① 学習基盤',weight:8,progress:1,note:'5問学習・辞典・端末保存・正答率・苦手記録'},
+  {id:'review',title:'⑤ 苦手・間隔復習',weight:10,progress:1,note:'誤答→翌日、迷い→3日後、正答→7日後を基本に、復習成功で14・30日へ延長'},
+  {id:'mock',title:'⑥ 模試機能',weight:8,progress:.4,note:'20問ミニ模試を実装。最終目標の50問本番形式・時間管理は今後追加'},
+  {id:'legal',title:'⑦ 2026法令確認',weight:7,progress:.45,note:'令和8年4月1日版の国交省資料で免許・専任宅建士・保証金・媒介・35/37条電子化・8種制限の主要数値を確認済み'},
+  {id:'qa',title:'⑧ QA・配布',weight:5,progress:.8,note:'iPhone実機で主要画面を確認済み。バックアップ/復元を実装。残りは全画面QAと配布仕上げ'},
+  {id:'ai',title:'⑨ ChatGPT弱点分析',weight:6,progress:.9,note:'誤答原因記録・分析文コピー・分析結果の貼り戻し・AIおすすめ5問まで実装。実機で画面表示確認済み'}
+ ]
+};
+function projectStats(){
+ const byCat=SC.reduce((m,x)=>(m[x.cat]=(m[x.cat]||0)+1,m),{});
+ const rows=[
+  {id:'base',title:'① 学習基盤',weight:8,p:1,current:'主要機能実装済み',target:'安定動作',note:'5問・辞典・端末保存・正答率・苦手記録'},
+  {id:'terms',title:'② 難しい用語辞典',weight:14,p:Math.min(1,G.length/PROJECT.targets.terms),current:G.length+'語',target:PROJECT.targets.terms+'語',note:'超やさしい意味・具体例・試験文・ひっかけ・確認問題'},
+  {id:'phrases',title:'③ 読解・文章ほどき',weight:14,p:Math.min(1,(PHRASES.length/PROJECT.targets.phrases)*.7+(BREAKDOWNS.length/PROJECT.targets.breakdowns)*.3),current:`文章 ${PHRASES.length}表現・3分解 ${BREAKDOWNS.length}題`,target:`文章 ${PROJECT.targets.phrases}表現・3分解 ${PROJECT.targets.breakdowns}題`,note:'法律文→普通の日本語＋登場人物/行為/質問の3分解トレーニング'},
+  {id:'questions',title:'④ 実戦問題600問',weight:28,p:Math.min(1,SC.length/PROJECT.targets.questions),current:SC.length+'問',target:PROJECT.targets.questions+'問',note:`内訳：業法 ${byCat['宅建業法']||0}/200・権利 ${byCat['権利関係']||0}/200・法令 ${byCat['法令制限']||0}/120・税等 ${byCat['税・その他']||0}/80`},
+  ...PROJECT.fixed.filter(x=>x.id!=='base').map(x=>({id:x.id,title:x.title,weight:x.weight,p:x.progress,current:Math.round(x.progress*100)+'%',target:'100%',note:x.note}))
+ ];
+ const pct=Math.round(rows.reduce((n,r)=>n+r.weight*r.p,0));
+ return {rows,pct,byCat};
+}
+function renderProject(){
+ const s=projectStats();
+ $('#devPctMini').textContent=s.pct+'%';$('#devBarMini').style.width=s.pct+'%';
+ const next=s.rows.find(r=>r.p<1);
+ $('#devNextMini').textContent=next?'次：'+next.title+' → '+next.current+' / '+next.target:'完成条件を達成しました';
+ $('#devPct').textContent=s.pct+'%';$('#devBar').style.width=s.pct+'%';
+ $('#devCounts').innerHTML=`用語 <b>${G.length}/${PROJECT.targets.terms}</b><br>文章 <b>${PHRASES.length}/${PROJECT.targets.phrases}</b><br>3分解 <b>${BREAKDOWNS.length}/${PROJECT.targets.breakdowns}</b><br>実戦問題 <b>${SC.length}/${PROJECT.targets.questions}</b>`;
+ $('#devNext').innerHTML='<b>次の開発スプリント</b><br>v1.6で、用語 <b>220語</b>・宅建業法 <b>100問</b>・単元別5問・20問ミニ模試・バックアップ/復元まで実装しました。次は用語250語、文章100表現、3分解40題を完成させ、権利関係の実戦問題を重点増量します。';
+ const box=$('#milestones');box.innerHTML='';
+ s.rows.forEach(r=>{let pc=Math.round(r.p*100),status=pc>=100?['完了','statusDone']:pc>0?['進行中','statusDoing']:['未着手','statusTodo'];let d=document.createElement('div');d.className='mile';d.innerHTML=`<div class="mileTop"><div><div class="mileTitle">${r.title}</div><div class="mileMeta">${r.current} → ${r.target}<br>${r.note}</div></div><span class="${status[1]}">${status[0]} ${pc}%</span></div><div class="progress" style="margin-top:10px"><i style="width:${pc}%"></i></div>`;box.appendChild(d)});
+}
+
+function addDaysKey(days){let d=new Date();d.setDate(d.getDate()+days);return localDateKey(d)}
+function reviewKey(z){return (z.type||'q')+'|'+(z.term||z.q||'')}
+function scheduleReview(z,ok,unsure=false,forceDays=null){let key=reviewKey(z),prev=state.reviews[key],days;if(forceDays!==null)days=forceDays;else if(!ok)days=1;else if(unsure)days=3;else if(prev){let n=Number(prev.interval)||1;days=n<3?3:n<7?7:n<14?14:30}else days=7;state.reviews[key]={key,cat:z.cat||'共通',type:z.type||'scenario',term:z.term||'',q:z.q||'',a:z.a||'',w:z.w||[],ex:z.ex||'',diff:z.diff||'',due:addDaysKey(days),interval:days,last:today(),lastOk:!!ok,unsure:!!unsure};save();renderReviewSummary()}
+function dueReviews(){return Object.values(state.reviews||{}).filter(r=>r.due&&r.due<=today()).sort((a,b)=>a.due.localeCompare(b.due))}
+function reviewQuestion(r){if(r.type==='term'&&r.term){let t=G.find(x=>x.name===r.term);if(t)return termQuestion(t)}if(r.type==='phrase'&&r.term){let p=PHRASES.find(x=>x[0]===r.term);if(p)return phraseQuestion(p)}if(r.type==='scenario'){let sc=SC.find(x=>x.q===r.q);if(sc)return scenarioQuestion(sc)}return {cat:r.cat,type:r.type,term:r.term,diff:'復習',q:r.q,a:r.a,w:r.w||[],ex:r.ex||''}}
+function renderReviewSummary(){let due=dueReviews(),all=Object.values(state.reviews||{}),next=all.filter(r=>r.due>today()).sort((a,b)=>a.due.localeCompare(b.due)).slice(0,3);let c=due.length;let b=$('#dueBadge');if(b)b.textContent=c;let d=$('#dueCount');if(d)d.textContent=c;let box=$('#reviewScheduleMini');if(box){if(c)box.innerHTML=`<b style="color:#b06a00">今日が復習日：${c}問</b>　まずここから。`;else if(next.length)box.innerHTML='今日の復習は完了。次回：'+next.map(x=>`${x.due}（${x.term||x.cat}）`).join(' / ');else box.innerHTML='まだ復習予定はありません。問題を解くと自動で予定が入ります。'}}
+function startDueReviews(){let due=dueReviews();if(!due.length){renderReviewSummary();alert('今日が期限の復習はありません。新しい問題を進めてOKです。');return}startQuiz(due.slice(0,10).map(reviewQuestion),'⏰ 今日の間隔復習')}
+function markStudy(){let t=today();if(state.lastStudy!==t){let y=new Date();y.setDate(y.getDate()-1);let yk=y.toISOString().slice(0,10);state.streak=state.lastStudy===yk?(state.streak||0)+1:1;state.lastStudy=t;save()}}
+const CAUSES=['用語理解','問題文読解','制度理解','数字・期限','原則と例外','登場人物','設問の読み違い','似た制度','自信不足'];
+const CAUSE_LABEL={'用語理解':'用語の意味','問題文読解':'問題文の分解','制度理解':'制度そのもの','数字・期限':'数字・期限','原則と例外':'原則/例外','登場人物':'人物関係','設問の読み違い':'設問の読み違い','似た制度':'似た制度','自信不足':'迷い・自信不足'};
+function inferCause(z,o=''){if(z.type==='breakdown')return '問題文読解';let text=(z.q||'')+' '+(z.ex||'')+' '+(o||'')+' '+(z.a||'');if(z.type==='term'||z.type==='phrase')return '用語理解';if(/[0-9０-９]|年|月|日|週間|万円|％|%/.test(text))return '数字・期限';if(/ただし|例外|除く|原則|場合を除き|特約/.test(text))return '原則と例外';if(/A|B|C|甲|乙|丙|売主|買主|第三者|相手方/.test(z.q||''))return '登場人物';if(/正しい|誤って|できない|できる|必要|不要|認められない/.test(z.q||''))return '設問の読み違い';return '制度理解'}
+function addStruggle(z,kind,chosen='',cause='',unsure=false){let item={id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),date:today(),time:new Date().toISOString(),cat:z.cat||'共通',type:z.type||'',term:z.term||'',question:z.q||'',chosen,correct:z.a||'',cause:cause||inferCause(z,chosen),kind,unsure:!!unsure};state.struggles.push(item);if(state.struggles.length>300)state.struggles=state.struggles.slice(-300);save();return item.id}
+function answerLog(ok,type,cat,term='',extra={}){state.answers.push({date:today(),ok,type,cat,term,question:extra.question||'',chosen:extra.chosen||'',correct:extra.correct||'',unsure:!!extra.unsure});if(term&&!ok)state.weak[term]=(state.weak[term]||0)+1;if(term&&ok&&state.weak[term]>0)state.weak[term]=Math.max(0,state.weak[term]-0.25);markStudy();save();renderStats()}
+function setCause(id,cause){let x=state.struggles.find(s=>s.id===id);if(x){x.cause=cause;save();renderAI();}}
+function causePicker(id,current=''){return `<div class="causePicker"><b>なぜ間違えたと思う？（あとから分析精度が上がります）</b><div class="causeGrid">${CAUSES.filter(x=>x!=='自信不足').map(c=>`<button class="causeBtn ${c===current?'sel':''}" data-cause-id="${id}" data-cause="${c}">${CAUSE_LABEL[c]}</button>`).join('')}</div></div>`}
+function bindCauseButtons(){$$('[data-cause-id]').forEach(b=>b.onclick=()=>{setCause(b.dataset.causeId,b.dataset.cause);$$(`[data-cause-id="${b.dataset.causeId}"]`).forEach(x=>x.classList.toggle('sel',x===b))})}
+function causeCounts(){let m={};state.struggles.forEach(x=>m[x.cause]=(m[x.cause]||0)+1);return m}
+function buildAIPrompt(){let a=state.answers,acc=x=>x.length?Math.round(x.filter(y=>y.ok).length/x.length*100):null;let cats=['宅建業法','権利関係','法令制限','税・その他'];let cc=causeCounts();let weak=Object.entries(state.weak).filter(([,v])=>v>=1).sort((a,b)=>b[1]-a[1]).slice(0,15);let recent=state.struggles.slice(-40).reverse();let lines=[];lines.push('あなたは宅建試験の学習コーチです。以下は私の「まなびタブ」学習データです。');lines.push('目的は、何を間違えたかではなく「なぜ間違えるか」を特定して、次の学習を最適化することです。');lines.push('');lines.push('【分析してほしいこと】');lines.push('1. 苦手を「知識不足・用語理解・問題文読解・数字/期限・原則/例外・人物関係・似た制度の混同」に整理');lines.push('2. 間違いの根本原因を3つまで特定し、根拠となる記録を示す');lines.push('3. 最優先で直す項目を3つ、優先順位と理由つきで提示');lines.push('4. 次回20問の学習配分を提案（用語・文章ほどき・3分解・実戦）');lines.push('5. 私が問題文を読むときの具体的なチェック手順を1つ提案');lines.push('6. 最後に、下記形式のJSONを必ず出力。focus_termsは0〜5語。できる限り【苦手用語】【関連用語】に出ている表記をそのまま使う。');lines.push('MANABI_PLAN_START');lines.push('{"focus_category":"宅建業法","focus_terms":["用語名"],"focus_causes":["原則と例外"],"note":"次回学習の短い指示"}');lines.push('MANABI_PLAN_END');lines.push('');lines.push('【学習サマリー】');lines.push(`全体: ${a.length}問 / 正答率 ${acc(a)??'-'}%`);cats.forEach(c=>{let x=a.filter(y=>y.cat===c);lines.push(`${c}: ${x.length}問 / 正答率 ${acc(x)??'-'}%`)});lines.push(`3分解練習: ${state.breakdownHistory.length}件 / うち難しい ${state.breakdownHistory.filter(x=>x.hard).length}件`);lines.push(`今日が期限の間隔復習: ${dueReviews().length}問 / 復習予定総数: ${Object.keys(state.reviews||{}).length}問`);lines.push(`苦手用語: ${weak.length?weak.map(([n,v])=>`${n}(${Math.ceil(v)})`).join('、'):'なし'}`);lines.push('原因回数: '+(Object.keys(cc).length?Object.entries(cc).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`${CAUSE_LABEL[k]||k}:${v}`).join(' / '):'まだなし'));lines.push('');lines.push('【最近の誤答・迷い 最大40件】');if(!recent.length)lines.push('まだ記録なし');recent.forEach((x,i)=>{lines.push(`${i+1}. [${x.cat}] ${x.kind==='unknown'?'言葉が分からない':x.kind==='unsure'?'正解したが迷った':x.kind==='reading'?'3分解が難しい':'誤答'} / 原因:${CAUSE_LABEL[x.cause]||x.cause}`);lines.push(`   問題: ${x.question}`);if(x.chosen)lines.push(`   選択: ${x.chosen}`);if(x.correct)lines.push(`   正解: ${x.correct}`);if(x.term)lines.push(`   関連用語: ${x.term}`)});return lines.join('\n')}
+async function copyText(text){try{await navigator.clipboard.writeText(text);return true}catch(e){let ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}ta.remove();return ok}}
+function renderAI(){let cc=causeCounts(),sorted=Object.entries(cc).sort((a,b)=>b[1]-a[1]),weak=Object.entries(state.weak).filter(([,v])=>v>=1);$('#aiStruggleCount').textContent=state.struggles.length;$('#aiWeakCount').textContent=weak.length;$('#aiTopCause').textContent=sorted.length?(CAUSE_LABEL[sorted[0][0]]||sorted[0][0]):'-';let cs=$('#causeSummary');if(cs){cs.innerHTML='<b>間違い原因の内訳</b><div class="causeGrid">'+(sorted.length?sorted.map(([k,v])=>`<span class="pill">${CAUSE_LABEL[k]||k} ${v}</span>`).join(''):'<span class="tiny muted">まだ記録がありません。問題を解くと自動で蓄積されます。</span>')+'</div>'}let p=$('#aiPrompt');if(p)p.value=buildAIPrompt();let view=$('#aiPlanView'),mini=$('#aiPlanMini');if(state.aiPlan){let terms=(state.aiPlan.focus_terms||[]).join('、')||'指定なし';let html=`<div class="aiPlan"><b>次回AIプラン</b><br>重点分野：${state.aiPlan.focus_category||'指定なし'}<br>重点用語：${terms}<br>${state.aiPlan.note||''}</div>`;if(view)view.innerHTML=html;if(mini)mini.innerHTML=html}else{if(view)view.innerHTML='';if(mini)mini.textContent='まだ分析結果は登録されていません。'}}
+function importAIPlan(text){let m=text.match(/MANABI_PLAN_START\s*([\s\S]*?)\s*MANABI_PLAN_END/i),raw=m?m[1]:text;let j=raw.match(/\{[\s\S]*\}/);if(!j)throw new Error('JSONが見つかりません');let plan=JSON.parse(j[0]);let cats=['宅建業法','権利関係','法令制限','税・その他'];if(plan.focus_category&&!cats.includes(plan.focus_category))plan.focus_category='宅建業法';plan.focus_terms=Array.isArray(plan.focus_terms)?plan.focus_terms.slice(0,5):[];plan.focus_causes=Array.isArray(plan.focus_causes)?plan.focus_causes.slice(0,5):[];plan.saved_at=new Date().toISOString();state.aiPlan=plan;save();renderAI();return plan}
+
+function renderStats(){let a=state.answers,t=a.filter(x=>x.date===today()),acc=x=>x.length?Math.round(x.filter(y=>y.ok).length/x.length*100)+'%':'-';$('#todayCount').textContent=t.length;$('#allAcc').textContent=acc(a);$('#lawAcc').textContent=acc(a.filter(x=>x.cat==='宅建業法'));let wt=Object.entries(state.weak).filter(([,v])=>v>=1);$('#weakTerms').textContent=wt.length+'語';$('#streak').textContent=(state.streak||0)+'日';let ta=a.filter(x=>x.type==='term'||x.type==='phrase');let p=ta.length?Math.round(ta.filter(x=>x.ok).length/ta.length*100):0;$('#termPct').textContent=ta.length?p+'%':'-';$('#termBar').style.width=p+'%';let box=$('#recentWeak');box.innerHTML='';wt.sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([name,v])=>{let d=G.find(x=>x.name===name);let row=document.createElement('div');row.className='reviewRow';row.innerHTML=`<div><b>${name}</b><div class="tiny muted">${d?d.easy:'要復習'}</div></div><span class="pill">苦手 ${Math.ceil(v)}</span>`;row.onclick=()=>d&&showTerm(d);box.appendChild(row)});if(!wt.length)box.innerHTML='<div class="empty">まだ苦手語はありません。分からない言葉が出たら「まだ分からない」を押してください。</div>';renderReviewSummary();renderAI()}
+function openDict(){renderDict();$('#dictModal').classList.remove('hidden')}
+function renderDict(){let q=$('#dictSearch').value.trim();let list=G.filter(x=>(dictCat==='全部'||x.cat===dictCat)&&(!q||(x.name+x.reading+x.easy+x.exam).includes(q)));let b=$('#termList');b.innerHTML='';list.forEach(x=>{let el=document.createElement('button');el.className='term';el.innerHTML=`<div class="termTop"><b>${x.name}</b><span class="tag">${x.cat}</span></div><div class="plain">→ ${x.easy}</div>`;el.onclick=()=>showTerm(x);b.appendChild(el)});if(!list.length)b.innerHTML='<div class="empty">該当する用語がありません。</div>'}
+function initFilters(){let cats=['全部','宅建業法','権利関係','法令制限','税・その他','共通'],b=$('#filters');cats.forEach(c=>{let x=document.createElement('button');x.className='filter'+(c==='全部'?' sel':'');x.textContent=c;x.onclick=()=>{dictCat=c;$$('.filter').forEach(z=>z.classList.toggle('sel',z.textContent===c));renderDict()};b.appendChild(x)})}
+function showTerm(x){currentTerm=x;$('#termCat').textContent=x.cat;$('#termName').textContent=x.name;$('#termReading').textContent=x.reading;$('#termEasy').textContent=x.easy;$('#termExample').textContent=x.example;$('#termExam').textContent=x.exam;$('#termTrap').textContent=x.trap;$('#termModal').classList.remove('hidden')}
+function termQuestion(term){let others=shuffle(G.filter(x=>x.cat===term.cat&&x.id!==term.id)).slice(0,3);return {cat:term.cat,type:'term',term:term.name,diff:'用語',q:`「${term.name}」を一番やさしく言い換えると？`,a:term.easy,w:others.map(x=>x.easy),ex:`${term.name} ＝ ${term.easy}<br><b>試験文では：</b>${term.exam}<br><b>注意：</b>${term.trap}`}}
+function reverseTermQuestion(term){let others=shuffle(G.filter(x=>x.cat===term.cat&&x.id!==term.id)).slice(0,3);return {cat:term.cat,type:'term',term:term.name,diff:'用語',q:`「${term.easy}」を表す用語はどれ？`,a:term.name,w:others.map(x=>x.name),ex:`正解は「${term.name}」。${term.example}`}}
+function phraseQuestion(p){let other=shuffle(PHRASES.filter(x=>x!==p)).slice(0,3);return {cat:'共通',type:'phrase',term:p[0],diff:'文章',q:`問題文の「${p[0]}」を、ふつうの日本語にすると？`,a:p[1],w:other.map(x=>x[1]),ex:`「${p[0]}」＝ ${p[1]}`}}
+function scenarioQuestion(s){return {...s,type:'scenario',diff:'実戦',w:s.w}}
+function make5(mode='normal'){
+ let qs=[];
+ if(mode==='phrase') qs=shuffle(PHRASES).slice(0,5).map(phraseQuestion);
+ else if(mode==='weak'){let weak=Object.entries(state.weak).filter(([,v])=>v>=1).sort((a,b)=>b[1]-a[1]).map(([n])=>G.find(x=>x.name===n)).filter(Boolean);if(weak.length){while(qs.length<5){let t=weak[qs.length%weak.length];qs.push(qs.length%2?reverseTermQuestion(t):termQuestion(t))}}else qs=shuffle(G.filter(x=>x.cat===selectedCat)).slice(0,5).map(termQuestion)}
+ else if(mode==='ai'){let plan=state.aiPlan||{};let cat=plan.focus_category||selectedCat;let names=plan.focus_terms||[];let findFuzzy=n=>{let exact=G.find(x=>x.name===n)||G.find(x=>x.name.includes(n)||n.includes(x.name));if(exact)return exact;let bi=t=>Array.from({length:Math.max(0,t.length-1)},(_,i)=>t.slice(i,i+2));let ng=bi(n),best=null,score=0;G.forEach(x=>{let sc=bi(x.name).filter(g=>ng.includes(g)).length;if(sc>score){score=sc;best=x}});return score?best:null};let focus=names.map(findFuzzy).filter(Boolean);let weak=Object.entries(state.weak).filter(([,v])=>v>=1).sort((a,b)=>b[1]-a[1]).map(([n])=>G.find(x=>x.name===n)).filter(Boolean);let terms=[...focus,...weak.filter(x=>!focus.includes(x))].slice(0,2);terms.forEach((t,i)=>qs.push(i?reverseTermQuestion(t):termQuestion(t)));qs.push(...shuffle(SC.filter(x=>x.cat===cat)).slice(0,5-qs.length).map(scenarioQuestion));while(qs.length<5){let pool=G.filter(x=>x.cat===cat);if(!pool.length)pool=G;qs.push(termQuestion(pick(pool)))}qs=shuffle(qs)}
+ else {let sc=shuffle(SC.filter(x=>x.cat===selectedCat)).slice(0,3).map(scenarioQuestion), terms=shuffle(G.filter(x=>x.cat===selectedCat)).slice(0,2).map((t,i)=>i?reverseTermQuestion(t):termQuestion(t));qs=shuffle([...sc,...terms]);while(qs.length<5)qs.push(termQuestion(pick(G.filter(x=>x.cat===selectedCat))))}
+ startQuiz(qs,mode==='phrase'?'文章ほどき5問':mode==='weak'?'苦手だけ復習':mode==='ai'?'AIおすすめ5問':selectedCat+'｜5問チャレンジ')
+}
+
+function renderUnits(){let box=$('#unitList'),counts=lawUnitCounts();box.innerHTML='';LAW_UNITS.forEach(u=>{let b=document.createElement('button');b.className='term';b.innerHTML=`<div class="termTop"><b>${u.name}</b><span class="tag">${counts[u.id]||0}問</span></div><div class="plain">→ ${u.hint}</div>`;b.onclick=()=>{let pool=SC.filter(x=>x.cat==='宅建業法'&&lawUnitOf(x)===u.id);let qs=shuffle(pool).slice(0,5).map(scenarioQuestion);while(qs.length<5){let terms=G.filter(x=>x.cat==='宅建業法');qs.push(termQuestion(pick(terms)))}$('#unitModal').classList.add('hidden');startQuiz(qs,u.name+'｜単元別5問')};box.appendChild(b)})}
+function mockQuestions(cat,n){let qs=shuffle(SC.filter(x=>x.cat===cat)).slice(0,n).map(scenarioQuestion);let tp=shuffle(G.filter(x=>x.cat===cat));let i=0;while(qs.length<n&&tp.length){qs.push(i%2?reverseTermQuestion(tp[i%tp.length]):termQuestion(tp[i%tp.length]));i++}return qs}
+function startMock20(){let qs=[...mockQuestions('宅建業法',8),...mockQuestions('権利関係',6),...mockQuestions('法令制限',3),...mockQuestions('税・その他',3)];startQuiz(shuffle(qs),'📝 20問ミニ模試')}
+function backupJSON(){return JSON.stringify({app:'manabi-tab-takken',version:PROJECT.version,exported_at:new Date().toISOString(),state:state},null,2)}
+function normalizeState(x){let d={answers:[],weak:{},struggles:[],breakdownHistory:[],reviews:{},streak:0,lastStudy:'',aiPlan:null},v=x&&x.state?x.state:x;if(!v||typeof v!=='object')throw new Error('学習データが見つかりません');return {...d,...v,answers:Array.isArray(v.answers)?v.answers:[],weak:v.weak&&typeof v.weak==='object'?v.weak:{},struggles:Array.isArray(v.struggles)?v.struggles:[],breakdownHistory:Array.isArray(v.breakdownHistory)?v.breakdownHistory:[],reviews:v.reviews&&typeof v.reviews==='object'?v.reviews:{}}}
+function restoreFromText(txt){let obj=JSON.parse(txt);state=normalizeState(obj);save();renderStats();renderProject();return true}
+
+let breakdownSession=null;
+function startBreakdown(){$('.breakGuide').classList.remove('hidden');$('.breakSteps').classList.remove('hidden');$('#breakNext').classList.remove('hidden');$('#breakHard').classList.remove('hidden');breakdownSession={items:shuffle(BREAKDOWNS).slice(0,5),i:0,revealed:new Set(),logged:false};$('#breakModal').classList.remove('hidden');showBreakdown()}
+function showBreakdown(){let x=breakdownSession.items[breakdownSession.i];breakdownSession.revealed=new Set();breakdownSession.logged=false;$('#breakCat').textContent=x.cat;$('#breakProgress').textContent=`${breakdownSession.i+1} / ${breakdownSession.items.length}`;$('#breakText').textContent=x.text;$('#breakPeople').textContent=x.people;$('#breakAction').textContent=x.action;$('#breakAsk').textContent=x.ask;$('#breakPlain').innerHTML='<b>一言にすると：</b>'+x.plain;['#breakPeople','#breakAction','#breakAsk','#breakPlain'].forEach(id=>$(id).classList.add('hidden'));$$('[data-break]').forEach(b=>b.classList.remove('breakHardDone'));$('#breakHard').textContent='まだ難しい';$('#breakNext').disabled=true;$('#breakStatus').textContent=''}
+function revealBreak(part){let map={people:'#breakPeople',action:'#breakAction',ask:'#breakAsk'};$(map[part]).classList.remove('hidden');breakdownSession.revealed.add(part);let btn=$(`[data-break="${part}"]`);if(btn)btn.classList.add('breakHardDone');if(breakdownSession.revealed.size===3){$('#breakPlain').classList.remove('hidden');$('#breakNext').disabled=false}}
+function logBreakdown(hard){if(breakdownSession.logged)return;let x=breakdownSession.items[breakdownSession.i];breakdownSession.logged=true;state.breakdownHistory.push({date:today(),id:BREAKDOWNS.indexOf(x),cat:x.cat,hard:!!hard,text:x.text});if(state.breakdownHistory.length>300)state.breakdownHistory=state.breakdownHistory.slice(-300);if(hard)addStruggle({cat:x.cat,type:'breakdown',q:x.text,a:x.plain,term:''},'reading','','問題文読解',true);markStudy();save();renderStats();$('#breakStatus').textContent=hard?'「問題文の分解が難しい」と記録しました。ChatGPT分析に入ります。':'理解できた記録を保存しました。'}
+
+function startQuiz(qs,title){quiz={qs,i:0,score:0,title,unsure:false,results:[]};$('#quizTitle').textContent=title;$('#quizModal').classList.remove('hidden');showQ()}
+function showQ(){let z=quiz.qs[quiz.i];quiz.unsure=false;z._unknownLogged=false;$('#quizProgress').textContent=`${quiz.i+1} / ${quiz.qs.length}`;$('#quizDiff').textContent=z.diff;$('#quizQuestion').textContent=z.q;let box=$('#quizOptions');box.innerHTML='';shuffle([z.a,...z.w]).forEach(o=>{let b=document.createElement('button');b.className='option';b.textContent=o;b.onclick=()=>doAnswer(b,o,z);box.appendChild(b)});$('#quizFeedback').classList.add('hidden');$('#quizNext').classList.add('hidden');$('#quizUnknown').classList.remove('hidden');$('#quizUnknown').textContent='言葉が分からない';$('#quizUnsure').classList.remove('hidden');$('#quizUnsure').textContent='🤔 迷った';$('#quizUnsure').classList.remove('sel')}
+function doAnswer(btn,o,z){$$('#quizOptions button').forEach(b=>b.disabled=true);let ok=o===z.a;if(ok){btn.classList.add('ok');quiz.score++}else{btn.classList.add('ng');$$('#quizOptions button').forEach(b=>{if(b.textContent===z.a)b.classList.add('ok')})}quiz.results.push({cat:z.cat,ok:ok});answerLog(ok,z.type,z.cat,z.term||'',{question:z.q,chosen:o,correct:z.a,unsure:quiz.unsure});scheduleReview(z,ok,quiz.unsure);let sid='';if(!ok)sid=addStruggle(z,'wrong',o,inferCause(z,o),quiz.unsure);else if(quiz.unsure)sid=addStruggle(z,'unsure',o,'自信不足',true);let fb=$('#quizFeedback');fb.innerHTML=(ok?'✅ <b>正解</b>':'💡 <b>正解：</b>'+z.a)+'<br>'+z.ex+(sid&&!ok?causePicker(sid,inferCause(z,o)):(sid&&ok?'<div class="causePicker"><b>正解ですが「迷った」と記録しました。分析では自信不足として扱います。</b></div>':''));fb.classList.remove('hidden');if(sid&&!ok)bindCauseButtons();$('#quizNext').classList.remove('hidden');$('#quizUnknown').classList.add('hidden');$('#quizUnsure').classList.add('hidden')}
+function finishQuiz(){let r=Math.round(quiz.score/quiz.qs.length*100);$('#quizQuestion').innerHTML=`<div class="scoreCircle">${r}%</div><div style="text-align:center">${quiz.qs.length}問中 ${quiz.score}問正解</div>`;$('#quizOptions').innerHTML='';let msg=r>=80?'かなり読めています。次は「なぜ他の選択肢が違うか」まで説明できれば強いです。':r>=60?'意味はつかめています。間違えた用語だけ辞典で1回確認しましょう。':'まず用語の翻訳を優先。問題を解く前に「この一文は何を言っている？」を日本語に直しましょう。';if(quiz.title.includes('20問ミニ模試')){let cats=['宅建業法','権利関係','法令制限','税・その他'];let rows=cats.map(c=>{let x=quiz.results.filter(v=>v.cat===c);return x.length?`${c}：${x.filter(v=>v.ok).length}/${x.length}`:''}).filter(Boolean);msg='<b>科目別結果</b><br>'+rows.join('<br>')+'<br><br>'+msg}$('#quizFeedback').innerHTML=msg;$('#quizFeedback').classList.remove('hidden');$('#quizNext').classList.add('hidden');$('#quizUnknown').classList.add('hidden');$('#quizUnsure').classList.add('hidden')}
+$('#quizNext').onclick=()=>{quiz.i++;quiz.i<quiz.qs.length?showQ():finishQuiz()};$('#quizQuit').onclick=()=>$('#quizModal').classList.add('hidden');$('#quizUnsure').onclick=()=>{quiz.unsure=!quiz.unsure;$('#quizUnsure').textContent=quiz.unsure?'✓ 迷ったと記録':'🤔 迷った';$('#quizUnsure').classList.toggle('sel',quiz.unsure)};$('#quizUnknown').onclick=()=>{let z=quiz.qs[quiz.i];if(z._unknownLogged)return;z._unknownLogged=true;if(z.term)state.weak[z.term]=(state.weak[z.term]||0)+1;else{let m=G.find(t=>z.q.includes(t.name));if(m)state.weak[m.name]=(state.weak[m.name]||0)+1}addStruggle(z,'unknown','',z.type==='scenario'?'用語理解':inferCause(z),true);scheduleReview(z,false,true,1);save();renderStats();$('#quizFeedback').innerHTML='📌 「言葉が分からない」と記録しました。これはChatGPT分析で <b>用語理解のつまずき</b> として扱います。答える前に辞典を見てOKです。';$('#quizFeedback').classList.remove('hidden');$('#quizUnknown').textContent='記録しました ✓'};
+
+$('#openBreakdown').onclick=startBreakdown;$('.closeBreak').onclick=()=>$('#breakModal').classList.add('hidden');$$('[data-break]').forEach(b=>b.onclick=()=>revealBreak(b.dataset.break));$('#breakHard').onclick=()=>{logBreakdown(true);['people','action','ask'].forEach(revealBreak);$('#breakHard').textContent='記録しました ✓';$('#breakNext').disabled=false};$('#breakNext').onclick=()=>{if(!breakdownSession.logged)logBreakdown(false);breakdownSession.i++;if(breakdownSession.i<breakdownSession.items.length)showBreakdown();else{$('#breakText').innerHTML='<div class="scoreCircle">5題</div><div style="text-align:center">3分解トレーニング完了</div>';$('.breakGuide').innerHTML='<b>読む型はこれだけ</b><br>①誰が → ②何をした → ③何を聞いている';$('.breakSteps').classList.add('hidden');$('#breakPlain').classList.remove('hidden');$('#breakPlain').innerHTML='この型を先に作ってから、法律知識を当てはめます。';$('#breakNext').classList.add('hidden');$('#breakHard').classList.add('hidden')}};
+$('#openDict').onclick=openDict;$('#openDictHeader').onclick=openDict;$('#dictSearch').oninput=renderDict;$$('.close').forEach(x=>x.onclick=()=>x.closest('.modal').classList.add('hidden'));$('.closeTerm').onclick=()=>$('#termModal').classList.add('hidden');$('#markWeak').onclick=()=>{if(currentTerm){state.weak[currentTerm.name]=(state.weak[currentTerm.name]||0)+1;save();renderStats();$('#markWeak').textContent='記録しました ✓';setTimeout(()=>$('#markWeak').textContent='まだ分からない',1200)}};$('#termQuizBtn').onclick=()=>{if(currentTerm){$('#termModal').classList.add('hidden');startQuiz([termQuestion(currentTerm)],currentTerm.name+'｜確認問題')}};
+$('#openPhrase').onclick=()=>{let b=$('#phraseList');b.innerHTML='';PHRASES.forEach(p=>{let d=document.createElement('div');d.className='phrase';d.innerHTML=`<b>${p[0]}</b>${p[1]}`;b.appendChild(d)});$('#phraseModal').classList.remove('hidden')};$('#phraseQuizBtn').onclick=()=>{$('#phraseModal').classList.add('hidden');make5('phrase')};
+$('#start5').onclick=()=>make5('normal');$('#startWeak').onclick=()=>make5('weak');$('#startDue').onclick=startDueReviews;$('#startDue2').onclick=startDueReviews;$$('.subject').forEach(x=>x.onclick=()=>{selectedCat=x.dataset.cat;$$('.subject').forEach(y=>y.classList.toggle('active',y===x));make5('normal')});
+$('#openAI').onclick=$('#openAI2').onclick=()=>{renderAI();$('#aiModal').classList.remove('hidden')};$('.closeAI').onclick=()=>$('#aiModal').classList.add('hidden');$('#copyAI').onclick=async()=>{let ok=await copyText($('#aiPrompt').value);$('#copyStatus').textContent=ok?'コピーしました。ChatGPTに貼り付けてください。':'自動コピーできませんでした。上の文章を長押ししてコピーしてください。'};$('#openChatGPT').onclick=()=>window.open('https://chatgpt.com/','_blank');$('#importAIPlan').onclick=()=>{try{let p=importAIPlan($('#aiResult').value);$('#aiImportStatus').textContent='反映しました。ホームの「AIおすすめ5問」から開始できます。';renderStats()}catch(e){$('#aiImportStatus').textContent='読み込めませんでした：'+e.message}};$('#clearAIPlan').onclick=()=>{state.aiPlan=null;save();renderAI();$('#aiImportStatus').textContent='AI設定を解除しました。'};$('#startAI').onclick=()=>{if(!state.aiPlan){renderAI();$('#aiModal').classList.remove('hidden');$('#aiImportStatus').textContent='先にChatGPTの分析結果を貼り戻してください。';return}make5('ai')};
+$('#openUnits').onclick=()=>{renderUnits();$('#unitModal').classList.remove('hidden')};$('.closeUnit').onclick=()=>$('#unitModal').classList.add('hidden');$('#startMock20').onclick=startMock20;
+$('#openBackup').onclick=()=>{$('#backupArea').value=backupJSON();$('#backupStatus').textContent='';$('#backupModal').classList.remove('hidden')};$('.closeBackup').onclick=()=>$('#backupModal').classList.add('hidden');$('#makeBackup').onclick=()=>{$('#backupArea').value=backupJSON();$('#backupStatus').textContent='最新の学習データを表示しました。'};$('#copyBackup').onclick=async()=>{$('#backupArea').value=backupJSON();let ok=await copyText($('#backupArea').value);$('#backupStatus').textContent=ok?'バックアップをコピーしました。':'コピーできませんでした。テキストを長押ししてコピーしてください。'};$('#downloadBackup').onclick=()=>{let blob=new Blob([backupJSON()],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='manabi_takken_backup_'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);$('#backupStatus').textContent='JSONファイルを作成しました。'};$('#restoreBackup').onclick=()=>{try{if(!$('#restoreArea').value.trim())throw new Error('復元するJSONを貼り付けてください');if(!confirm('現在の学習記録を、このバックアップで置き換えますか？'))return;restoreFromText($('#restoreArea').value);$('#backupArea').value=backupJSON();$('#backupStatus').textContent='復元しました。'}catch(e){$('#backupStatus').textContent='復元できませんでした：'+e.message}};$('#backupFile').onchange=async e=>{let f=e.target.files&&e.target.files[0];if(!f)return;try{$('#restoreArea').value=await f.text();$('#backupStatus').textContent='ファイルを読み込みました。「このデータで復元」を押してください。'}catch(err){$('#backupStatus').textContent='ファイルを読めませんでした。'}};
+$('#clearProgress').onclick=()=>{if(confirm('学習記録をすべて消しますか？')){state={answers:[],weak:{},struggles:[],breakdownHistory:[],reviews:{},streak:0,lastStudy:'',aiPlan:null};save();renderStats()}};
+$('#openProgress').onclick=()=>{renderProject();$('#devModal').classList.remove('hidden')};$('.closeDev').onclick=()=>$('#devModal').classList.add('hidden');
+initFilters();renderStats();renderProject();
+</script>
+</body>
+</html>
