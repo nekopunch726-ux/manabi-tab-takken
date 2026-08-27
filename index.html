@@ -1,8 +1,7 @@
 <!doctype html>
-<html lang="ja">
-<head>
+<html lang="ja"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>まなびタブ 宅建 v1.6</title>
+<title>まなびタブ 宅建 v1.7</title>
 <style>
 :root{--blue:#3478f6;--ink:#1b2c3d;--muted:#6e7e8d;--line:#dce6ee;--bg:#f6f9fc;--green:#25a86a;--red:#e95f5f;--yellow:#ffbf45;--purple:#7757d9}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;color:var(--ink);background:var(--bg)}button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}header b{font-size:20px}.wrap{max-width:1000px;margin:auto;padding:18px 16px 90px}.hero{background:linear-gradient(135deg,#2f73ed,#63a7ff);border-radius:24px;padding:22px;color:#fff;display:flex;justify-content:space-between;gap:18px;align-items:center}.hero h1{margin:0 0 7px;font-size:clamp(26px,5vw,38px)}.hero p{margin:0;line-height:1.65}.heroStat{min-width:126px;text-align:center;background:#ffffff22;border:1px solid #ffffff44;border-radius:18px;padding:13px}.heroStat strong{font-size:29px;display:block}.note{margin-top:12px;background:#fff8df;border:1px solid #ffe286;border-radius:15px;padding:12px 14px;line-height:1.6;font-size:14px}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.quick button,.subject,.cardBtn{border:1px solid var(--line);background:#fff;border-radius:18px;padding:16px;text-align:left;box-shadow:0 5px 16px #4a6e8a10}.quick button span,.subject span{display:block;font-size:28px;margin-bottom:7px}.quick button b,.subject b{display:block}.quick small,.subject small{display:block;color:var(--muted);margin-top:5px;line-height:1.4}h2{margin:26px 0 11px}.subjects{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.subject.active{border:2px solid #7fb0ff;background:#f0f6ff}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px}.stat small{display:block;color:var(--muted)}.stat strong{font-size:25px}.section{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:14px}.progress{height:9px;background:#edf2f6;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:var(--blue)}.muted{color:var(--muted)}.modal{position:fixed;inset:0;background:#10283c88;z-index:20;display:grid;place-items:center;padding:12px}.modalBox{width:min(760px,100%);max-height:94dvh;overflow:auto;background:#fff;border-radius:25px;padding:20px}.qhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.light{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;font-weight:800}.primary{border:0;background:var(--blue);color:#fff;border-radius:13px;padding:12px 16px;font-weight:900}.danger{border:1px solid #ffd0d0;background:#fff5f5;color:#b94444;border-radius:12px;padding:10px 12px;font-weight:800}.question{font-size:22px;line-height:1.62;margin:20px 0 15px}.options{display:grid;gap:10px}.option{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px;text-align:left;font-weight:800;line-height:1.5}.option.ok{border-color:var(--green);background:#eefff7}.option.ng{border-color:var(--red);background:#fff2f2}.feedback{margin-top:14px;padding:14px;border-radius:14px;background:#f3f8fc;line-height:1.75}.actions{display:flex;gap:9px;margin-top:15px;flex-wrap:wrap}.actions .primary{margin-left:auto}.difficulty{font-size:12px;font-weight:900;padding:5px 8px;border-radius:99px;background:#eef5ff;color:#2565b5}.search{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px 14px;background:#fbfdff;font-size:16px}.filters{display:flex;gap:7px;overflow:auto;padding:10px 0}.filter{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 11px;font-weight:800}.filter.sel{background:#eaf3ff;border-color:#9fc4ff;color:#2762ae}.termList{display:grid;gap:9px}.term{border:1px solid var(--line);border-radius:15px;padding:13px 14px;background:#fff;text-align:left}.termTop{display:flex;justify-content:space-between;gap:10px}.term b{font-size:18px}.tag{font-size:11px;padding:4px 7px;border-radius:99px;background:#f1f4f7;color:#526575;white-space:nowrap}.plain{margin-top:7px;font-weight:800;color:#2c5e88}.termDetail h3{font-size:28px;margin:7px 0}.termDetail .boxy{border-radius:14px;padding:13px 14px;margin:10px 0;line-height:1.7}.easy{background:#eef8ff}.example{background:#f5f7fb}.trap{background:#fff5e8}.exam{background:#f2fff7}.phrase{border-left:4px solid var(--purple);padding:12px 14px;background:#f7f4ff;border-radius:0 14px 14px 0;margin:10px 0}.phrase b{display:block;margin-bottom:5px}.reviewRow{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.pill{display:inline-block;border-radius:99px;padding:5px 8px;font-size:12px;font-weight:900;background:#eef4f9}.empty{text-align:center;color:var(--muted);padding:24px}.explainTerm{display:inline-block;border-bottom:2px dotted #78a9db;color:#1d69b4;font-weight:800}.scoreCircle{font-size:48px;font-weight:900;text-align:center;padding:20px}.tiny{font-size:12px;color:var(--muted)}@media(max-width:760px){.quick,.subjects{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.hero{display:block}.heroStat{margin-top:14px}.question{font-size:20px}}@media(max-width:390px){.quick,.subjects{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
 
@@ -10,57 +9,60 @@
 
 .aiBox{background:#f6f2ff;border:1px solid #d9cdfb;border-radius:18px;padding:16px}.aiStats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0}.aiStat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.aiStat small{display:block;color:var(--muted)}.aiStat strong{font-size:22px}.causeGrid{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.causeBtn{border:1px solid #cfdbe5;background:#fff;border-radius:99px;padding:8px 10px;font-weight:800;font-size:12px}.causeBtn.sel{background:#eaf3ff;border-color:#82b4ff;color:#245f9d}.copyArea{width:100%;min-height:230px;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfdff;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical}.planArea{width:100%;min-height:140px;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}.aiPlan{background:#effbf5;border:1px solid #bde8d2;border-radius:15px;padding:13px;line-height:1.65;margin-top:10px}.warnBox{background:#fff8df;border:1px solid #ffe286;border-radius:14px;padding:12px;line-height:1.6}.causePicker{margin-top:12px;padding-top:12px;border-top:1px dashed #cfdbe5}.causePicker b{font-size:13px}.miniButton{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 9px;font-size:12px;font-weight:800}@media(max-width:760px){.aiStats{grid-template-columns:1fr 1fr}.copyArea{min-height:280px}}
 
-.breakText{font-size:20px;font-weight:800;line-height:1.75;background:#f7f9fc;border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}.breakGuide{background:#eef8ff;border:1px solid #c9e7ff;border-radius:14px;padding:12px 14px;line-height:1.6}.breakSteps{display:grid;gap:9px;margin-top:12px}.breakStep{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;text-align:left;font-weight:900}.breakStep small{display:block;color:var(--muted);margin-top:4px}.breakAnswer{margin:-3px 0 5px 10px;padding:11px 13px;border-left:4px solid var(--blue);background:#f2f7ff;border-radius:0 12px 12px 0;line-height:1.65}.breakPlain{background:#effbf5;border:1px solid #bde8d2;border-radius:14px;padding:13px;margin-top:12px;line-height:1.65}.breakHardDone{background:#fff4e5!important;border-color:#ffc76a!important}.breakCounter{font-size:12px;font-weight:900;color:var(--muted)}
+.breakText{font-size:20px;font-weight:800;line-height:1.75;background:#f7f9fc;border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}.breakGuide{background:#eef8ff;border:1px solid #c9e7ff;border-radius:14px;padding:12px 14px;line-height:1.6}.breakSteps{display:grid;gap:9px;margin-top:12px}.breakStep{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;text-align:left;font-weight:900}.breakStep small{display:block;color:var(--muted);margin-top:4px}.breakAnswer{margin:-3px 0 5px 10px;padding:11px 13px;border-left:4px solid var(--blue);background:#f2f7ff;border-radius:0 12px 12px 0;line-height:1.65}.breakPlain{background:#effbf5;border:1px solid #bde8d2;border-radius:14px;padding:13px;margin-top:12px;line-height:1.65}.breakHardDone{background:#fff4e5!important;border-color:#ffc76a!important}.breakCounter{font-size:12px;font-weight:900;color:var(--muted)}.quizMeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.timer{font-variant-numeric:tabular-nums;background:#eef5ff;color:#245f9d}.timer.warning{background:#fff0e8;color:#b84c26}@media(max-width:520px){.qhead.quizHead{align-items:flex-start}.quizMeta{justify-content:flex-start}.qhead.quizHead{display:grid}}
 </style>
 </head>
 <body>
-<header><b>🏠 まなびタブ 宅建 <span class="versionTag">v1.6</span></b><div style="display:flex;gap:8px"><button id="openProgress" class="light">📊 開発進捗</button><button id="openDictHeader" class="light">📖 用語辞典</button></div></header>
+<header><b>🏠 まなびタブ 宅建 <span class="versionTag">v1.7</span></b><div style="display:flex;gap:8px"><button id="openProgress" class="light">📊 開発進捗</button><button id="openDictHeader" class="light">📖 用語辞典</button></div></header>
 <div class="wrap">
 <section class="hero"><div><h1>「何が書いてある？」をなくす。</h1><p>難しい法律用語を、ふつうの日本語に翻訳してから問題を解きます。</p></div><div class="heroStat"><small>今日の問題</small><strong id="todayCount">0</strong><small>問</small></div></section>
-<div class="note">📌 <b>2026年度対応</b>：令和8年4月1日現在施行の法令を基準に学習。まずは宅建業法を厚くし、用語辞典は権利関係・法令制限・税の重要語も収録しています。</div>
-<div class="section" style="margin-top:14px"><div class="qhead"><div><b>📊 完成までの進捗</b><div class="muted tiny">完成条件を固定して、毎回ここを更新</div></div><strong id="devPctMini">-</strong></div><div class="progress" style="margin-top:10px"><i id="devBarMini" style="width:0%"></i></div><div id="devNextMini" class="tiny muted" style="margin-top:8px"></div></div>
+<div class="note">📌 <b>2026年度対応</b>：令和8年4月1日現在施行の法令を基準に学習。宅建業法100問に加え、権利関係60問・8単元と50問本番模試βまで収録しています。</div>
+<div class="section" style="margin-top:14px"><div class="qhead"><div><b>📊 完成までの進捗</b><div class="muted tiny">完成条件を固定して、毎回ここを更新</div></div><strong id="devPctMini">73%</strong></div><div class="progress" style="margin-top:10px"><i id="devBarMini" style="width: 73%;"></i></div><div id="devNextMini" class="tiny muted" style="margin-top:8px">次：④ 実戦問題600問 → 165問 / 600問</div></div>
 <div class="quick">
 <button id="start5"><span>🎯</span><b>今日の5問</b><small>宅建業法中心。解説つき</small></button>
 <button id="openDict"><span>📖</span><b>難しい用語辞典</b><small>法律語→ふつうの日本語</small></button>
 <button id="openPhrase"><span>🧩</span><b>文章ほどき</b><small>長い問題文を短く翻訳</small></button>
 <button id="openBreakdown"><span>🔍</span><b>問題文3分解</b><small>人物→行動→質問に分ける</small></button>
 <button id="startWeak"><span>🔁</span><b>苦手だけ復習</b><small>間違い・「わからない」を優先</small></button>
-<button id="startDue"><span>⏰</span><b>今日の復習 <em id="dueBadge" style="font-style:normal">0</em></b><small>翌日→3日→7日で忘れる前に</small></button>
+<button id="startDue"><span>⏰</span><b>今日の復習 <em id="dueBadge" style="font-style:normal">35</em></b><small>翌日→3日→7日で忘れる前に</small></button>
 <button id="openAI"><span>🤖</span><b>ChatGPT苦手分析</b><small>間違い方をまとめて分析へ</small></button>
 <button id="startAI"><span>🧠</span><b>AIおすすめ5問</b><small>分析結果を次の学習へ反映</small></button>
 <button id="openUnits"><span>📚</span><b>宅建業法・単元別</b><small>8単元から苦手を5問</small></button>
+<button id="openRightsUnits"><span>⚖️</span><b>権利関係・単元別</b><small>8単元から苦手を5問</small></button>
 <button id="startMock20"><span>📝</span><b>20問ミニ模試</b><small>本番の科目配分を縮小再現</small></button>
+<button id="startMock50"><span>⏱️</span><b>50問本番模試β</b><small>本番配分・120分タイマー</small></button>
 <button id="openBackup"><span>💾</span><b>バックアップ</b><small>学習記録を保存・復元</small></button>
 </div>
 <h2>分野</h2><div class="subjects">
 <button class="subject active" data-cat="宅建業法"><span>🏢</span><b>宅建業法</b><small>最優先・問題充実</small></button>
-<button class="subject" data-cat="権利関係"><span>⚖️</span><b>権利関係</b><small>用語から意味をつかむ</small></button>
+<button class="subject" data-cat="権利関係"><span>⚖️</span><b>権利関係</b><small>実戦60問・8単元</small></button>
 <button class="subject" data-cat="法令制限"><span>🗺️</span><b>法令上の制限</b><small>都市計画・建築</small></button>
 <button class="subject" data-cat="税・その他"><span>💴</span><b>税・その他</b><small>税・価格・5問免除系</small></button>
 </div>
-<h2>学習記録</h2><div class="stats"><div class="stat"><small>全体正答率</small><strong id="allAcc">-</strong></div><div class="stat"><small>宅建業法</small><strong id="lawAcc">-</strong></div><div class="stat"><small>苦手用語</small><strong id="weakTerms">0語</strong></div><div class="stat"><small>連続学習</small><strong id="streak">0日</strong></div></div>
-<div class="section"><div class="qhead"><div><b>⏰ 間隔復習</b><div class="muted tiny">誤答は翌日・迷いは3日後・自信あり正解は7日後</div></div><button id="startDue2" class="primary">今日の復習 <span id="dueCount">0</span>問</button></div><div id="reviewScheduleMini" class="tiny muted" style="margin-top:10px"></div></div>
-<div class="section"><div class="qhead"><div><b>用語理解度</b><div class="muted tiny">辞典問題の正答率</div></div><span id="termPct">-</span></div><div class="progress" style="margin-top:10px"><i id="termBar" style="width:0%"></i></div></div>
-<div class="section"><div class="qhead"><b>最近の苦手</b><button id="clearProgress" class="danger">記録をリセット</button></div><div id="recentWeak"></div></div>
+<h2>学習記録</h2><div class="stats"><div class="stat"><small>全体正答率</small><strong id="allAcc">31%</strong></div><div class="stat"><small>宅建業法</small><strong id="lawAcc">30%</strong></div><div class="stat"><small>苦手用語</small><strong id="weakTerms">9語</strong></div><div class="stat"><small>連続学習</small><strong id="streak">1日</strong></div></div>
+<div class="section"><div class="qhead"><div><b>⏰ 間隔復習</b><div class="muted tiny">誤答は翌日・迷いは3日後・自信あり正解は7日後</div></div><button id="startDue2" class="primary">今日の復習 <span id="dueCount">35</span>問</button></div><div id="reviewScheduleMini" class="tiny muted" style="margin-top:10px"><b style="color:#b06a00">今日が復習日：35問</b>　まずここから。</div></div>
+<div class="section"><div class="qhead"><div><b>用語理解度</b><div class="muted tiny">辞典問題の正答率</div></div><span id="termPct">18%</span></div><div class="progress" style="margin-top:10px"><i id="termBar" style="width: 18%;"></i></div></div>
+<div class="section"><div class="qhead"><b>最近の苦手</b><button id="clearProgress" class="danger">記録をリセット</button></div><div id="recentWeak"><div class="reviewRow"><div><b>仮換地</b><div class="tiny muted">土地区画整理事業の途中で、元の土地に代わって一時的に使用・収益する土地として指定される場所。</div></div><span class="pill">苦手 1</span></div><div class="reviewRow"><div><b>地域地区</b><div class="tiny muted">都市計画で土地利用のルールを区域ごとに定める仕組みの総称。</div></div><span class="pill">苦手 1</span></div><div class="reviewRow"><div><b>特別用途地区</b><div class="tiny muted">用途地域のルールを地域の事情に応じて補完する地区。</div></div><span class="pill">苦手 1</span></div><div class="reviewRow"><div><b>絶対高さ制限</b><div class="tiny muted">低層住宅地などで、建物の高さを都市計画で定めた上限以下に抑える規制。</div></div><span class="pill">苦手 1</span></div><div class="reviewRow"><div><b>印紙税</b><div class="tiny muted">一定の契約書などの課税文書を作成したときにかかる国税。</div></div><span class="pill">苦手 1</span></div><div class="reviewRow"><div><b>鑑定評価</b><div class="tiny muted">不動産の経済価値を専門的に判定し、価格として示すこと。</div></div><span class="pill">苦手 1</span></div></div></div>
 <div class="section aiBox"><div class="qhead"><div><b>🤖 ChatGPT学習コーチ</b><div class="tiny muted">苦手の「量」ではなく、間違い方の傾向を分析</div></div><button id="openAI2" class="primary">分析する</button></div><div id="aiPlanMini" class="aiPlan">まだ分析結果は登録されていません。</div></div>
 </div>
 
-<div id="devModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">📊 完成ロードマップ</b><div class="versionTag">まなびタブ宅建 v1.6｜基準日 2026-08-26</div></div><button class="light closeDev">閉じる</button></div><div class="devGrid"><div class="devSummary"><small>総合進捗</small><strong id="devPct">-</strong><div class="progress"><i id="devBar" style="width:0%"></i></div></div><div class="devSummary"><small>現在の収録</small><div id="devCounts" style="margin-top:8px;line-height:1.75;font-weight:800"></div></div></div><div id="devNext" class="nextBox"></div><h3>完成条件</h3><ol class="criteria"><li>学習基盤・端末保存が安定して動く</li><li>難しい用語辞典 250語</li><li>問題文の文章ほどき100表現＋3分解トレーニング40題</li><li>実戦オリジナル問題 600問（宅建業法200／権利関係200／法令120／税・その他80）</li><li>苦手登録＋間隔復習＋再出題を自動化</li><li>20問ミニ模試→最終的に50問本番形式模試を実装</li><li>2026年度法令基準で数値・期限・改正点を根拠確認</li><li>スマホ実機QA・バックアップ/復元・配布版を完成</li><li>ChatGPT弱点分析＋次回学習反映ループを完成</li></ol><h3>工程別進捗</h3><div id="milestones"></div></div></div>
+<div id="devModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">📊 完成ロードマップ</b><div class="versionTag">まなびタブ宅建 v1.7｜基準日 2026-08-26</div></div><button class="light closeDev">閉じる</button></div><div class="devGrid"><div class="devSummary"><small>総合進捗</small><strong id="devPct">73%</strong><div class="progress"><i id="devBar" style="width: 73%;"></i></div></div><div class="devSummary"><small>現在の収録</small><div id="devCounts" style="margin-top:8px;line-height:1.75;font-weight:800">用語 <b>250/250</b><br>文章 <b>100/100</b><br>3分解 <b>40/40</b><br>実戦問題 <b>165/600</b></div></div></div><div id="devNext" class="nextBox"><b>v1.7で追加</b><br>用語 <b>250語</b>・文章 <b>100表現</b>・3分解 <b>40題</b>を達成。権利関係を<b>60問・8単元</b>へ拡張し、<b>50問本番模試β（120分）</b>を追加しました。次は法令制限・税その他・宅建業法の実戦問題を増量します。</div><h3>完成条件</h3><ol class="criteria"><li>学習基盤・端末保存が安定して動く</li><li>難しい用語辞典 250語</li><li>問題文の文章ほどき100表現＋3分解トレーニング40題</li><li>実戦オリジナル問題 600問（宅建業法200／権利関係200／法令120／税・その他80）</li><li>苦手登録＋間隔復習＋再出題を自動化</li><li>20問ミニ模試→最終的に50問本番形式模試を実装</li><li>2026年度法令基準で数値・期限・改正点を根拠確認</li><li>スマホ実機QA・バックアップ/復元・配布版を完成</li><li>ChatGPT弱点分析＋次回学習反映ループを完成</li></ol><h3>工程別進捗</h3><div id="milestones"><div class="mile"><div class="mileTop"><div><div class="mileTitle">① 学習基盤</div><div class="mileMeta">主要機能実装済み → 安定動作<br>5問・辞典・端末保存・正答率・苦手記録</div></div><span class="statusDone">完了 100%</span></div><div class="progress" style="margin-top:10px"><i style="width:100%"></i></div></div><div class="mile"><div class="mileTop"><div><div class="mileTitle">② 難しい用語辞典</div><div class="mileMeta">250語 → 250語<br>超やさしい意味・具体例・試験文・ひっかけ・確認問題</div></div><span class="statusDone">完了 100%</span></div><div class="progress" style="margin-top:10px"><i style="width:100%"></i></div></div><div class="mile"><div class="mileTop"><div><div class="mileTitle">③ 読解・文章ほどき</div><div class="mileMeta">文章 100表現・3分解 40題 → 文章 100表現・3分解 40題<br>法律文→普通の日本語＋登場人物/行為/質問の3分解トレーニング</div></div><span class="statusDone">完了 100%</span></div><div class="progress" style="margin-top:10px"><i style="width:100%"></i></div></div><div class="mile"><div class="mileTop"><div><div class="mileTitle">④ 実戦問題600問</div><div class="mileMeta">165問 → 600問<br>内訳：業法 100/200・権利 60/200・法令 3/120・税等 2/80</div></div><span class="statusDoing">進行中 28%</span></div><div class="progress" style="margin-top:10px"><i style="width:28%"></i></div></div><div class="mile"><div class="mileTop"><div><div class="mileTitle">⑤ 苦手・間隔復習</div><div class="mileMeta">100% → 100%<br>誤答→翌日、迷い→3日後、正答→7日後を基本に、復習成功で14・30日へ延長</div></div><span class="statusDone">完了 100%</span></div><div class="progress" style="margin-top:10px"><i style="width:100%"></i></div></div><div class="mile"><div class="mileTop"><div><div class="mileTitle">⑥ 模試機能</div><div class="mileMeta">85% → 100%<br>20問ミニ模試に加え、科目配分・120分タイマー付き50問本番模試βを実装</div></div><span class="statusDoing">進行中 85%</span></div><div class="progress" style="margin-top:10px"><i style="width:85%"></i></div></div><div class="mile"><div class="mileTop"><div><div class="mileTitle">⑦ 2026法令確認</div><div class="mileMeta">45% → 100%<br>令和8年4月1日版の国交省資料で免許・専任宅建士・保証金・媒介・35/37条電子化・8種制限の主要数値を確認済み</div></div><span class="statusDoing">進行中 45%</span></div><div class="progress" style="margin-top:10px"><i style="width:45%"></i></div></div><div class="mile"><div class="mileTop"><div><div class="mileTitle">⑧ QA・配布</div><div class="mileMeta">80% → 100%<br>iPhone実機で主要画面を確認済み。バックアップ/復元を実装。残りは全画面QAと配布仕上げ</div></div><span class="statusDoing">進行中 80%</span></div><div class="progress" style="margin-top:10px"><i style="width:80%"></i></div></div><div class="mile"><div class="mileTop"><div><div class="mileTitle">⑨ ChatGPT弱点分析</div><div class="mileMeta">90% → 100%<br>誤答原因記録・分析文コピー・分析結果の貼り戻し・AIおすすめ5問まで実装。実機で画面表示確認済み</div></div><span class="statusDoing">進行中 90%</span></div><div class="progress" style="margin-top:10px"><i style="width:90%"></i></div></div></div></div></div>
 <div id="aiModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">🤖 ChatGPT苦手分析</b><div class="tiny muted">学習データを個人情報なしでまとめ、ChatGPTに貼り付けます</div></div><button class="light closeAI">閉じる</button></div>
-<div class="aiStats"><div class="aiStat"><small>記録済み誤答・迷い</small><strong id="aiStruggleCount">0</strong></div><div class="aiStat"><small>苦手用語</small><strong id="aiWeakCount">0</strong></div><div class="aiStat"><small>最多原因</small><strong id="aiTopCause" style="font-size:16px">-</strong></div></div>
-<div id="causeSummary" class="section" style="margin-top:8px"></div>
-<h3>① ChatGPTへ渡す</h3><div class="warnBox">問題文・選択した誤答・正解・苦手用語・間違い原因をまとめます。氏名などの個人情報は含めません。</div><textarea id="aiPrompt" class="copyArea" readonly></textarea><div class="actions"><button id="copyAI" class="primary">分析文をコピー</button><button id="openChatGPT" class="light">ChatGPTを開く</button></div><div id="copyStatus" class="tiny muted"></div>
-<h3>② ChatGPTの分析結果を戻す</h3><div class="tiny muted">ChatGPT回答の <b>MANABI_PLAN_START</b> ～ <b>MANABI_PLAN_END</b> を含む部分を貼り付けてください。</div><textarea id="aiResult" class="planArea" placeholder='MANABI_PLAN_START
-{"focus_category":"宅建業法","focus_terms":["手付解除"],"focus_causes":["原則と例外"],"note":"次回は適用条件を重点復習"}
-MANABI_PLAN_END'></textarea><div class="actions"><button id="importAIPlan" class="primary">次回学習に反映</button><button id="clearAIPlan" class="light">AI設定を解除</button></div><div id="aiImportStatus" class="tiny muted"></div><div id="aiPlanView"></div></div></div>
+<div class="aiStats"><div class="aiStat"><small>記録済み誤答・迷い</small><strong id="aiStruggleCount">35</strong></div><div class="aiStat"><small>苦手用語</small><strong id="aiWeakCount">9</strong></div><div class="aiStat"><small>最多原因</small><strong id="aiTopCause" style="font-size:16px">数字・期限</strong></div></div>
+<div id="causeSummary" class="section" style="margin-top:8px"><b>間違い原因の内訳</b><div class="causeGrid"><span class="pill">数字・期限 12</span><span class="pill">用語の意味 9</span><span class="pill">原則/例外 7</span><span class="pill">設問の読み違い 3</span><span class="pill">制度そのもの 3</span><span class="pill">人物関係 1</span></div></div>
+<h3>① ChatGPTへ渡す</h3><div class="warnBox">問題文・選択した誤答・正解・苦手用語・間違い原因をまとめます。氏名などの個人情報は含めません。</div><textarea id="aiPrompt" class="copyArea" readonly=""></textarea><div class="actions"><button id="copyAI" class="primary">分析文をコピー</button><button id="openChatGPT" class="light">ChatGPTを開く</button></div><div id="copyStatus" class="tiny muted"></div>
+<h3>② ChatGPTの分析結果を戻す</h3><div class="tiny muted">ChatGPT回答の <b>MANABI_PLAN_START</b> ～ <b>MANABI_PLAN_END</b> を含む部分を貼り付けてください。</div><textarea id="aiResult" class="planArea" placeholder="MANABI_PLAN_START
+{&quot;focus_category&quot;:&quot;宅建業法&quot;,&quot;focus_terms&quot;:[&quot;手付解除&quot;],&quot;focus_causes&quot;:[&quot;原則と例外&quot;],&quot;note&quot;:&quot;次回は適用条件を重点復習&quot;}
+MANABI_PLAN_END"></textarea><div class="actions"><button id="importAIPlan" class="primary">次回学習に反映</button><button id="clearAIPlan" class="light">AI設定を解除</button></div><div id="aiImportStatus" class="tiny muted"></div><div id="aiPlanView"></div></div></div>
 <div id="unitModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">📚 宅建業法・単元別</b><div class="tiny muted">100問を8単元に整理。苦手なところだけ5問ずつ</div></div><button class="light closeUnit">閉じる</button></div><div id="unitList" class="termList" style="margin-top:14px"></div></div></div>
-<div id="backupModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">💾 学習データのバックアップ</b><div class="tiny muted">機種変更・ブラウザ変更に備えて保存できます</div></div><button class="light closeBackup">閉じる</button></div><div class="warnBox" style="margin-top:12px">学習履歴・苦手語・復習予定・ChatGPT学習プランをJSONとして保存します。氏名などは保存していません。</div><h3>① バックアップを作る</h3><textarea id="backupArea" class="copyArea" readonly></textarea><div class="actions"><button id="makeBackup" class="primary">最新データを表示</button><button id="copyBackup" class="light">コピー</button><button id="downloadBackup" class="light">JSON保存</button></div><h3>② 復元する</h3><textarea id="restoreArea" class="planArea" placeholder="ここにバックアップJSONを貼り付け"></textarea><div class="actions"><button id="restoreBackup" class="primary">このデータで復元</button><label class="light" style="display:inline-block">ファイルを選ぶ<input id="backupFile" type="file" accept="application/json,.json" style="display:none"></label></div><div id="backupStatus" class="tiny muted" style="margin-top:8px"></div></div></div>
-<div id="dictModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">📖 難しい用語辞典</b><div class="muted tiny">「法律の日本語」を「ふつうの日本語」に</div></div><button class="light close">閉じる</button></div><input id="dictSearch" class="search" placeholder="例：善意、媒介、履行、手付…"><div id="filters" class="filters"></div><div id="termList" class="termList"></div></div></div>
+<div id="rightsUnitModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">⚖️ 権利関係・単元別</b><div class="tiny muted">60問を8単元に整理。苦手なところだけ5問ずつ</div></div><button class="light closeRightsUnit">閉じる</button></div><div id="rightsUnitList" class="termList" style="margin-top:14px"></div></div></div>
+<div id="backupModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">💾 学習データのバックアップ</b><div class="tiny muted">機種変更・ブラウザ変更に備えて保存できます</div></div><button class="light closeBackup">閉じる</button></div><div class="warnBox" style="margin-top:12px">学習履歴・苦手語・復習予定・ChatGPT学習プランをJSONとして保存します。氏名などは保存していません。</div><h3>① バックアップを作る</h3><textarea id="backupArea" class="copyArea" readonly=""></textarea><div class="actions"><button id="makeBackup" class="primary">最新データを表示</button><button id="copyBackup" class="light">コピー</button><button id="downloadBackup" class="light">JSON保存</button></div><h3>② 復元する</h3><textarea id="restoreArea" class="planArea" placeholder="ここにバックアップJSONを貼り付け"></textarea><div class="actions"><button id="restoreBackup" class="primary">このデータで復元</button><label class="light" style="display:inline-block">ファイルを選ぶ<input id="backupFile" type="file" accept="application/json,.json" style="display:none"></label></div><div id="backupStatus" class="tiny muted" style="margin-top:8px"></div></div></div>
+<div id="dictModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">📖 難しい用語辞典</b><div class="muted tiny">「法律の日本語」を「ふつうの日本語」に</div></div><button class="light close">閉じる</button></div><input id="dictSearch" class="search" placeholder="例：善意、媒介、履行、手付…"><div id="filters" class="filters"><button class="filter sel">全部</button><button class="filter">宅建業法</button><button class="filter">権利関係</button><button class="filter">法令制限</button><button class="filter">税・その他</button><button class="filter">共通</button></div><div id="termList" class="termList"></div></div></div>
 <div id="termModal" class="modal hidden"><div class="modalBox termDetail"><div class="qhead"><span id="termCat" class="tag"></span><button class="light closeTerm">閉じる</button></div><h3 id="termName"></h3><div id="termReading" class="muted"></div><div class="boxy easy"><b>🟦 超やさしく</b><div id="termEasy"></div></div><div class="boxy example"><b>👀 具体例</b><div id="termExample"></div></div><div class="boxy exam"><b>📝 試験文では</b><div id="termExam"></div></div><div class="boxy trap"><b>⚠️ ひっかけ注意</b><div id="termTrap"></div></div><div class="actions"><button id="markWeak" class="danger">まだ分からない</button><button id="termQuizBtn" class="primary">この言葉を1問</button></div></div></div>
 <div id="phraseModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">🧩 文章ほどき</b><div class="muted tiny">問題文で出る表現を、一行で翻訳</div></div><button class="light close">閉じる</button></div><div id="phraseList"></div><div class="actions"><button id="phraseQuizBtn" class="primary">文章ほどき5問</button></div></div></div>
 
-<div id="breakModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">🔍 問題文3分解</b><div class="muted tiny">まず自分で考えてから、①→②→③をタップ</div></div><button class="light closeBreak">閉じる</button></div><div class="qhead" style="margin-top:12px"><span class="pill" id="breakCat">-</span><span id="breakProgress" class="breakCounter">1 / 5</span></div><div id="breakText" class="breakText"></div><div class="breakGuide"><b>読む順番は固定</b><br>① 誰が出ている？ → ② 何をした？ → ③ 結局、何を聞かれている？</div><div class="breakSteps"><button class="breakStep" data-break="people">① 登場人物は？<small>主語・立場を整理</small></button><div id="breakPeople" class="breakAnswer hidden"></div><button class="breakStep" data-break="action">② 何をした？<small>契約・売却・解除などの行動</small></button><div id="breakAction" class="breakAnswer hidden"></div><button class="breakStep" data-break="ask">③ 何を聞かれている？<small>最後の問いを普通の日本語へ</small></button><div id="breakAsk" class="breakAnswer hidden"></div></div><div id="breakPlain" class="breakPlain hidden"></div><div class="actions"><button id="breakHard" class="danger">まだ難しい</button><button id="breakNext" class="primary" disabled>次の問題文</button></div><div id="breakStatus" class="tiny muted" style="margin-top:8px"></div></div></div>
-<div id="quizModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b id="quizTitle"></b> <span id="quizDiff" class="difficulty"></span></div><span id="quizProgress"></span></div><div id="quizQuestion" class="question"></div><div id="quizOptions" class="options"></div><div id="quizFeedback" class="feedback hidden"></div><div class="actions"><button id="quizQuit" class="light">やめる</button><button id="quizUnsure" class="light">🤔 迷った</button><button id="quizUnknown" class="danger">言葉が分からない</button><button id="quizNext" class="primary hidden">つぎへ</button></div></div></div>
+<div id="breakModal" class="modal hidden"><div class="modalBox"><div class="qhead"><div><b style="font-size:22px">🔍 問題文3分解</b><div class="muted tiny">まず自分で考えてから、①→②→③をタップ</div></div><button class="light closeBreak">閉じる</button></div><div class="qhead" style="margin-top:12px"><span class="pill" id="breakCat">-</span><span id="breakProgress" class="breakCounter">1 / 5</span></div><div id="breakText" class="breakText"></div><div class="breakGuide"><b>読む順番は固定</b><br>① 誰が出ている？ → ② 何をした？ → ③ 結局、何を聞かれている？</div><div class="breakSteps"><button class="breakStep" data-break="people">① 登場人物は？<small>主語・立場を整理</small></button><div id="breakPeople" class="breakAnswer hidden"></div><button class="breakStep" data-break="action">② 何をした？<small>契約・売却・解除などの行動</small></button><div id="breakAction" class="breakAnswer hidden"></div><button class="breakStep" data-break="ask">③ 何を聞かれている？<small>最後の問いを普通の日本語へ</small></button><div id="breakAsk" class="breakAnswer hidden"></div></div><div id="breakPlain" class="breakPlain hidden"></div><div class="actions"><button id="breakHard" class="danger">まだ難しい</button><button id="breakNext" class="primary" disabled="">次の問題文</button></div><div id="breakStatus" class="tiny muted" style="margin-top:8px"></div></div></div>
+<div id="quizModal" class="modal hidden"><div class="modalBox"><div class="qhead quizHead"><div><b id="quizTitle"></b> <span id="quizDiff" class="difficulty"></span></div><div class="quizMeta"><span id="quizTimer" class="pill timer hidden"></span><span id="quizProgress"></span></div></div><div id="quizQuestion" class="question"></div><div id="quizOptions" class="options"></div><div id="quizFeedback" class="feedback hidden"></div><div class="actions"><button id="quizQuit" class="light">やめる</button><button id="quizUnsure" class="light">🤔 迷った</button><button id="quizUnknown" class="danger">言葉が分からない</button><button id="quizNext" class="primary hidden">つぎへ</button></div></div></div>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)], localDateKey=d=>{d=d||new Date();let z=new Date(d.getTime()-d.getTimezoneOffset()*60000);return z.toISOString().slice(0,10)}, today=()=>localDateKey(new Date()), shuffle=a=>[...a].sort(()=>Math.random()-.5), pick=a=>a[Math.floor(Math.random()*a.length)];
 const STORAGE_KEY='manabi_takken_v1';let fallbackRaw='';function readSaved(){try{return localStorage.getItem(STORAGE_KEY)||''}catch(e){return fallbackRaw}}function writeSaved(raw){fallbackRaw=raw;try{localStorage.setItem(STORAGE_KEY,raw)}catch(e){}}let state={answers:[],weak:{},struggles:[],breakdownHistory:[],reviews:{},streak:0,lastStudy:'',aiPlan:null};try{state={...state,...JSON.parse(readSaved()||'{}')}}catch(e){}state.answers=Array.isArray(state.answers)?state.answers:[];state.weak=state.weak||{};state.struggles=Array.isArray(state.struggles)?state.struggles:[];state.breakdownHistory=Array.isArray(state.breakdownHistory)?state.breakdownHistory:[];state.reviews=state.reviews||{};const save=()=>writeSaved(JSON.stringify(state));
@@ -359,6 +361,406 @@ const BREAKDOWNS=[{"cat":"宅建業法","text":"宅地建物取引業者Aが自�
 {"cat": "宅建業法", "text": "宅地建物取引業者Aの事務所以外の喫茶店で、Aが自ら売主となり一般消費者Bと建物の売買契約を締結し、Bはクーリングオフについて法定の告知を受けた。", "people": "A＝業者売主。B＝一般買主。場所＝喫茶店。", "action": "事務所以外で契約し、クーリングオフの告知を受けた。", "ask": "Bが一定期間内に撤回できる可能性があるか。", "plain": "喫茶店で業者から買った。クーリングオフを検討する？"},
 {"cat": "宅建業法", "text": "宅地建物取引業者Aは専任媒介契約を締結した依頼者Bに対し、3週間に1回の頻度で業務処理状況を報告することとした。", "people": "A＝媒介業者。B＝依頼者。", "action": "専任媒介なのに3週間に1回だけ報告する。", "ask": "法定の報告頻度を満たすか。", "plain": "専任媒介で3週間に1回報告。少なすぎない？"}
 ];
+// v1.7追加学習データ（用語30語・文章ほどき30表現・3分解10題）
+// G / PHRASES / BREAKDOWNS の既存定義後に挿入する。
+
+G.push(...[
+  [
+    "成年被後見人",
+    "せいねんひこうけんにん",
+    "権利関係",
+    "判断する力を常に欠く状態にあるとして、家庭裁判所から後見開始の審判を受けた人。",
+    "成年者Aについて後見開始の審判がされ、成年後見人Bが選ばれた。",
+    "本人が単独でした法律行為の取消しと、日常生活に関する行為の例外を確認する。",
+    "成年被後見人の行為がすべて当然に無効になるわけではない。"
+  ],
+  [
+    "被保佐人",
+    "ひほさにん",
+    "権利関係",
+    "判断する力が著しく不十分であるとして、家庭裁判所から保佐開始の審判を受けた人。",
+    "被保佐人Aが重要な財産を処分する場面で、保佐人Bの同意が問題になる。",
+    "どの行為に保佐人の同意が必要か、同意なしの行為を取り消せるかを読む。",
+    "日常の買物を含むすべての行為に、保佐人の同意が必要なわけではない。"
+  ],
+  [
+    "被補助人",
+    "ひほじょにん",
+    "権利関係",
+    "判断する力が不十分であるとして、家庭裁判所から補助開始の審判を受けた人。",
+    "本人Aに必要な範囲を定めて、補助人Bへ同意権や代理権が与えられた。",
+    "審判で同意が必要と定められた行為かどうかを先に確認する。",
+    "補助開始だけで、すべての重要行為に当然に同意が必要となるわけではない。"
+  ],
+  [
+    "不法行為",
+    "ふほうこうい",
+    "権利関係",
+    "故意や過失によって他人の権利・利益を侵害し、損害を生じさせる行為。",
+    "Aの不注意でBの建物を壊し、Bに修理費の損害が生じた。",
+    "故意・過失、権利侵害、損害、因果関係を分けて確認する。",
+    "相手に損害が出たというだけで、常に不法行為責任が成立するわけではない。"
+  ],
+  [
+    "使用者責任",
+    "しようしゃせきにん",
+    "権利関係",
+    "従業員が仕事中に第三者へ損害を与えたとき、一定の要件で使用者も負う賠償責任。",
+    "不動産会社Aの従業員Bが物件案内中の不注意でCに損害を与えた。",
+    "加害者と使用者の関係、行為が事業の執行中かを確認する。",
+    "従業員に責任があるなら使用者は絶対に無関係、という制度ではない。"
+  ],
+  [
+    "工作物責任",
+    "こうさくぶつせきにん",
+    "権利関係",
+    "土地上の建物などの設置・保存に欠陥があり損害が出たとき、占有者や所有者に一定の順序で生じる責任。",
+    "塀の管理上の欠陥で塀が倒れ、通行人に損害を与えた。",
+    "土地の工作物か、設置・保存の欠陥があるか、誰が占有・所有するかを読む。",
+    "建物が関係する事故なら必ず所有者だけが責任を負う、とは限らない。"
+  ],
+  [
+    "先取特権",
+    "さきどりとっけん",
+    "権利関係",
+    "法律で定められた特別な債権について、債務者の財産から他の債権者より先に弁済を受けられる権利。",
+    "法律が優先を認める費用などについて、債務者の財産から優先弁済を受ける。",
+    "法律上当然に生じる担保物権として、目的物と優先順位を確認する。",
+    "当事者が好きな債権を『先取特権』と名付ければ成立するわけではない。"
+  ],
+  [
+    "法定地上権",
+    "ほうていちじょうけん",
+    "権利関係",
+    "土地と建物が同じ所有者に属する一定の状態で抵当権が設定され、競売で所有者が別になったとき、法律上成立する地上権。",
+    "同じ人が持つ土地と建物の一方に抵当権が設定され、競売後に土地と建物の所有者が分かれた。",
+    "抵当権設定時の土地・建物の所有関係と、競売後の変化を確認する。",
+    "抵当権のある土地に建物があれば、どんな場合でも成立するわけではない。"
+  ],
+  [
+    "抵当権消滅請求",
+    "ていとうけんしょうめつせいきゅう",
+    "権利関係",
+    "抵当不動産を取得した第三者が、一定の手続で代価を示し、抵当権の消滅を求める制度。",
+    "抵当権付き土地を買ったCが、抵当権者へ金額を示して抵当権の消滅を求める。",
+    "請求できる人、時期、抵当権者への手続を分けて確認する。",
+    "第三取得者が希望しただけで、直ちに抵当権が消える制度ではない。"
+  ],
+  [
+    "物上保証人",
+    "ぶつじょうほしょうにん",
+    "権利関係",
+    "他人の債務を担保するため、自分の土地などを担保として提供した人。",
+    "Aの借金を担保するため、Bが自分の土地に抵当権を設定した。",
+    "債務者・債権者・担保を出した人の三者を分けて書く。",
+    "担保を出しただけで、当然に債務全額を自分の財産すべてで支払う義務を負うわけではない。"
+  ],
+  [
+    "遺言",
+    "ゆいごん",
+    "権利関係",
+    "自分の死亡後の財産の扱いなどについて、法律で定める方式に従って意思を残すこと。",
+    "Aが、自分の土地を死亡後にBへ取得させる内容を法定の方式で残した。",
+    "方式、効力が生じる時期、遺留分との関係を確認する。",
+    "家族に口頭で希望を伝えただけで、必ず法律上の遺言になるわけではない。"
+  ],
+  [
+    "遺産分割",
+    "いさんぶんかつ",
+    "権利関係",
+    "共同相続した遺産を、相続人の間で具体的に分けること。",
+    "相続人BとCが、土地はB、預金はCが取得すると話し合った。",
+    "誰が相続人か、遺産分割前後の権利関係、第三者の有無を確認する。",
+    "相続そのものを放棄する相続放棄とは別の手続。"
+  ],
+  [
+    "配偶者居住権",
+    "はいぐうしゃきょじゅうけん",
+    "権利関係",
+    "亡くなった人が所有していた建物に住んでいた配偶者が、一定の場合にその建物を無償で使用・収益できる権利。",
+    "夫Aの死亡後、A所有の自宅に住んでいた配偶者Bの居住を確保する。",
+    "居住していた配偶者か、どの方法で権利を取得したかを確認する。",
+    "配偶者が建物の所有権を当然に取得する制度ではない。"
+  ],
+  [
+    "履行不能",
+    "りこうふのう",
+    "権利関係",
+    "契約で約束した義務を実行できない状態。",
+    "売買の目的物が失われ、売主が引き渡せなくなった。",
+    "いつ不能になったか、誰に原因があるか、解除や損害賠償との関係を確認する。",
+    "履行できなくなれば、原因や時期に関係なく必ず同じ結論になるわけではない。"
+  ],
+  [
+    "無催告解除",
+    "むさいこくかいじょ",
+    "権利関係",
+    "法律が定める一定の場合に、相手へ期限を切った催告をせず契約を解除すること。",
+    "相手が契約上の義務を履行できないことが明らかな場面で、催告なしの解除を検討する。",
+    "催告が不要となる法定の事情があるかを先に探す。",
+    "債務不履行が少しでもあれば、いつでも直ちに解除できるわけではない。"
+  ],
+  [
+    "第一種低層住居専用地域",
+    "だいいっしゅていそうじゅうきょせんようちいき",
+    "法令制限",
+    "低層住宅の良好な住環境を守ることを主な目的とする用途地域。",
+    "戸建住宅が中心の地域で、建物の用途や高さなどが制限される。",
+    "用途制限に加えて、高さ・外壁後退などの規制が問われやすい。",
+    "住宅以外の建物が一切認められない区域、という意味ではない。"
+  ],
+  [
+    "絶対高さ制限",
+    "ぜったいたかさせいげん",
+    "法令制限",
+    "低層住宅地などで、建物の高さを都市計画で定めた上限以下に抑える規制。",
+    "低層住宅の環境を守るため、建物全体の高さに上限が設けられる。",
+    "どの用途地域に適用されるか、都市計画で定めた上限を確認する。",
+    "全国のすべての用途地域に同じ上限がかかるわけではない。"
+  ],
+  [
+    "外壁後退距離",
+    "がいへきこうたいきょり",
+    "法令制限",
+    "都市計画で定められた場合に、建物の外壁などを敷地境界線から一定以上離す規制。",
+    "低層住宅地で、隣地境界から外壁を離して建てる。",
+    "対象地域か、都市計画で定めがあるか、例外部分があるかを確認する。",
+    "どの土地でも全国一律に同じ後退距離が必要なわけではない。"
+  ],
+  [
+    "建築協定",
+    "けんちくきょうてい",
+    "法令制限",
+    "地域の土地所有者などが、建物の敷地・位置・用途・形態等について合意し、行政庁の認可を受ける仕組み。",
+    "住宅地の環境を守るため、地域で建物用途や外観の基準を定める。",
+    "協定区域、合意と認可、後から土地を取得した人への効力を確認する。",
+    "当事者二人だけの普通の契約と同じ扱いではない。"
+  ],
+  [
+    "仮換地",
+    "かりかんち",
+    "法令制限",
+    "土地区画整理事業の途中で、元の土地に代わって一時的に使用・収益する土地として指定される場所。",
+    "工事中、土地所有者Aが元の土地ではなく指定された区画を使う。",
+    "指定後にどの土地を使用・収益できるか、所有権との違いを確認する。",
+    "指定された時点で、元の土地の所有権が直ちに仮換地へ移るわけではない。"
+  ],
+  [
+    "換地処分",
+    "かんちしょぶん",
+    "法令制限",
+    "土地区画整理事業の仕上げとして、整理後の土地を換地として定め、権利関係を移す処分。",
+    "工事後、Aの従前の土地に対応する整理後の土地が正式に定められた。",
+    "処分の公告、権利が移る時期、清算金などとの関係を確認する。",
+    "施行者が元の土地を単純に買い取る売買契約ではない。"
+  ],
+  [
+    "農地法3条許可",
+    "のうちほうさんじょうきょか",
+    "法令制限",
+    "農地を農地のまま売買・賃貸するなど、権利を設定・移転するときに原則として検討する許可。",
+    "農業を続けるBが、Aの農地を農地のまま買い受ける。",
+    "転用目的があるかを先に見て、農地のままなら3条の場面を疑う。",
+    "農地を宅地へ変えるための許可ではない。"
+  ],
+  [
+    "農地法4条許可",
+    "のうちほうよんじょうきょか",
+    "法令制限",
+    "農地の所有者が権利を移さず、自分で農地以外の用途へ転用するときに原則として検討する許可。",
+    "農地所有者Aが、自分の畑を自分の駐車場へ変える。",
+    "転用する人と所有者が同じか、区域による届出等の扱いがないかを確認する。",
+    "転用と同時に他人へ権利を移す5条の場面とは違う。"
+  ],
+  [
+    "農地法5条許可",
+    "のうちほうごじょうきょか",
+    "法令制限",
+    "農地を転用する目的で、売買・賃貸などにより権利を設定・移転するときに原則として検討する許可。",
+    "Aの畑をBが買い、Bがその土地を店舗用地へ変える。",
+    "権利移動と転用が組み合わさっているかを確認する。",
+    "農地のまま耕作する人へ売る3条の場面とは違う。"
+  ],
+  [
+    "農業委員会",
+    "のうぎょういいんかい",
+    "法令制限",
+    "市町村に置かれ、農地の権利移動の許可など、農地利用に関する事務を行う行政委員会。",
+    "農地を農地のまま売買する申請について、農業委員会が審査する。",
+    "農地法の何条の手続かを決めてから、許可権者や届出先を確認する。",
+    "建築確認を行う機関や、税金を課す機関ではない。"
+  ],
+  [
+    "課税客体",
+    "かぜいきゃくたい",
+    "税・その他",
+    "税金をかける対象となる物・行為・所得など。",
+    "固定資産税では土地や家屋などの固定資産が課税対象になる。",
+    "何に税がかかるかを示す語として、課税主体・納税義務者と分ける。",
+    "税を課す行政機関や、税を納める人を指す言葉ではない。"
+  ],
+  [
+    "納税義務者",
+    "のうぜいぎむしゃ",
+    "税・その他",
+    "法律上、その税金を納める義務を負う人や法人。",
+    "固定資産税について、基準日に登記簿等へ所有者として登録されている人を確認する。",
+    "誰が課税するかではなく、誰が納めるかを問う言葉。",
+    "実際にお金を負担した人と、法律上の納税義務者が必ず同じとは限らない。"
+  ],
+  [
+    "取引事例比較法",
+    "とりひきじれいひかくほう",
+    "税・その他",
+    "似た不動産の実際の取引事例を集め、事情や時点などの違いを補正して価格を求める鑑定評価の方法。",
+    "対象土地と似た周辺土地の成約事例を比較して価格を求める。",
+    "取引価格をそのまま写すのではなく、事情補正や地域・個別要因の比較を行う。",
+    "将来得られる収益だけから価格を求める収益還元法とは違う。"
+  ],
+  [
+    "原価法",
+    "げんかほう",
+    "税・その他",
+    "不動産をもう一度つくるとしたら必要な原価を求め、価値の減少を差し引いて価格を求める鑑定評価の方法。",
+    "建物の再調達原価から、経年などによる減価を反映して価格を求める。",
+    "再調達原価と減価修正をセットで覚える。",
+    "似た物件の取引価格を直接比較する方法ではない。"
+  ],
+  [
+    "不動産鑑定士",
+    "ふどうさんかんていし",
+    "税・その他",
+    "不動産の経済価値を専門的に判定する鑑定評価を行う国家資格者。",
+    "土地の適正な価格を求めるため、不動産鑑定士が鑑定評価を行う。",
+    "鑑定評価・価格の三方式・地価公示との関係で登場する。",
+    "宅建士や土地家屋調査士と同じ業務をする資格ではない。"
+  ]
+].map((x, i) => ({
+  id: G.length + i + 1,
+  name: x[0],
+  reading: x[1],
+  cat: x[2],
+  easy: x[3],
+  example: x[4],
+  exam: x[5],
+  trap: x[6]
+})));
+
+PHRASES.push(...[
+  ["この限りでない", "直前までのルールを、この場合には適用しないという例外の合図。"],
+  ["何人も", "特定の人だけでなく、だれであっても。"],
+  ["当事者の一方", "契約などの当事者のうち、どちらか片方。"],
+  ["各当事者", "当事者それぞれ。全員を一人ずつ見る表現。"],
+  ["当該", "今まさに問題にしている、その人・物・行為。"],
+  ["故意又は過失によって", "わざと、または注意不足によって。"],
+  ["知り、又は知ることができたとき", "実際に知っていたか、普通に注意すれば知れた場合。"],
+  ["知らず、かつ、過失がなかったとき", "事情を知らず、知らなかったことにも注意不足がない場合。"],
+  ["正当な理由なく", "法律上納得できる理由がないのに。"],
+  ["本人が追認しない間", "本人が後から有効だと認めるまでは。"],
+  ["法律上の利害関係を有する者", "その法律関係によって権利や不利益が直接影響を受ける人。"],
+  ["申請に基づき", "本人などから出された申請をきっかけとして。"],
+  ["職権で", "申請を待たず、行政庁や裁判所が自らの権限で。"],
+  ["効力を生ずる", "法律上の効果が発生する。"],
+  ["効力を生じない", "法律上の効果が発生しない。"],
+  ["権利を取得する", "新たにその権利を持つようになる。"],
+  ["権利を行使する", "持っている権利を実際に使う。"],
+  ["義務を負う", "法律上、それをしなければならない立場になる。"],
+  ["責任を負わない", "その場面では法律上の責任を負担しない。"],
+  ["現に利益を受けている限度において", "今も手元に残っている利益の範囲だけで。"],
+  ["原状に復する", "変化が起こる前の状態へ戻す。"],
+  ["必要な措置を講ずる", "必要な対策や手続を実際に行う。"],
+  ["その全部又は一部", "すべての場合も、一部分だけの場合も含む。"],
+  ["正しいものはどれか", "法律に合う選択肢を一つ選ぶ。設問の『正』に印を付ける。"],
+  ["誤っているものはどれか", "法律に合わない選択肢を一つ選ぶ。否定問題だと先に確認する。"],
+  ["正しいものはいくつあるか", "各肢を一つずつ正誤判定し、正しい肢の数を答える。"],
+  ["誤っているものはいくつあるか", "各肢を一つずつ正誤判定し、誤りの数を答える。"],
+  ["最も適切なものはどれか", "複数を比べ、問題の条件に一番よく合うものを選ぶ。"],
+  ["判例によれば", "条文だけでなく、裁判例が示した考え方を基準に判断する。"],
+  ["特約がない場合", "当事者が別の取り決めをしていない通常のケース。特約の可否も別に確認する。"]
+]);
+
+BREAKDOWNS.push(
+  {
+    cat: "権利関係",
+    text: "未成年者Aは、法定代理人Bの同意を得ないまま、売主Cから土地を購入した。その後、この売買契約を取り消すことができるかが問われている。",
+    people: "A＝未成年の買主。B＝Aの法定代理人。C＝土地の売主。",
+    action: "AがBの同意なしでCと土地の売買契約を結んだ。",
+    ask: "誰が契約を取り消せるか、取消しを妨げる事情がないか。",
+    plain: "未成年者が親などの同意なしで土地を買った。後から取り消せる？"
+  },
+  {
+    cat: "権利関係",
+    text: "買主Aは、甲土地を買うつもりであったが、重要な点を勘違いして乙土地の売買契約を売主Bと締結した。Aが錯誤を理由に契約を取り消せるかが問われている。",
+    people: "A＝勘違いした買主。B＝売主。甲土地・乙土地＝取り違えた目的物。",
+    action: "Aが重要な勘違いをしたまま、Bと乙土地の契約を結んだ。",
+    ask: "その勘違いが錯誤取消しの要件を満たすか。",
+    plain: "別の土地だと思って契約した。勘違いを理由に取り消せる？"
+  },
+  {
+    cat: "権利関係",
+    text: "本人Aは代理人Bに土地を賃貸する権限だけを与えたが、BはAの代理人としてその土地をCに売却した。CがBに売却権限があると信じた事情の下で、契約の効果がAに帰属するかが問われている。",
+    people: "A＝本人。B＝与えられた権限を超えた代理人。C＝売買の相手方。",
+    action: "Bは賃貸の権限しかないのにAの土地をCへ売り、Cは権限があると信じた。",
+    ask: "表見代理の要件を満たし、売買の効果がAに及ぶか。",
+    plain: "貸す権限だけの代理人が土地を売った。信じた買主は保護される？"
+  },
+  {
+    cat: "権利関係",
+    text: "売主Aは『重大な雨漏りはない』という内容で建物を買主Bに売却したが、引渡し後に重大な雨漏りが判明した。BがAにどのような責任を追及できるかが問われている。",
+    people: "A＝建物の売主。B＝建物の買主。",
+    action: "契約内容に合わない雨漏りのある建物がBへ引き渡された。",
+    ask: "契約不適合として、Bがどの救済を求められるか。",
+    plain: "雨漏りなしで買ったのに重大な雨漏り。買主は売主に何を求められる？"
+  },
+  {
+    cat: "権利関係",
+    text: "賃貸人Aから建物を借りた賃借人Bは、Aの承諾を得ずにその建物をCへ転貸した。Aが賃貸借契約を解除できるかが問われている。",
+    people: "A＝大家。B＝元の借主・転貸人。C＝Bから借りた転借人。",
+    action: "BがAに無断で、借りた建物をCへ又貸しした。",
+    ask: "無断転貸を理由にAがBとの契約を解除できるか、例外事情があるか。",
+    plain: "大家に黙って又貸しした。大家は元の賃貸借を終わらせられる？"
+  },
+  {
+    cat: "権利関係",
+    text: "不動産会社Aの従業員Bは、物件案内の業務中に不注意で第三者Cの所有物を壊した。CがBだけでなくAにも損害賠償を請求できるかが問われている。",
+    people: "A＝使用者である不動産会社。B＝加害行為をした従業員。C＝損害を受けた第三者。",
+    action: "Bが仕事中の不注意でCの物を壊した。",
+    ask: "Bの不法行為について、使用者Aも責任を負うか。",
+    plain: "社員が仕事中に他人の物を壊した。会社にも賠償を求められる？"
+  },
+  {
+    cat: "法令制限",
+    text: "農地を所有するAは、店舗を建てる予定のBへその農地を売却し、Bが取得後に農地以外のものへ転用しようとしている。農地法上どの手続を検討すべきかが問われている。",
+    people: "A＝農地の売主。B＝農地を買って店舗用地へ転用する人。",
+    action: "AからBへ農地の権利を移し、Bが農地以外へ変えようとしている。",
+    ask: "権利移動と転用が組み合わさるため、農地法のどの条文の手続か。",
+    plain: "農地を買った人が店を建てる。3条・4条・5条のどれを考える？"
+  },
+  {
+    cat: "法令制限",
+    text: "土地区画整理事業で、施行者Xは土地所有者Aに仮換地を指定した。換地処分前にAが使用・収益できる土地が、従前の土地か仮換地かが問われている。",
+    people: "X＝土地区画整理事業の施行者。A＝従前の土地の所有者。",
+    action: "XがAに、事業中に使う場所として仮換地を指定した。",
+    ask: "指定の効力が生じた後、Aはどの土地を使用・収益できるか。",
+    plain: "区画整理の途中で仮の場所を指定された。元の土地と仮換地、どちらを使う？"
+  },
+  {
+    cat: "法令制限",
+    text: "認可・公告された建築協定の区域内の土地をCが後から取得し、協定の基準に合わない建物を建てようとしている。建築協定の効力がCに及ぶかが問われている。",
+    people: "C＝協定成立後に区域内の土地を取得した人。協定参加者＝建築基準を定めた土地所有者等。",
+    action: "Cが協定区域の土地を取得し、協定に合わない建築を計画した。",
+    ask: "有効な建築協定が、後から土地を取得したCにも及ぶか。",
+    plain: "地域ルールができた後に土地を買った。新しい所有者も守る必要がある？"
+  },
+  {
+    cat: "税・その他",
+    text: "不動産鑑定士Aは、対象土地と似た周辺土地の取引事例を集め、取引事情や時点、地域・個別要因の違いを補正して対象土地の価格を求めた。用いた鑑定評価の手法が問われている。",
+    people: "A＝価格を評価する不動産鑑定士。対象土地＝評価する土地。取引事例＝比較材料。",
+    action: "Aが似た土地の実際の取引を比較し、条件の違いを補正した。",
+    ask: "原価法・取引事例比較法・収益還元法のどの手法か。",
+    plain: "似た土地の売買事例を比べて価格を出した。何という方法？"
+  }
+);
 const SC=[
 {cat:'宅建業法',q:'宅建業者Aが、自社所有のマンションを宅建業者ではないBに売る。この取引でまず意識するべき特別ルールは？',a:'8種制限',w:['一般媒介契約','農地転用','公示価格'],ex:'「宅建業者が自ら売主」＋「買主が宅建業者ではない」ので、8種制限を疑います。'},
 {cat:'宅建業法',q:'重要事項説明は、原則としていつ行う？',a:'契約が成立する前',w:['契約成立後だけ','引渡し後','登記完了後'],ex:'35条の重要事項説明は、相手が契約するか判断できるよう契約成立前に行います。'},
@@ -471,7 +873,72 @@ const SC=[
 {"cat": "宅建業法", "unit": "supervision", "q": "免許申請で重要な事項について虚偽の内容を用いることは？", "a": "免許・監督上の重大な問題になる", "w": ["自由", "申請後に直せば必ず問題なし", "広告で訂正すればよい"], "ex": "免許制度は申請内容の真実性を前提としており、虚偽は重大な問題になります。"},
 {"cat": "宅建業法", "unit": "supervision", "q": "宅建業法上の「指示処分」のイメージとして最も近いものは？", "a": "違反を是正するよう行政から必要な指示を受ける処分", "w": ["直ちに刑務所へ入る処分", "固定資産税を免除する処分", "売買契約を必ず無効にする処分"], "ex": "指示処分は、宅建業者に法令遵守・是正を求める監督処分の一つです。"}
 ];
-let quiz=null,currentTerm=null,dictCat='全部',selectedCat='宅建業法';
+SC.push(...[
+{cat:'権利関係',unit:'capacity',q:'17歳の未成年者Aが、法定代理人の同意を得ずに土地の売買契約を結んだ。特段の事情がない場合、この契約はどうなる？',a:'Aまたは法定代理人が原則として取り消すことができる',w:['初めから当然に無効となる','成人後も必ず有効のままとなる','裁判所だけが取り消すことができる'],ex:'未成年者が法定代理人の同意を得ずにした法律行為は、原則として取り消すことができます。「無効」ではなく「取消し」です。'},
+{cat:'権利関係',unit:'capacity',q:'未成年者Aが、負担のない贈与を受けるだけの契約をした。法定代理人の同意は原則として必要？',a:'不要',w:['必ず必要','土地の贈与だけは必ず必要','家庭裁判所の許可が必要'],ex:'単に権利を得る、または義務を免れる法律行為には、法定代理人の同意は不要です。負担付贈与は別に検討します。'},
+{cat:'権利関係',unit:'capacity',q:'成年被後見人Aが、日常生活に必要な食料品を通常の範囲で購入した。この行為は成年被後見人であることを理由に取り消せる？',a:'原則として取り消せない',w:['常に取り消せる','成年後見人だけが必ず無効にできる','相手方が善意なら契約自体が成立しない'],ex:'成年被後見人の法律行為は原則として取り消せますが、日用品の購入その他の日常生活に関する行為は例外です。'},
+{cat:'権利関係',unit:'capacity',q:'被保佐人Aが、保佐人の同意を得ずに自己所有の土地を売却した。特段の事情がない場合、この売買はどうなる？',a:'Aまたは保佐人が原則として取り消すことができる',w:['当然に有効で取り消せない','初めから当然に無効となる','買主だけが取り消すことができる'],ex:'被保佐人が土地の売買など民法所定の重要な財産行為をするには、原則として保佐人の同意が必要です。同意のない行為は取り消すことができます。'},
+{cat:'権利関係',unit:'capacity',q:'Aは本当は売る気がないのに土地を売る意思表示をし、相手方Bはその事情を知らず、知らないことに過失もなかった。心裡留保による意思表示の効力は？',a:'原則として有効',w:['常に無効','Bが善意なので取り消せるだけ','登記がなければ当然に無効'],ex:'心裡留保は原則として有効です。相手方が表意者の真意でないことを知り、または知ることができたときに限り無効となります。'},
+{cat:'権利関係',unit:'capacity',q:'AとBが通謀して土地の仮装売買をした後、事情を知らないCがBからその土地を買った。Aは仮装売買の無効をCに主張できる？',a:'主張できない',w:['必ず主張できる','Cに過失が少しでもあれば必ず主張できる','Aが登記を持っていれば常に主張できる'],ex:'通謀虚偽表示は当事者間では無効ですが、その無効を善意の第三者に対抗できません。民法94条2項は第三者に無過失までは要求していません。'},
+{cat:'権利関係',unit:'capacity',q:'契約の重要部分について民法上の錯誤があり、取消しの要件を満たす場合、意思表示の効力はどう扱われる？',a:'表意者は取り消すことができる',w:['当然に無効となる','相手方だけが取り消せる','錯誤があっても一切影響しない'],ex:'現行民法では、法律行為の目的・取引通念に照らして重要な錯誤による意思表示は、要件を満たせば取り消すことができます。'},
+
+{cat:'権利関係',unit:'agency',q:'代理権を持つAが、その権限内で「本人Bの代理人として」と示してCと契約した。契約の効果は原則として誰に生じる？',a:'本人B',w:['代理人Aだけ','相手方Cだけ','AとCのどちらにも生じない'],ex:'代理人が権限内で本人のためにすることを示して意思表示をすると、その効果は直接本人に帰属します。'},
+{cat:'権利関係',unit:'agency',q:'代理人Aが、本人Bのためにすることを示さずにCと契約した。Cが代理だと知らず、知ることもできなかった場合、原則として誰の行為とみなされる？',a:'代理人A自身の行為',w:['本人Bの行為','相手方Cの単独行為','当然に無効な行為'],ex:'顕名をしない意思表示は、原則として代理人自身のためにしたものとみなされます。相手方が代理だと知り、または知ることができた場合は例外です。'},
+{cat:'権利関係',unit:'agency',q:'代理人Aが、本人Bの許諾なく、Bを代理してA自身との売買契約をした。この自己契約は原則としてどう扱われる？',a:'無権代理人がした行為とみなされる',w:['常に完全に有効','初めから絶対的に無効','相手方がA本人なので代理の問題にならない'],ex:'自己契約や双方代理は、本人があらかじめ許諾した場合や債務の履行をする場合などを除き、無権代理行為とみなされます。'},
+{cat:'権利関係',unit:'agency',q:'無権代理人Aが本人Bの代理人として契約し、その後Bが有効に追認した。別段の意思表示がない場合、効力はいつにさかのぼる？',a:'契約をした時',w:['追認した時だけ','登記をした時','一切さかのぼらない'],ex:'無権代理行為の追認は、別段の意思表示がない限り、契約時にさかのぼって効力を生じます。ただし第三者の権利を害することはできません。'},
+{cat:'権利関係',unit:'agency',q:'無権代理の相手方Cが、本人Bに相当の期間を定めて追認するか確答するよう求めた。Bが期間内に返答しなかった場合は？',a:'追認を拒絶したものとみなされる',w:['追認したものとみなされる','契約は自動的に更新される','無権代理人の権限が自動的に発生する'],ex:'本人が相手方の催告期間内に確答しないときは、追認を拒絶したものとみなされます。'},
+{cat:'権利関係',unit:'agency',q:'無権代理による契約について、相手方Cは契約時に代理権がないことを知らなかった。本人が追認する前にCは契約を取り消せる？',a:'取り消すことができる',w:['一切取り消せない','本人の同意がなければ取り消せない','無権代理人が破産した場合だけ取り消せる'],ex:'無権代理の相手方は、本人が追認するまで契約を取り消せます。ただし契約時に代理権がないことを知っていた相手方は取り消せません。'},
+{cat:'権利関係',unit:'agency',q:'代理人Aが与えられた権限を越えて契約したが、相手方CにはAにその権限があると信じる正当な理由があった。本人Bが責任を負う可能性がある制度は？',a:'権限外の行為の表見代理',w:['相続放棄','取得時効','同時履行の抗弁'],ex:'基本代理権があり、相手方に権限があると信じる正当な理由があるときは、権限外の行為について表見代理が成立することがあります。'},
+
+{cat:'権利関係',unit:'prescription',q:'他人の土地を、所有の意思をもって平穏かつ公然に20年間占有した。占有開始時の善意・無過失を証明できなくても、取得時効は成立し得る？',a:'成立し得る',w:['善意・無過失がなければ絶対に成立しない','30年間必要','登記名義人の承諾が必須'],ex:'所有の意思をもって平穏かつ公然に20年間占有すれば、占有開始時の善意・無過失を問わず所有権を時効取得し得ます。'},
+{cat:'権利関係',unit:'prescription',q:'他人の土地を、所有の意思をもって平穏かつ公然に占有し始め、その開始時に善意かつ無過失だった。取得時効に必要な期間は？',a:'10年',w:['3年','5年','20年だけ'],ex:'占有開始時に善意・無過失なら10年、そうでなければ20年が所有権の取得時効の基本です。'},
+{cat:'権利関係',unit:'prescription',q:'一般の債権の消滅時効は、原則としてどの組合せで完成する？',a:'権利を行使できると知った時から5年、または権利を行使できる時から10年のいずれか早い方',w:['契約時から一律1年','知った時から10年だけ','権利を行使できる時から20年だけ'],ex:'一般の債権は、主観的起算点から5年または客観的起算点から10年の、先に到来した期間で時効消滅します。'},
+{cat:'権利関係',unit:'prescription',q:'物を壊されたことによる一般の不法行為の損害賠償請求権は、原則として被害者が損害と加害者を知った時から何年で時効消滅する？',a:'3年',w:['1年','5年','10年'],ex:'生命・身体を害する場合を除く一般の不法行為は、損害と加害者を知った時から3年、または不法行為時から20年が基本です。'},
+{cat:'権利関係',unit:'prescription',q:'消滅時効の期間が経過したが、当事者が時効を援用していない。裁判所は時効を当然に適用できる？',a:'できない',w:['必ず職権で適用する','債権者の同意なしに常に適用する','登記がなければ自動的に適用する'],ex:'時効の利益を受ける者などが援用しなければ、裁判所は時効による裁判をすることができません。'},
+{cat:'権利関係',unit:'prescription',q:'債務者が、消滅時効の完成前に「この債務について時効の利益を放棄する」と約束した。この約束は有効？',a:'無効',w:['常に有効','公正証書なら必ず有効','債権額が100万円以下なら有効'],ex:'時効の利益は、時効完成前にあらかじめ放棄することができません。完成後の放棄とは区別します。'},
+{cat:'権利関係',unit:'prescription',q:'消滅時効の完成前に、債務者が債務の存在を認めた。時効期間は原則としてどうなる？',a:'承認の時から新たに進行する',w:['そのまま何も変わらない','直ちに時効が完成する','永久に時効が完成しなくなる'],ex:'権利の承認は時効の更新事由です。承認があった時から、新たな時効期間が進行します。'},
+
+{cat:'権利関係',unit:'registration',q:'Aが自己所有の土地をBに売ったが、所有権移転登記はまだしていない。AとBの当事者間では所有権は原則としていつ移転する？',a:'売買の意思表示が合致した時',w:['登記をした時だけ','代金を全額支払った時だけ','土地を引き渡した時だけ'],ex:'物権変動は当事者の意思表示だけで効力を生じるのが原則です。登記は第三者に対抗するための要件です。'},
+{cat:'権利関係',unit:'registration',q:'Aから土地を買ったBが、その所有権取得を民法177条の第三者に主張するため、原則として必要なものは？',a:'所有権移転登記',w:['売買契約書だけ','土地の引渡しだけ','固定資産税の支払いだけ'],ex:'不動産の物権変動は、登記をしなければ民法177条の第三者に対抗できません。'},
+{cat:'権利関係',unit:'registration',q:'Aが同じ土地を先にB、後にCへ二重に売り、Cが先に所有権移転登記を得た。Cが通常の第三者である場合、BとCのどちらが所有権を主張できる？',a:'先に登記を得たC',w:['先に契約したB','先に代金を一部払った方','土地を先に見た方'],ex:'二重譲渡では契約の先後ではなく、原則として先に登記を備えた者が他方に所有権を対抗できます。'},
+{cat:'権利関係',unit:'registration',q:'土地の取得者Cが、登記のないBを害する目的で売主と積極的に通じた背信的悪意者に当たる。この場合、Cは民法177条の「第三者」として保護される？',a:'保護されない',w:['必ず保護される','登記さえあれば例外なく保護される','Cが代金を払えば必ず保護される'],ex:'単に事情を知る悪意者は原則として第三者に含まれますが、信義則に反する背信的悪意者は民法177条の第三者に当たりません。'},
+{cat:'権利関係',unit:'registration',q:'登記簿上の所有者Aを真の所有者だと過失なく信じてAから土地を買ったBは、登記に公信力があることだけを理由に所有権を取得できる？',a:'取得できない',w:['必ず取得できる','代金を全額払えば必ず取得できる','善意なら登記なしでも必ず取得できる'],ex:'不動産登記には公信力がありません。登記を信頼したことだけで、無権利者から所有権を取得することはできません。'},
+{cat:'権利関係',unit:'registration',q:'相続により不動産の所有権を取得した相続人は、相続開始と自己の取得を知った日から、原則として何年以内に相続登記を申請する？',a:'3年以内',w:['6か月以内','5年以内','10年以内'],ex:'2024年4月から相続登記は義務化され、相続による取得を知った日から原則3年以内の申請が必要です。正当な理由なく怠ると過料の対象になり得ます。'},
+{cat:'権利関係',unit:'registration',q:'2026年4月1日以後、所有権の登記名義人の住所が変わった。住所変更登記は、変更日から原則として何年以内に申請する？',a:'2年以内',w:['3か月以内','3年以内','10年以内'],ex:'所有権の登記名義人の氏名・名称・住所の変更登記は、2026年4月から原則2年以内の申請が義務となりました。'},
+
+{cat:'権利関係',unit:'mortgage',q:'土地に抵当権を設定した後も、設定者はその土地を引き続き使用・収益できる？',a:'原則としてできる',w:['抵当権者へ必ず引き渡す','設定と同時に使用権を失う','裁判所の許可がなければ使えない'],ex:'抵当権は目的物の占有を抵当権者へ移さず、設定者の使用・収益を認めたまま担保にする権利です。'},
+{cat:'権利関係',unit:'mortgage',q:'A所有の土地と建物のうち、土地だけに抵当権が設定された。抵当権の効力は当然に建物にも及ぶ？',a:'当然には及ばない',w:['常に建物にも及ぶ','建物の価格が土地より低ければ及ぶ','同じ所有者なら登記なしで必ず及ぶ'],ex:'土地と建物は別個の不動産です。土地だけの抵当権は、当然にはその上の建物に及びません。'},
+{cat:'権利関係',unit:'mortgage',q:'抵当権の被担保債権について債務不履行があった後、抵当不動産から生じた賃料などの果実に抵当権の効力は及び得る？',a:'及び得る',w:['一切及ばない','抵当権設定前の果実だけに及ぶ','所有者が同意した場合にしか及ばない'],ex:'抵当権の効力は、被担保債権の債務不履行後に生じた抵当不動産の果実にも及びます。賃料への物上代位では差押えも問題になります。'},
+{cat:'権利関係',unit:'mortgage',q:'同じ不動産に第1順位と第2順位の抵当権がある。競売代金から優先弁済を受ける順序の基本は？',a:'登記された抵当権の順位による',w:['債権額が大きい順','債権者の年齢順','契約書の枚数が多い順'],ex:'同一不動産上の抵当権相互の順位は、原則として登記の前後によって決まります。'},
+{cat:'権利関係',unit:'mortgage',q:'抵当建物が火災で滅失し、所有者が保険金請求権を得た。抵当権者が保険金へ物上代位するため、支払い前に必要な手続は？',a:'保険金請求権を差し押さえる',w:['建物を再登記する','所有者と賃貸借契約を結ぶ','抵当権を抹消する'],ex:'抵当権者が売却代金・保険金などへ物上代位するには、その金銭が保険金請求権者へ払い渡される前に差し押さえる必要があります。'},
+{cat:'権利関係',unit:'mortgage',q:'抵当権設定時に土地とその上の建物が同一所有者に属し、抵当権の実行によって土地と建物の所有者が別になった。建物のために原則成立する権利は？',a:'法定地上権',w:['留置権','永小作権','地役権が必ず消滅する権利'],ex:'抵当権設定時に土地と建物が同一所有者で、競売により所有者が別になった場合などには、建物存続のため法定地上権が成立します。'},
+{cat:'権利関係',unit:'mortgage',q:'登記された抵当権が付いた土地を所有者AがCへ売却した。売却したという事実だけで抵当権は消滅する？',a:'消滅しない',w:['当然に消滅する','Cが善意なら必ず消滅する','売買代金が高ければ消滅する'],ex:'登記された抵当権には追及力があり、抵当不動産が第三者へ譲渡されても、売却だけでは消滅しません。第三取得者の抵当権消滅請求などは別に検討します。'},
+
+{cat:'権利関係',unit:'obligations',q:'売買契約で、売主の目的物引渡債務と買主の代金支払債務が同時履行の関係にある。買主が支払いを提供しない場合、売主は引渡しを拒める？',a:'原則として拒むことができる',w:['絶対に拒めない','契約を直ちに無効にするしかない','登記済みなら必ず先に引き渡す'],ex:'双務契約の対価的な債務は原則として同時履行の関係にあり、相手方が履行を提供するまで自己の履行を拒めます。'},
+{cat:'権利関係',unit:'obligations',q:'債務者が契約どおりに履行せず、債権者が相当期間を定めて催告しても履行がなく、不履行が軽微でもない。債権者は原則として契約を解除できる？',a:'解除できる',w:['裁判所の判決がなければ解除できない','債務者の同意がなければ解除できない','10年間待たなければ解除できない'],ex:'履行遅滞などでは、相当期間を定めて履行を催告し、その期間内に履行がなければ原則として解除できます。軽微な不履行では解除できません。'},
+{cat:'権利関係',unit:'obligations',q:'債務不履行による契約解除について、債務者に帰責事由がないという理由だけで解除は常にできなくなる？',a:'常にできなくなるわけではない',w:['必ず解除できなくなる','損害賠償と解除は常に同じ要件','債務者が無過失なら契約は永久に続く'],ex:'現行民法では、解除に債務者の帰責事由は原則として不要です。ただし不履行が債権者の責めに帰すべき事由によるときは解除できません。'},
+{cat:'権利関係',unit:'obligations',q:'買主が売主に解約手付を交付した。まだ相手方が履行に着手していないとき、買主はどうすれば契約を解除できる？',a:'手付を放棄する',w:['手付の3倍を支払う','理由なく手付の返還を求める','必ず裁判を起こす'],ex:'解約手付では、相手方が履行に着手するまで、買主は手付を放棄し、売主は手付の倍額を現実に提供して解除できます。'},
+{cat:'権利関係',unit:'obligations',q:'個人が保証人となる保証契約は、口頭の合意だけで有効に成立する？',a:'原則として成立しない',w:['必ず成立する','証人が1人いれば口頭で成立する','保証額が少額なら必ず口頭で成立する'],ex:'保証契約は書面でしなければ効力を生じません。内容を記録した電磁的記録による場合は書面によるものとみなされます。'},
+{cat:'権利関係',unit:'obligations',q:'AとBが互いに同種の金銭債権を持ち、Aの反対債権も弁済期にあるなど相殺の要件を満たす。AはBの承諾がなくても相殺の意思表示をできる？',a:'できる',w:['できない','裁判所の許可が必須','両方の債権額が完全に同額のときだけできる'],ex:'相殺適状にあれば、一方から相手方への意思表示で相殺できます。相手方の承諾や債権額の完全な一致は不要です。'},
+{cat:'権利関係',unit:'obligations',q:'引き渡された土地の地質が契約で定めた品質に適合せず、買主がその不適合を知った。売主は引渡しの時に不適合を知らず、知らなかったことに重大な過失もなかった場合、買主が権利を保全するための通知期間は原則として？',a:'不適合を知った時から1年以内',w:['契約日から1か月以内','引渡しから必ず10年以内だけ','通知期間の制限は一切ない'],ex:'種類・品質の契約不適合は、買主が知った時から1年以内に売主へ通知するのが原則です。売主が引渡時に知り、または重大な過失で知らなかった場合は例外です。'},
+
+{cat:'権利関係',unit:'lease',q:'普通借地権を新たに設定するとき、存続期間を当事者が20年と定めた。存続期間は原則として何年になる？',a:'30年',w:['20年','10年','50年'],ex:'普通借地権の当初の存続期間は最低30年です。30年より短い期間を定めても30年となり、長い期間の定めは有効です。'},
+{cat:'権利関係',unit:'lease',q:'普通借地権が更新された場合、当事者が別段の期間を定めなければ、最初の更新後の期間と2回目以降の更新後の期間は？',a:'最初は20年、2回目以降は10年',w:['毎回5年','最初は10年、以後20年','毎回30年'],ex:'普通借地権の法定更新期間は、最初の更新が20年、その後の更新が10年です。当事者はこれより長い期間を定められます。'},
+{cat:'権利関係',unit:'lease',q:'土地の借地権自体に登記がなくても、借地権者がその土地上に自己名義で登記された建物を所有している。借地権を第三者に対抗できる？',a:'対抗できる',w:['土地賃借権の登記がなければ絶対に対抗できない','地代を10年分前払いした場合だけ対抗できる','建物の引渡しだけで必ず対抗できる'],ex:'借地権は、その土地上に借地権者が登記された建物を所有するとき、借地権自体の登記がなくても第三者に対抗できます。'},
+{cat:'権利関係',unit:'lease',q:'普通建物賃貸借で、賃貸人が法定期間内に更新拒絶の通知をした。期間満了時に更新を拒絶するため、さらに原則として必要なものは？',a:'正当事由',w:['賃貸人の気分だけ','賃借人が更新を希望したという事実','敷金が支払済みであること'],ex:'普通建物賃貸借の賃貸人による更新拒絶や解約申入れには、双方の使用必要性や経過などを考慮した正当事由が必要です。'},
+{cat:'権利関係',unit:'lease',q:'建物賃貸借は登記がなくても、賃借人が建物の引渡しを受けていれば、その後に建物を取得した者へ対抗できる？',a:'対抗できる',w:['一切対抗できない','公正証書がある場合だけ対抗できる','賃料を全額前払いした場合だけ対抗できる'],ex:'借地借家法により、建物賃貸借は建物の引渡しがあれば、賃借権の登記がなくても後の物権取得者に対抗できます。'},
+{cat:'権利関係',unit:'lease',q:'定期建物賃貸借で「更新がなく期間満了で終了する」と有効に定めるための基本として正しいものは？',a:'書面または電磁的記録で契約し、契約前に別個の書面で説明する（承諾があれば説明事項の電磁提供も可）',w:['口頭で合意するだけでよい','契約終了後に初めて説明すればよい','普通建物賃貸借と全く同じで特別な方式はない'],ex:'定期建物賃貸借は書面または電磁的記録で契約し、賃貸人が契約前に、更新がなく満了で終了する旨を別個の書面で説明する必要があります。賃借人の承諾があれば、その書面の記載事項を電磁的方法で提供できます。'},
+{cat:'権利関係',unit:'lease',q:'賃借人が賃貸人の承諾を得ずに賃借権を第三者へ譲渡し、その第三者に使用させた。信頼関係を破壊しない特段の事情もない場合、賃貸人は原則としてどうできる？',a:'賃貸借契約を解除できる',w:['何もできない','賃借権を自動的に取得する','必ず賃料を半額にしなければならない'],ex:'賃借権の無断譲渡・無断転貸が行われた場合、賃貸人は原則として契約を解除できます。判例上、信頼関係を破壊しない特段の事情があれば解除できないことがあります。'},
+
+{cat:'権利関係',unit:'inheritance',q:'被相続人に配偶者と子2人がいる。遺言などがない場合、配偶者の法定相続分は遺産全体のどれだけ？',a:'2分の1',w:['3分の1','3分の2','4分の3'],ex:'配偶者と子が共同相続人なら、配偶者が2分の1、子全体で2分の1です。子2人は原則として各4分の1となります。'},
+{cat:'権利関係',unit:'inheritance',q:'被相続人に子はおらず、配偶者と父母が相続人となる。配偶者の法定相続分は？',a:'3分の2',w:['2分の1','3分の1','4分の3'],ex:'配偶者と直系尊属が共同相続人なら、配偶者が3分の2、直系尊属全体で3分の1です。'},
+{cat:'権利関係',unit:'inheritance',q:'被相続人に子も直系尊属もおらず、配偶者と兄弟姉妹が相続人となる。配偶者の法定相続分は？',a:'4分の3',w:['2分の1','3分の2','3分の1'],ex:'配偶者と兄弟姉妹が共同相続人なら、配偶者が4分の3、兄弟姉妹全体で4分の1です。'},
+{cat:'権利関係',unit:'inheritance',q:'被相続人の子Aが相続開始前に死亡していたが、Aに子Bがいる。Bは原則としてAに代わって相続できる？',a:'代襲相続できる',w:['一切相続できない','配偶者の承諾がある場合だけ相続できる','遺言がなければ国が相続する'],ex:'被相続人の子が相続開始前に死亡した場合などは、その子の直系卑属が原則として代襲相続します。'},
+{cat:'権利関係',unit:'inheritance',q:'被相続人の兄Aが相続開始前に死亡し、Aの子Bも相続開始前に死亡しているが、Bの子Cがいる。Cは兄弟姉妹の系統で再代襲相続できる？',a:'できない',w:['必ずできる','配偶者がいなければ必ずできる','Cが未成年ならできる'],ex:'兄弟姉妹が先に死亡した場合はその子である甥・姪まで代襲しますが、甥・姪の子への再代襲は認められません。'},
+{cat:'権利関係',unit:'inheritance',q:'相続人Aが相続放棄をしたい。原則として、自己のために相続が開始したことを知った時から何か月以内に家庭裁判所へ申述する？',a:'3か月以内',w:['1か月以内','6か月以内','1年以内'],ex:'相続の承認・放棄を選ぶ熟慮期間は、自己のために相続開始があったことを知った時から原則3か月です。'},
+{cat:'権利関係',unit:'inheritance',q:'被相続人の兄弟姉妹に、民法上の遺留分は認められる？',a:'認められない',w:['常に遺産の2分の1が認められる','配偶者がいない場合だけ認められる','兄にだけ認められ姉には認められない'],ex:'遺留分が認められるのは兄弟姉妹以外の相続人です。兄弟姉妹には遺留分がありません。'}
+]);
+let quiz=null,quizTimerId=null,currentTerm=null,dictCat='全部',selectedCat='宅建業法';
 const LAW_UNITS=[
  {id:'license',name:'① 宅建業・免許',hint:'宅建業に当たる？ 知事/大臣・5年・更新'},
  {id:'takkenshi',name:'② 宅建士・事務所',hint:'専任5人に1人・35条説明・従業者'},
@@ -485,13 +952,26 @@ const LAW_UNITS=[
 function lawUnitOf(x){if(x.unit)return x.unit;let t=(x.q||'')+' '+(x.ex||'');if(/営業保証金|保証協会|弁済業務|供託|還付/.test(t))return'guarantee';if(/媒介|REINS|レインズ|指定流通|自己発見|業務処理状況/.test(t))return'mediation';if(/35条|37条|重要事項|IT重説|電磁|電子/.test(t))return'documents';if(/8種|手付|クーリング|損害賠償|違約金|契約不適合|所有権留保|割賦/.test(t))return'eight';if(/監督|指示処分|業務停止|免許取消|罰則|刑事/.test(t))return'supervision';if(/専任.*宅建|宅建士|従業者|事務所|証明書/.test(t))return'takkenshi';if(/免許|宅建業に当|国土交通大臣|知事|更新申請/.test(t))return'license';return'advertising'}
 function lawUnitCounts(){let m={};LAW_UNITS.forEach(u=>m[u.id]=0);SC.filter(x=>x.cat==='宅建業法').forEach(x=>m[lawUnitOf(x)]++);return m}
 
+const RIGHTS_UNITS=[
+ {id:'capacity',name:'① 行為能力・意思表示',hint:'未成年者・取消し・錯誤・詐欺・強迫'},
+ {id:'agency',name:'② 代理',hint:'代理権・無権代理・表見代理・追認'},
+ {id:'prescription',name:'③ 時効',hint:'取得時効・消滅時効・完成猶予・更新'},
+ {id:'registration',name:'④ 物権変動・登記',hint:'対抗要件・二重譲渡・登記の先後'},
+ {id:'mortgage',name:'⑤ 抵当権',hint:'優先弁済・物上代位・法定地上権'},
+ {id:'obligations',name:'⑥ 債務・契約',hint:'履行・解除・危険負担・契約不適合'},
+ {id:'lease',name:'⑦ 賃貸借・借地借家',hint:'対抗力・更新・敷金・定期借家'},
+ {id:'inheritance',name:'⑧ 相続',hint:'法定相続・放棄・遺言・遺留分'}
+];
+function rightsUnitOf(x){if(x.unit)return x.unit;let t=(x.q||'')+' '+(x.ex||'');if(/代理|追認|本人/.test(t))return'agency';if(/時効/.test(t))return'prescription';if(/抵当|物上代位|法定地上/.test(t))return'mortgage';if(/相続|遺言|遺留分/.test(t))return'inheritance';if(/賃貸|借地|借家|敷金/.test(t))return'lease';if(/登記|対抗|二重譲渡|所有権/.test(t))return'registration';if(/未成年|成年被後見|意思表示|錯誤|詐欺|強迫|善意/.test(t))return'capacity';return'obligations'}
+function rightsUnitCounts(){let m={};RIGHTS_UNITS.forEach(u=>m[u.id]=0);SC.filter(x=>x.cat==='権利関係').forEach(x=>m[rightsUnitOf(x)]++);return m}
+
 const PROJECT={
- version:'1.6',updated:'2026-08-26',
+ version:'1.7',updated:'2026-08-26',
  targets:{terms:250,phrases:100,breakdowns:40,questions:600,law:200,rights:200,limits:120,tax:80},
  fixed:[
   {id:'base',title:'① 学習基盤',weight:8,progress:1,note:'5問学習・辞典・端末保存・正答率・苦手記録'},
   {id:'review',title:'⑤ 苦手・間隔復習',weight:10,progress:1,note:'誤答→翌日、迷い→3日後、正答→7日後を基本に、復習成功で14・30日へ延長'},
-  {id:'mock',title:'⑥ 模試機能',weight:8,progress:.4,note:'20問ミニ模試を実装。最終目標の50問本番形式・時間管理は今後追加'},
+  {id:'mock',title:'⑥ 模試機能',weight:8,progress:.85,note:'20問ミニ模試に加え、科目配分・120分タイマー付き50問本番模試βを実装'},
   {id:'legal',title:'⑦ 2026法令確認',weight:7,progress:.45,note:'令和8年4月1日版の国交省資料で免許・専任宅建士・保証金・媒介・35/37条電子化・8種制限の主要数値を確認済み'},
   {id:'qa',title:'⑧ QA・配布',weight:5,progress:.8,note:'iPhone実機で主要画面を確認済み。バックアップ/復元を実装。残りは全画面QAと配布仕上げ'},
   {id:'ai',title:'⑨ ChatGPT弱点分析',weight:6,progress:.9,note:'誤答原因記録・分析文コピー・分析結果の貼り戻し・AIおすすめ5問まで実装。実機で画面表示確認済み'}
@@ -516,7 +996,7 @@ function renderProject(){
  $('#devNextMini').textContent=next?'次：'+next.title+' → '+next.current+' / '+next.target:'完成条件を達成しました';
  $('#devPct').textContent=s.pct+'%';$('#devBar').style.width=s.pct+'%';
  $('#devCounts').innerHTML=`用語 <b>${G.length}/${PROJECT.targets.terms}</b><br>文章 <b>${PHRASES.length}/${PROJECT.targets.phrases}</b><br>3分解 <b>${BREAKDOWNS.length}/${PROJECT.targets.breakdowns}</b><br>実戦問題 <b>${SC.length}/${PROJECT.targets.questions}</b>`;
- $('#devNext').innerHTML='<b>次の開発スプリント</b><br>v1.6で、用語 <b>220語</b>・宅建業法 <b>100問</b>・単元別5問・20問ミニ模試・バックアップ/復元まで実装しました。次は用語250語、文章100表現、3分解40題を完成させ、権利関係の実戦問題を重点増量します。';
+ $('#devNext').innerHTML='<b>v1.7で追加</b><br>用語 <b>250語</b>・文章 <b>100表現</b>・3分解 <b>40題</b>を達成。権利関係を<b>60問・8単元</b>へ拡張し、<b>50問本番模試β（120分）</b>を追加しました。次は法令制限・税その他・宅建業法の実戦問題を増量します。';
  const box=$('#milestones');box.innerHTML='';
  s.rows.forEach(r=>{let pc=Math.round(r.p*100),status=pc>=100?['完了','statusDone']:pc>0?['進行中','statusDoing']:['未着手','statusTodo'];let d=document.createElement('div');d.className='mile';d.innerHTML=`<div class="mileTop"><div><div class="mileTitle">${r.title}</div><div class="mileMeta">${r.current} → ${r.target}<br>${r.note}</div></div><span class="${status[1]}">${status[0]} ${pc}%</span></div><div class="progress" style="margin-top:10px"><i style="width:${pc}%"></i></div>`;box.appendChild(d)});
 }
@@ -562,8 +1042,10 @@ function make5(mode='normal'){
 }
 
 function renderUnits(){let box=$('#unitList'),counts=lawUnitCounts();box.innerHTML='';LAW_UNITS.forEach(u=>{let b=document.createElement('button');b.className='term';b.innerHTML=`<div class="termTop"><b>${u.name}</b><span class="tag">${counts[u.id]||0}問</span></div><div class="plain">→ ${u.hint}</div>`;b.onclick=()=>{let pool=SC.filter(x=>x.cat==='宅建業法'&&lawUnitOf(x)===u.id);let qs=shuffle(pool).slice(0,5).map(scenarioQuestion);while(qs.length<5){let terms=G.filter(x=>x.cat==='宅建業法');qs.push(termQuestion(pick(terms)))}$('#unitModal').classList.add('hidden');startQuiz(qs,u.name+'｜単元別5問')};box.appendChild(b)})}
+function renderRightsUnits(){let box=$('#rightsUnitList'),counts=rightsUnitCounts();box.innerHTML='';RIGHTS_UNITS.forEach(u=>{let b=document.createElement('button');b.className='term';b.innerHTML=`<div class="termTop"><b>${u.name}</b><span class="tag">${counts[u.id]||0}問</span></div><div class="plain">→ ${u.hint}</div>`;b.onclick=()=>{let pool=SC.filter(x=>x.cat==='権利関係'&&rightsUnitOf(x)===u.id);let qs=shuffle(pool).slice(0,5).map(scenarioQuestion);while(qs.length<5){let terms=G.filter(x=>x.cat==='権利関係');qs.push(termQuestion(pick(terms)))}$('#rightsUnitModal').classList.add('hidden');startQuiz(qs,u.name+'｜単元別5問')};box.appendChild(b)})}
 function mockQuestions(cat,n){let qs=shuffle(SC.filter(x=>x.cat===cat)).slice(0,n).map(scenarioQuestion);let tp=shuffle(G.filter(x=>x.cat===cat));let i=0;while(qs.length<n&&tp.length){qs.push(i%2?reverseTermQuestion(tp[i%tp.length]):termQuestion(tp[i%tp.length]));i++}return qs}
 function startMock20(){let qs=[...mockQuestions('宅建業法',8),...mockQuestions('権利関係',6),...mockQuestions('法令制限',3),...mockQuestions('税・その他',3)];startQuiz(shuffle(qs),'📝 20問ミニ模試')}
+function startMock50(){let qs=[...mockQuestions('権利関係',14),...mockQuestions('法令制限',8),...mockQuestions('税・その他',8),...mockQuestions('宅建業法',20)];startQuiz(qs,'⏱️ 50問本番模試β',120)}
 function backupJSON(){return JSON.stringify({app:'manabi-tab-takken',version:PROJECT.version,exported_at:new Date().toISOString(),state:state},null,2)}
 function normalizeState(x){let d={answers:[],weak:{},struggles:[],breakdownHistory:[],reviews:{},streak:0,lastStudy:'',aiPlan:null},v=x&&x.state?x.state:x;if(!v||typeof v!=='object')throw new Error('学習データが見つかりません');return {...d,...v,answers:Array.isArray(v.answers)?v.answers:[],weak:v.weak&&typeof v.weak==='object'?v.weak:{},struggles:Array.isArray(v.struggles)?v.struggles:[],breakdownHistory:Array.isArray(v.breakdownHistory)?v.breakdownHistory:[],reviews:v.reviews&&typeof v.reviews==='object'?v.reviews:{}}}
 function restoreFromText(txt){let obj=JSON.parse(txt);state=normalizeState(obj);save();renderStats();renderProject();return true}
@@ -574,22 +1056,25 @@ function showBreakdown(){let x=breakdownSession.items[breakdownSession.i];breakd
 function revealBreak(part){let map={people:'#breakPeople',action:'#breakAction',ask:'#breakAsk'};$(map[part]).classList.remove('hidden');breakdownSession.revealed.add(part);let btn=$(`[data-break="${part}"]`);if(btn)btn.classList.add('breakHardDone');if(breakdownSession.revealed.size===3){$('#breakPlain').classList.remove('hidden');$('#breakNext').disabled=false}}
 function logBreakdown(hard){if(breakdownSession.logged)return;let x=breakdownSession.items[breakdownSession.i];breakdownSession.logged=true;state.breakdownHistory.push({date:today(),id:BREAKDOWNS.indexOf(x),cat:x.cat,hard:!!hard,text:x.text});if(state.breakdownHistory.length>300)state.breakdownHistory=state.breakdownHistory.slice(-300);if(hard)addStruggle({cat:x.cat,type:'breakdown',q:x.text,a:x.plain,term:''},'reading','','問題文読解',true);markStudy();save();renderStats();$('#breakStatus').textContent=hard?'「問題文の分解が難しい」と記録しました。ChatGPT分析に入ります。':'理解できた記録を保存しました。'}
 
-function startQuiz(qs,title){quiz={qs,i:0,score:0,title,unsure:false,results:[]};$('#quizTitle').textContent=title;$('#quizModal').classList.remove('hidden');showQ()}
+function stopQuizTimer(){if(quizTimerId){clearInterval(quizTimerId);quizTimerId=null}}
+function updateQuizTimer(){if(!quiz||!quiz.deadline)return;let left=Math.max(0,Math.ceil((quiz.deadline-Date.now())/1000)),m=Math.floor(left/60),s=left%60,t=$('#quizTimer');t.textContent=`残り ${m}:${String(s).padStart(2,'0')}`;t.classList.toggle('warning',left<=600);if(left<=0){quiz.timeExpired=true;stopQuizTimer();finishQuiz()}}
+function startQuiz(qs,title,minutes=0){stopQuizTimer();quiz={qs,i:0,score:0,title,unsure:false,results:[],deadline:minutes?Date.now()+minutes*60000:0,timeExpired:false};$('#quizTitle').textContent=title;$('#quizModal').classList.remove('hidden');let timer=$('#quizTimer');timer.classList.toggle('hidden',!minutes);timer.classList.remove('warning');if(minutes){updateQuizTimer();quizTimerId=setInterval(updateQuizTimer,1000)}showQ()}
 function showQ(){let z=quiz.qs[quiz.i];quiz.unsure=false;z._unknownLogged=false;$('#quizProgress').textContent=`${quiz.i+1} / ${quiz.qs.length}`;$('#quizDiff').textContent=z.diff;$('#quizQuestion').textContent=z.q;let box=$('#quizOptions');box.innerHTML='';shuffle([z.a,...z.w]).forEach(o=>{let b=document.createElement('button');b.className='option';b.textContent=o;b.onclick=()=>doAnswer(b,o,z);box.appendChild(b)});$('#quizFeedback').classList.add('hidden');$('#quizNext').classList.add('hidden');$('#quizUnknown').classList.remove('hidden');$('#quizUnknown').textContent='言葉が分からない';$('#quizUnsure').classList.remove('hidden');$('#quizUnsure').textContent='🤔 迷った';$('#quizUnsure').classList.remove('sel')}
 function doAnswer(btn,o,z){$$('#quizOptions button').forEach(b=>b.disabled=true);let ok=o===z.a;if(ok){btn.classList.add('ok');quiz.score++}else{btn.classList.add('ng');$$('#quizOptions button').forEach(b=>{if(b.textContent===z.a)b.classList.add('ok')})}quiz.results.push({cat:z.cat,ok:ok});answerLog(ok,z.type,z.cat,z.term||'',{question:z.q,chosen:o,correct:z.a,unsure:quiz.unsure});scheduleReview(z,ok,quiz.unsure);let sid='';if(!ok)sid=addStruggle(z,'wrong',o,inferCause(z,o),quiz.unsure);else if(quiz.unsure)sid=addStruggle(z,'unsure',o,'自信不足',true);let fb=$('#quizFeedback');fb.innerHTML=(ok?'✅ <b>正解</b>':'💡 <b>正解：</b>'+z.a)+'<br>'+z.ex+(sid&&!ok?causePicker(sid,inferCause(z,o)):(sid&&ok?'<div class="causePicker"><b>正解ですが「迷った」と記録しました。分析では自信不足として扱います。</b></div>':''));fb.classList.remove('hidden');if(sid&&!ok)bindCauseButtons();$('#quizNext').classList.remove('hidden');$('#quizUnknown').classList.add('hidden');$('#quizUnsure').classList.add('hidden')}
-function finishQuiz(){let r=Math.round(quiz.score/quiz.qs.length*100);$('#quizQuestion').innerHTML=`<div class="scoreCircle">${r}%</div><div style="text-align:center">${quiz.qs.length}問中 ${quiz.score}問正解</div>`;$('#quizOptions').innerHTML='';let msg=r>=80?'かなり読めています。次は「なぜ他の選択肢が違うか」まで説明できれば強いです。':r>=60?'意味はつかめています。間違えた用語だけ辞典で1回確認しましょう。':'まず用語の翻訳を優先。問題を解く前に「この一文は何を言っている？」を日本語に直しましょう。';if(quiz.title.includes('20問ミニ模試')){let cats=['宅建業法','権利関係','法令制限','税・その他'];let rows=cats.map(c=>{let x=quiz.results.filter(v=>v.cat===c);return x.length?`${c}：${x.filter(v=>v.ok).length}/${x.length}`:''}).filter(Boolean);msg='<b>科目別結果</b><br>'+rows.join('<br>')+'<br><br>'+msg}$('#quizFeedback').innerHTML=msg;$('#quizFeedback').classList.remove('hidden');$('#quizNext').classList.add('hidden');$('#quizUnknown').classList.add('hidden');$('#quizUnsure').classList.add('hidden')}
-$('#quizNext').onclick=()=>{quiz.i++;quiz.i<quiz.qs.length?showQ():finishQuiz()};$('#quizQuit').onclick=()=>$('#quizModal').classList.add('hidden');$('#quizUnsure').onclick=()=>{quiz.unsure=!quiz.unsure;$('#quizUnsure').textContent=quiz.unsure?'✓ 迷ったと記録':'🤔 迷った';$('#quizUnsure').classList.toggle('sel',quiz.unsure)};$('#quizUnknown').onclick=()=>{let z=quiz.qs[quiz.i];if(z._unknownLogged)return;z._unknownLogged=true;if(z.term)state.weak[z.term]=(state.weak[z.term]||0)+1;else{let m=G.find(t=>z.q.includes(t.name));if(m)state.weak[m.name]=(state.weak[m.name]||0)+1}addStruggle(z,'unknown','',z.type==='scenario'?'用語理解':inferCause(z),true);scheduleReview(z,false,true,1);save();renderStats();$('#quizFeedback').innerHTML='📌 「言葉が分からない」と記録しました。これはChatGPT分析で <b>用語理解のつまずき</b> として扱います。答える前に辞典を見てOKです。';$('#quizFeedback').classList.remove('hidden');$('#quizUnknown').textContent='記録しました ✓'};
+function finishQuiz(){stopQuizTimer();let r=Math.round(quiz.score/quiz.qs.length*100);$('#quizQuestion').innerHTML=`<div class="scoreCircle">${r}%</div><div style="text-align:center">${quiz.qs.length}問中 ${quiz.score}問正解</div>`;$('#quizOptions').innerHTML='';$('#quizProgress').textContent='終了';let msg=r>=80?'かなり読めています。次は「なぜ他の選択肢が違うか」まで説明できれば強いです。':r>=60?'意味はつかめています。間違えた用語だけ辞典で1回確認しましょう。':'まず用語の翻訳を優先。問題を解く前に「この一文は何を言っている？」を日本語に直しましょう。';if(quiz.title.includes('模試')){let cats=['権利関係','法令制限','税・その他','宅建業法'];let rows=cats.map(c=>{let total=quiz.qs.filter(v=>v.cat===c).length,x=quiz.results.filter(v=>v.cat===c),answered=x.length;return total?`${c}：${x.filter(v=>v.ok).length}/${total}${answered<total?`（回答 ${answered}）`:''}`:''}).filter(Boolean);msg='<b>科目別結果</b><br>'+rows.join('<br>')+'<br><br>'+(quiz.timeExpired?'<b>時間切れです。未回答は0点として集計しました。</b><br><br>':'')+msg}$('#quizFeedback').innerHTML=msg;$('#quizFeedback').classList.remove('hidden');$('#quizNext').classList.add('hidden');$('#quizUnknown').classList.add('hidden');$('#quizUnsure').classList.add('hidden')}
+$('#quizNext').onclick=()=>{quiz.i++;quiz.i<quiz.qs.length?showQ():finishQuiz()};$('#quizQuit').onclick=()=>{stopQuizTimer();$('#quizModal').classList.add('hidden')};$('#quizUnsure').onclick=()=>{quiz.unsure=!quiz.unsure;$('#quizUnsure').textContent=quiz.unsure?'✓ 迷ったと記録':'🤔 迷った';$('#quizUnsure').classList.toggle('sel',quiz.unsure)};$('#quizUnknown').onclick=()=>{let z=quiz.qs[quiz.i];if(z._unknownLogged)return;z._unknownLogged=true;if(z.term)state.weak[z.term]=(state.weak[z.term]||0)+1;else{let m=G.find(t=>z.q.includes(t.name));if(m)state.weak[m.name]=(state.weak[m.name]||0)+1}addStruggle(z,'unknown','',z.type==='scenario'?'用語理解':inferCause(z),true);scheduleReview(z,false,true,1);save();renderStats();$('#quizFeedback').innerHTML='📌 「言葉が分からない」と記録しました。これはChatGPT分析で <b>用語理解のつまずき</b> として扱います。答える前に辞典を見てOKです。';$('#quizFeedback').classList.remove('hidden');$('#quizUnknown').textContent='記録しました ✓'};
 
 $('#openBreakdown').onclick=startBreakdown;$('.closeBreak').onclick=()=>$('#breakModal').classList.add('hidden');$$('[data-break]').forEach(b=>b.onclick=()=>revealBreak(b.dataset.break));$('#breakHard').onclick=()=>{logBreakdown(true);['people','action','ask'].forEach(revealBreak);$('#breakHard').textContent='記録しました ✓';$('#breakNext').disabled=false};$('#breakNext').onclick=()=>{if(!breakdownSession.logged)logBreakdown(false);breakdownSession.i++;if(breakdownSession.i<breakdownSession.items.length)showBreakdown();else{$('#breakText').innerHTML='<div class="scoreCircle">5題</div><div style="text-align:center">3分解トレーニング完了</div>';$('.breakGuide').innerHTML='<b>読む型はこれだけ</b><br>①誰が → ②何をした → ③何を聞いている';$('.breakSteps').classList.add('hidden');$('#breakPlain').classList.remove('hidden');$('#breakPlain').innerHTML='この型を先に作ってから、法律知識を当てはめます。';$('#breakNext').classList.add('hidden');$('#breakHard').classList.add('hidden')}};
 $('#openDict').onclick=openDict;$('#openDictHeader').onclick=openDict;$('#dictSearch').oninput=renderDict;$$('.close').forEach(x=>x.onclick=()=>x.closest('.modal').classList.add('hidden'));$('.closeTerm').onclick=()=>$('#termModal').classList.add('hidden');$('#markWeak').onclick=()=>{if(currentTerm){state.weak[currentTerm.name]=(state.weak[currentTerm.name]||0)+1;save();renderStats();$('#markWeak').textContent='記録しました ✓';setTimeout(()=>$('#markWeak').textContent='まだ分からない',1200)}};$('#termQuizBtn').onclick=()=>{if(currentTerm){$('#termModal').classList.add('hidden');startQuiz([termQuestion(currentTerm)],currentTerm.name+'｜確認問題')}};
 $('#openPhrase').onclick=()=>{let b=$('#phraseList');b.innerHTML='';PHRASES.forEach(p=>{let d=document.createElement('div');d.className='phrase';d.innerHTML=`<b>${p[0]}</b>${p[1]}`;b.appendChild(d)});$('#phraseModal').classList.remove('hidden')};$('#phraseQuizBtn').onclick=()=>{$('#phraseModal').classList.add('hidden');make5('phrase')};
 $('#start5').onclick=()=>make5('normal');$('#startWeak').onclick=()=>make5('weak');$('#startDue').onclick=startDueReviews;$('#startDue2').onclick=startDueReviews;$$('.subject').forEach(x=>x.onclick=()=>{selectedCat=x.dataset.cat;$$('.subject').forEach(y=>y.classList.toggle('active',y===x));make5('normal')});
 $('#openAI').onclick=$('#openAI2').onclick=()=>{renderAI();$('#aiModal').classList.remove('hidden')};$('.closeAI').onclick=()=>$('#aiModal').classList.add('hidden');$('#copyAI').onclick=async()=>{let ok=await copyText($('#aiPrompt').value);$('#copyStatus').textContent=ok?'コピーしました。ChatGPTに貼り付けてください。':'自動コピーできませんでした。上の文章を長押ししてコピーしてください。'};$('#openChatGPT').onclick=()=>window.open('https://chatgpt.com/','_blank');$('#importAIPlan').onclick=()=>{try{let p=importAIPlan($('#aiResult').value);$('#aiImportStatus').textContent='反映しました。ホームの「AIおすすめ5問」から開始できます。';renderStats()}catch(e){$('#aiImportStatus').textContent='読み込めませんでした：'+e.message}};$('#clearAIPlan').onclick=()=>{state.aiPlan=null;save();renderAI();$('#aiImportStatus').textContent='AI設定を解除しました。'};$('#startAI').onclick=()=>{if(!state.aiPlan){renderAI();$('#aiModal').classList.remove('hidden');$('#aiImportStatus').textContent='先にChatGPTの分析結果を貼り戻してください。';return}make5('ai')};
-$('#openUnits').onclick=()=>{renderUnits();$('#unitModal').classList.remove('hidden')};$('.closeUnit').onclick=()=>$('#unitModal').classList.add('hidden');$('#startMock20').onclick=startMock20;
+$('#openUnits').onclick=()=>{renderUnits();$('#unitModal').classList.remove('hidden')};$('.closeUnit').onclick=()=>$('#unitModal').classList.add('hidden');$('#openRightsUnits').onclick=()=>{renderRightsUnits();$('#rightsUnitModal').classList.remove('hidden')};$('.closeRightsUnit').onclick=()=>$('#rightsUnitModal').classList.add('hidden');$('#startMock20').onclick=startMock20;$('#startMock50').onclick=startMock50;
 $('#openBackup').onclick=()=>{$('#backupArea').value=backupJSON();$('#backupStatus').textContent='';$('#backupModal').classList.remove('hidden')};$('.closeBackup').onclick=()=>$('#backupModal').classList.add('hidden');$('#makeBackup').onclick=()=>{$('#backupArea').value=backupJSON();$('#backupStatus').textContent='最新の学習データを表示しました。'};$('#copyBackup').onclick=async()=>{$('#backupArea').value=backupJSON();let ok=await copyText($('#backupArea').value);$('#backupStatus').textContent=ok?'バックアップをコピーしました。':'コピーできませんでした。テキストを長押ししてコピーしてください。'};$('#downloadBackup').onclick=()=>{let blob=new Blob([backupJSON()],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='manabi_takken_backup_'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);$('#backupStatus').textContent='JSONファイルを作成しました。'};$('#restoreBackup').onclick=()=>{try{if(!$('#restoreArea').value.trim())throw new Error('復元するJSONを貼り付けてください');if(!confirm('現在の学習記録を、このバックアップで置き換えますか？'))return;restoreFromText($('#restoreArea').value);$('#backupArea').value=backupJSON();$('#backupStatus').textContent='復元しました。'}catch(e){$('#backupStatus').textContent='復元できませんでした：'+e.message}};$('#backupFile').onchange=async e=>{let f=e.target.files&&e.target.files[0];if(!f)return;try{$('#restoreArea').value=await f.text();$('#backupStatus').textContent='ファイルを読み込みました。「このデータで復元」を押してください。'}catch(err){$('#backupStatus').textContent='ファイルを読めませんでした。'}};
 $('#clearProgress').onclick=()=>{if(confirm('学習記録をすべて消しますか？')){state={answers:[],weak:{},struggles:[],breakdownHistory:[],reviews:{},streak:0,lastStudy:'',aiPlan:null};save();renderStats()}};
 $('#openProgress').onclick=()=>{renderProject();$('#devModal').classList.remove('hidden')};$('.closeDev').onclick=()=>$('#devModal').classList.add('hidden');
 initFilters();renderStats();renderProject();
 </script>
-</body>
-</html>
+
+
+</body><div id="codex-browser-sidebar-comments-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 2147483647;"></div></html>
