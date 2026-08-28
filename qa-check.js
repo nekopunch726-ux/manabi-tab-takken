@@ -97,9 +97,9 @@ __qa=(()=>{
     missing:Object.entries(guides||{}).filter(([,g])=>guideMissing(g)).map(([id])=>id)
   });
   const thresholds={
-    law:{license:20,takkenshi:20,guarantee:20,mediation:20,documents:20,eight:20,advertising:20,supervision:20},
-    rights:{capacity:15,agency:15,prescription:15,registration:15,mortgage:15,obligations:15,lease:15,inheritance:15},
-    limits:{zoning:12,development:12,building:12,landuse:12,farmland:12,safety:12},
+    law:{license:22,takkenshi:22,guarantee:22,mediation:22,documents:22,eight:22,advertising:22,supervision:22},
+    rights:{capacity:22,agency:22,prescription:22,registration:22,mortgage:22,obligations:22,lease:22,inheritance:22},
+    limits:{zoning:16,development:16,building:16,landuse:16,farmland:16,safety:16},
     tax:{acquisition:10,fixed:10,registration_tax:10,stamp:10,price:10,income:10}
   };
   const lawCounts=countBy('宅建業法',LAW_UNITS);
@@ -108,6 +108,7 @@ __qa=(()=>{
   const taxCounts=countBy('税・その他',TAX_UNITS);
   const v22Questions=SC.filter(x=>(x.id||'').startsWith('V22-'));
   const v23Questions=SC.filter(x=>(x.id||'').startsWith('V23-'));
+  const v24Questions=SC.filter(x=>(x.id||'').startsWith('V24-'));
 
   result.version={version:PROJECT.version,updated:PROJECT.updated};
   result.storageKey=STORAGE_KEY;
@@ -155,6 +156,17 @@ __qa=(()=>{
     sourceMissing:v23Questions.filter(x=>!x.source).map(x=>x.id),
     verifiedMissing:v23Questions.filter(x=>!x.verifiedAt).map(x=>x.id),
     invalidOptions:v23Questions.filter(x=>!Array.isArray(x.w)||x.w.length!==3||x.w.includes(x.a)).map(x=>x.id)
+  };
+  result.v24Added={
+    total:v24Questions.length,
+    sourceMissing:v24Questions.filter(x=>!x.source).map(x=>x.id),
+    verifiedMissing:v24Questions.filter(x=>!x.verifiedAt).map(x=>x.id),
+    invalidOptions:v24Questions.filter(x=>!Array.isArray(x.w)||x.w.length!==3||x.w.includes(x.a)).map(x=>x.id),
+    missingDiff:v24Questions.filter(x=>!x.diff).map(x=>x.id)
+  };
+  result.scenarioAvailability={
+    byCat:SC.reduce((m,x)=>(m[x.cat]=(m[x.cat]||0)+1,m),{}),
+    mock50Ready:(SC.filter(x=>x.cat==='権利関係').length>=14)&&(SC.filter(x=>x.cat==='法令制限').length>=8)&&(SC.filter(x=>x.cat==='税・その他').length>=8)&&(SC.filter(x=>x.cat==='宅建業法').length>=20)
   };
   result.minimums={
     law:Object.fromEntries(Object.entries(thresholds.law).map(([id,n])=>[id,{count:lawCounts[id]||0,ok:(lawCounts[id]||0)>=n}])),
@@ -307,7 +319,7 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.3') result.failures.push('PROJECT.version is not 2.3');
+  if(PROJECT.version!=='2.4') result.failures.push('PROJECT.version is not 2.4');
   if(PROJECT.updated!=='2026-08-28') result.failures.push('PROJECT.updated is not 2026-08-28');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
   ['law','rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
@@ -321,6 +333,17 @@ __qa=(()=>{
   if(result.v23Added.sourceMissing.length) result.failures.push('v23 source missing');
   if(result.v23Added.verifiedMissing.length) result.failures.push('v23 verifiedAt missing');
   if(result.v23Added.invalidOptions.length) result.failures.push('v23 options invalid');
+  if(result.counts.questions<600) result.failures.push('SC below 600');
+  if((result.counts.byCat['宅建業法']||0)<200) result.failures.push('law total below 200');
+  if((result.counts.byCat['権利関係']||0)<200) result.failures.push('rights total below 200');
+  if((result.counts.byCat['法令制限']||0)<120) result.failures.push('limits total below 120');
+  if((result.counts.byCat['税・その他']||0)<80) result.failures.push('tax total below 80');
+  if(result.v24Added.total!==187) result.failures.push('v24 total mismatch');
+  if(result.v24Added.sourceMissing.length) result.failures.push('v24 source missing');
+  if(result.v24Added.verifiedMissing.length) result.failures.push('v24 verifiedAt missing');
+  if(result.v24Added.invalidOptions.length) result.failures.push('v24 options invalid');
+  if(result.v24Added.missingDiff.length) result.failures.push('v24 diff missing');
+  if(!result.scenarioAvailability.mock50Ready) result.failures.push('mock50 scenario pool insufficient');
   if(result.missing.id||result.missing.unit||result.missing.diff||result.missing.trap||result.missing.options||result.missing.answer||result.missing.explanation||result.missing.category) result.failures.push('core fields missing');
   if(result.duplicates.questionIds.length||result.duplicates.questionText.length||result.duplicates.domIds.length) result.failures.push('duplicates found');
   if(!result.continueUiNormal.visible||!result.continueUiNormal.continueBtn||!result.continueUiNormal.changeUnitBtn||!result.continueUiNormal.stopBtn) result.failures.push('continue UI broken');
