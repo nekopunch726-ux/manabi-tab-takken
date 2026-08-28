@@ -97,12 +97,17 @@ __qa=(()=>{
     missing:Object.entries(guides||{}).filter(([,g])=>guideMissing(g)).map(([id])=>id)
   });
   const thresholds={
+    law:{license:20,takkenshi:20,guarantee:20,mediation:20,documents:20,eight:20,advertising:20,supervision:20},
+    rights:{capacity:15,agency:15,prescription:15,registration:15,mortgage:15,obligations:15,lease:15,inheritance:15},
     limits:{zoning:12,development:12,building:12,landuse:12,farmland:12,safety:12},
     tax:{acquisition:10,fixed:10,registration_tax:10,stamp:10,price:10,income:10}
   };
+  const lawCounts=countBy('宅建業法',LAW_UNITS);
+  const rightsCounts=countBy('権利関係',RIGHTS_UNITS);
   const limitsCounts=countBy('法令制限',LIMITS_UNITS);
   const taxCounts=countBy('税・その他',TAX_UNITS);
   const v22Questions=SC.filter(x=>(x.id||'').startsWith('V22-'));
+  const v23Questions=SC.filter(x=>(x.id||'').startsWith('V23-'));
 
   result.version={version:PROJECT.version,updated:PROJECT.updated};
   result.storageKey=STORAGE_KEY;
@@ -113,11 +118,14 @@ __qa=(()=>{
     questions:SC.length,
     byCat:SC.reduce((m,x)=>(m[x.cat]=(m[x.cat]||0)+1,m),{}),
     byUnit:{
+      law:lawCounts,
+      rights:rightsCounts,
       limits:limitsCounts,
       tax:taxCounts
     }
   };
   result.guides={
+    law:getGuideSetSummary(LAW_GUIDES),
     rights:getGuideSetSummary(RIGHTS_GUIDES),
     limits:getGuideSetSummary(LIMITS_GUIDES),
     tax:getGuideSetSummary(TAX_GUIDES)
@@ -142,7 +150,15 @@ __qa=(()=>{
     sourceMissing:v22Questions.filter(x=>!x.source).map(x=>x.id),
     verifiedMissing:v22Questions.filter(x=>!x.verifiedAt).map(x=>x.id)
   };
+  result.v23Added={
+    total:v23Questions.length,
+    sourceMissing:v23Questions.filter(x=>!x.source).map(x=>x.id),
+    verifiedMissing:v23Questions.filter(x=>!x.verifiedAt).map(x=>x.id),
+    invalidOptions:v23Questions.filter(x=>!Array.isArray(x.w)||x.w.length!==3||x.w.includes(x.a)).map(x=>x.id)
+  };
   result.minimums={
+    law:Object.fromEntries(Object.entries(thresholds.law).map(([id,n])=>[id,{count:lawCounts[id]||0,ok:(lawCounts[id]||0)>=n}])),
+    rights:Object.fromEntries(Object.entries(thresholds.rights).map(([id,n])=>[id,{count:rightsCounts[id]||0,ok:(rightsCounts[id]||0)>=n}])),
     limits:Object.fromEntries(Object.entries(thresholds.limits).map(([id,n])=>[id,{count:limitsCounts[id]||0,ok:(limitsCounts[id]||0)>=n}])),
     tax:Object.fromEntries(Object.entries(thresholds.tax).map(([id,n])=>[id,{count:taxCounts[id]||0,ok:(taxCounts[id]||0)>=n}]))
   };
@@ -258,11 +274,13 @@ __qa=(()=>{
   result.unitPickers={lawOpened,rightsOpened,limitsOpened,taxOpened};
 
   state=normalizeState({});
+  showGuide('宅建業法','license');
+  const lawGuideShown=!isHidden('#guideModal')&&document.querySelector('#guideCat').textContent==='宅建業法';
   showGuide('法令制限','zoning');
   const limitsGuideShown=!isHidden('#guideModal')&&document.querySelector('#guideCat').textContent==='法令制限';
   showGuide('税・その他','acquisition');
   const taxGuideShown=!isHidden('#guideModal')&&document.querySelector('#guideCat').textContent==='税・その他';
-  result.guideOpen={limitsGuideShown,taxGuideShown};
+  result.guideOpen={lawGuideShown,limitsGuideShown,taxGuideShown};
 
   state=normalizeState({});
   startMock20();
@@ -289,14 +307,20 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.2') result.failures.push('PROJECT.version is not 2.2');
+  if(PROJECT.version!=='2.3') result.failures.push('PROJECT.version is not 2.3');
   if(PROJECT.updated!=='2026-08-28') result.failures.push('PROJECT.updated is not 2026-08-28');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
-  ['rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
+  ['law','rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
+  Object.entries(result.minimums.law).forEach(([id,row])=>{if(!row.ok) result.failures.push('law '+id+' below minimum');});
+  Object.entries(result.minimums.rights).forEach(([id,row])=>{if(!row.ok) result.failures.push('rights '+id+' below minimum');});
   Object.entries(result.minimums.limits).forEach(([id,row])=>{if(!row.ok) result.failures.push('limits '+id+' below minimum');});
   Object.entries(result.minimums.tax).forEach(([id,row])=>{if(!row.ok) result.failures.push('tax '+id+' below minimum');});
   if(result.v22Added.sourceMissing.length) result.failures.push('v22 source missing');
   if(result.v22Added.verifiedMissing.length) result.failures.push('v22 verifiedAt missing');
+  if(result.v23Added.total!==121) result.failures.push('v23 total mismatch');
+  if(result.v23Added.sourceMissing.length) result.failures.push('v23 source missing');
+  if(result.v23Added.verifiedMissing.length) result.failures.push('v23 verifiedAt missing');
+  if(result.v23Added.invalidOptions.length) result.failures.push('v23 options invalid');
   if(result.missing.id||result.missing.unit||result.missing.diff||result.missing.trap||result.missing.options||result.missing.answer||result.missing.explanation||result.missing.category) result.failures.push('core fields missing');
   if(result.duplicates.questionIds.length||result.duplicates.questionText.length||result.duplicates.domIds.length) result.failures.push('duplicates found');
   if(!result.continueUiNormal.visible||!result.continueUiNormal.continueBtn||!result.continueUiNormal.changeUnitBtn||!result.continueUiNormal.stopBtn) result.failures.push('continue UI broken');
@@ -306,7 +330,7 @@ __qa=(()=>{
   if(!result.continueKeepsTaxUnit.sameSource||!result.continueKeepsTaxUnit.sameCat||!result.continueKeepsTaxUnit.sameUnit) result.failures.push('tax unit continue broken');
   if(!result.noContinueMiniMock||!result.noContinueFullMock||!result.noContinueSingleTerm||!result.noContinueRightsGuideCheck||!result.noContinueLimitsGuideCheck||!result.noContinueTaxGuideCheck) result.failures.push('continue UI leaked into excluded flow');
   if(!result.unitPickers.lawOpened||!result.unitPickers.rightsOpened||!result.unitPickers.limitsOpened||!result.unitPickers.taxOpened) result.failures.push('unit picker broken');
-  if(!result.guideOpen.limitsGuideShown||!result.guideOpen.taxGuideShown) result.failures.push('guide modal broken');
+  if(!result.guideOpen.lawGuideShown||!result.guideOpen.limitsGuideShown||!result.guideOpen.taxGuideShown) result.failures.push('guide modal broken');
   if(!result.compatibility.storageKeyOk||!result.compatibility.oldStateGetsMockHistory||!result.compatibility.oldBackupRestored) result.failures.push('compatibility broken');
   if(!result.backup.hasMockHistory||!result.backup.restoreWorks) result.failures.push('backup broken');
   if(!result.mockChecks.miniMockNotSaved||result.mockChecks.savedCount!==1||!result.mockChecks.noDuplicateSave||result.mockChecks.total!==50) result.failures.push('mock history broken');
