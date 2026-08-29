@@ -1,6 +1,6 @@
 {
-  "version": "2.6",
-  "baselineCommit": "ad64af4aea30e3f3f24bb6ce3036357293ad6edf",
+  "version": "2.6.1",
+  "baselineCommit": "2471f822891ca72efce5090ef0b91d214da9ad66",
   "lawCutoff": "2026-04-01",
   "auditDate": "2026-08-30",
   "purpose": "正式50問模試を監査済み150問へ拡張するための第2次実内容監査セット",
