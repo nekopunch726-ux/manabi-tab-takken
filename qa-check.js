@@ -109,6 +109,24 @@ __qa=(()=>{
   const v22Questions=SC.filter(x=>(x.id||'').startsWith('V22-'));
   const v23Questions=SC.filter(x=>(x.id||'').startsWith('V23-'));
   const v24Questions=SC.filter(x=>(x.id||'').startsWith('V24-'));
+  const mock50Counts=()=>({ '宅建業法':0,'権利関係':0,'法令制限':0,'税・その他':0 });
+  const inspectMock50=()=>{
+    const counts=mock50Counts();
+    const ids=new Set();
+    const types=new Set();
+    let badLevel=false,badEligible=false,wrongLen=false;
+    for(const q of quiz.qs||[]){
+      counts[q.cat]=(counts[q.cat]||0)+1;
+      types.add(q.type||'');
+      if(ids.has(q.id||'')) badEligible=true;
+      ids.add(q.id||'');
+      if(q.type!=='scenario') badEligible=true;
+      if(!q.mockEligible) badEligible=true;
+      if((q.examLevel||0)<2) badLevel=true;
+    }
+    wrongLen=(quiz.qs||[]).length!==50;
+    return {counts,types:[...types].sort(),badLevel,badEligible,wrongLen,ids:[...ids]};
+  };
 
   result.version={version:PROJECT.version,updated:PROJECT.updated};
   result.storageKey=STORAGE_KEY;
@@ -163,6 +181,17 @@ __qa=(()=>{
     verifiedMissing:v24Questions.filter(x=>!x.verifiedAt).map(x=>x.id),
     invalidOptions:v24Questions.filter(x=>!Array.isArray(x.w)||x.w.length!==3||x.w.includes(x.a)).map(x=>x.id),
     missingDiff:v24Questions.filter(x=>!x.diff).map(x=>x.id)
+  };
+  result.examMeta={
+    missingExamLevel:SC.filter(x=>typeof x.examLevel!=='number'||x.examLevel<1||x.examLevel>4).map(x=>x.id),
+    missingQualityStatus:SC.filter(x=>!['verified','needs_review'].includes(x.qualityStatus)).map(x=>x.id),
+    missingMockEligible:SC.filter(x=>typeof x.mockEligible!=='boolean').map(x=>x.id),
+    mockEligibleMinima:{
+      law:SC.filter(x=>x.cat==='宅建業法'&&x.mockEligible).length,
+      rights:SC.filter(x=>x.cat==='権利関係'&&x.mockEligible).length,
+      limits:SC.filter(x=>x.cat==='法令制限'&&x.mockEligible).length,
+      tax:SC.filter(x=>x.cat==='税・その他'&&x.mockEligible).length
+    }
   };
   result.scenarioAvailability={
     byCat:SC.reduce((m,x)=>(m[x.cat]=(m[x.cat]||0)+1,m),{}),
@@ -300,14 +329,20 @@ __qa=(()=>{
   quiz.results=quiz.qs.map((q,i)=>({id:q.id||'',cat:q.cat,unit:unitIdOf(q),ok:i<10,unsure:false,q:q.q}));
   finishQuiz();
   const miniMockNotSaved=state.mockHistory.length===0;
-  startMock50();
-  quiz.score=33;
-  quiz.results=quiz.qs.map((q,i)=>({id:q.id||'',cat:q.cat,unit:unitIdOf(q),ok:i<33,unsure:i<3,q:q.q}));
-  finishQuiz();
+  const mockRuns=[];
+  let mock50Sample=null;
+  for(let i=0;i<100;i++){
+    startMock50();
+    const snap=inspectMock50();
+    if(!mock50Sample) mock50Sample=snap;
+    mockRuns.push(snap);
+    quiz.score=33;
+    quiz.results=quiz.qs.map((q,j)=>({id:q.id||'',cat:q.cat,unit:unitIdOf(q),ok:j<33,unsure:j<3,q:q.q}));
+    finishQuiz();
+  }
   const savedCount=state.mockHistory.length;
   const firstEntry=state.mockHistory[0];
-  finishQuiz();
-  result.mockChecks={miniMockNotSaved,savedCount,firstEntry,noDuplicateSave:state.mockHistory.length===savedCount,mock50Count:startMock50(),total:quiz.qs.length};
+  result.mockChecks={miniMockNotSaved,savedCount,firstEntry,noDuplicateSave:state.mockHistory.length===savedCount,mock50Count:mock50Sample?mock50Sample.counts:null,total:quiz.qs.length,mockRuns};
 
   state=normalizeState({});
   state.answers=Array.from({length:100},(_,i)=>({date:'2026-08-28',ok:i%2===0,type:'scenario',cat:i<40?'権利関係':i<70?'法令制限':i<90?'税・その他':'宅建業法',term:'',id:'A'+i,unit:'u',diff:'基礎',question:'Q'+i,chosen:'',correct:'',unsure:i<6}));
@@ -319,9 +354,13 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.4') result.failures.push('PROJECT.version is not 2.4');
-  if(PROJECT.updated!=='2026-08-28') result.failures.push('PROJECT.updated is not 2026-08-28');
+  if(PROJECT.version!=='2.5') result.failures.push('PROJECT.version is not 2.5');
+  if(PROJECT.updated!=='2026-08-29') result.failures.push('PROJECT.updated is not 2026-08-29');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
+  if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
+  if(result.examMeta.missingQualityStatus.length) result.failures.push('qualityStatus missing');
+  if(result.examMeta.missingMockEligible.length) result.failures.push('mockEligible missing');
+  if(result.examMeta.mockEligibleMinima.law<186||result.examMeta.mockEligibleMinima.rights<175||result.examMeta.mockEligibleMinima.limits<100||result.examMeta.mockEligibleMinima.tax<60) result.failures.push('mockEligible pool insufficient');
   ['law','rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
   Object.entries(result.minimums.law).forEach(([id,row])=>{if(!row.ok) result.failures.push('law '+id+' below minimum');});
   Object.entries(result.minimums.rights).forEach(([id,row])=>{if(!row.ok) result.failures.push('rights '+id+' below minimum');});
@@ -356,7 +395,8 @@ __qa=(()=>{
   if(!result.guideOpen.lawGuideShown||!result.guideOpen.limitsGuideShown||!result.guideOpen.taxGuideShown) result.failures.push('guide modal broken');
   if(!result.compatibility.storageKeyOk||!result.compatibility.oldStateGetsMockHistory||!result.compatibility.oldBackupRestored) result.failures.push('compatibility broken');
   if(!result.backup.hasMockHistory||!result.backup.restoreWorks) result.failures.push('backup broken');
-  if(!result.mockChecks.miniMockNotSaved||result.mockChecks.savedCount!==1||!result.mockChecks.noDuplicateSave||result.mockChecks.total!==50) result.failures.push('mock history broken');
+  if(!result.mockChecks.miniMockNotSaved||result.mockChecks.savedCount!==100||!result.mockChecks.noDuplicateSave||result.mockChecks.total!==50) result.failures.push('mock history broken');
+  if(!result.mockChecks.mockRuns.length||result.mockChecks.mockRuns.some(x=>x.wrongLen||x.badLevel||x.badEligible||x.types.some(t=>t!=='scenario')||x.counts['宅建業法']!==20||x.counts['権利関係']!==14||x.counts['法令制限']!==8||x.counts['税・その他']!==8)) result.failures.push('mock50 composition broken');
   if(!result.unseenPriority.allUnseenWhenEnough||!result.unseenPriority.oldestSeenFirst||!result.unseenPriority.forwardReverseSeparated||!result.unseenPriority.scenarioIdPriority) result.failures.push('unseen priority broken');
   return result;
 })()
