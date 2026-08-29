@@ -404,7 +404,16 @@ __qa=(()=>{
   quiz.results=quiz.qs.map((q,i)=>({id:q.id||'',cat:q.cat,unit:unitIdOf(q),ok:i<10,unsure:false,q:q.q}));
   finishQuiz();
   const miniMockNotSaved=state.mockHistory.length===0;
-  result.mockChecks={miniMockNotSaved,savedCount,firstEntry,noDuplicateSave:state.mockHistory.length===0,mock50Count:mock50Sample?mock50Sample.counts:null,total:strictMock50Ready?mock50Runs.length>0?Object.values(mock50Runs[0].counts).reduce((n,v)=>n+v,0):0:0,mockRuns:mock50Runs,strictMock50Ready,strictMock50Started};
+  const allMockIds=mock50Runs.flatMap(run=>run.ids||[]);
+  const uniqueMockIds=[...new Set(allMockIds)];
+  const uniqueMockQuestions=uniqueMockIds.map(id=>SC.find(x=>x.id===id)).filter(Boolean);
+  const mockSignatures=mock50Runs.map(run=>[...(run.ids||[])].sort().join('|'));
+  const distinctMockSignatures=new Set(mockSignatures).size;
+  const uniqueByCat=Object.fromEntries(['宅建業法','権利関係','法令制限','税・その他'].map(cat=>[cat,uniqueMockQuestions.filter(q=>q.cat===cat).length]));
+  const poolUtilizationRate=legalAudit50SelectionIds.length?uniqueMockIds.length/legalAudit50SelectionIds.length:0;
+  const usedSet=new Set(uniqueMockIds);
+  const unusedSelectionIds=legalAudit50SelectionIds.filter(id=>!usedSet.has(id));
+  result.mockChecks={miniMockNotSaved,savedCount,firstEntry,noDuplicateSave:state.mockHistory.length===0,mock50Count:mock50Sample?mock50Sample.counts:null,total:strictMock50Ready?mock50Runs.length>0?Object.values(mock50Runs[0].counts).reduce((n,v)=>n+v,0):0:0,mockRuns:mock50Runs,strictMock50Ready,strictMock50Started,uniqueQuestionCount:uniqueMockIds.length,uniqueByCat,distinctMockSignatures,poolUtilizationRate,unusedSelectionIds};
 
   state=normalizeState({});
   state.answers=Array.from({length:100},(_,i)=>({date:'2026-08-28',ok:i%2===0,type:'scenario',cat:i<40?'権利関係':i<70?'法令制限':i<90?'税・その他':'宅建業法',term:'',id:'A'+i,unit:'u',diff:'基礎',question:'Q'+i,chosen:'',correct:'',unsure:i<6}));
@@ -416,7 +425,7 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.6') result.failures.push('PROJECT.version is not 2.6');
+  if(PROJECT.version!=='2.6.1') result.failures.push('PROJECT.version is not 2.6.1');
   if(PROJECT.updated!=='2026-08-30') result.failures.push('PROJECT.updated is not 2026-08-30');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
@@ -434,7 +443,7 @@ __qa=(()=>{
   if(result.legalAudit50.selectionBad.length) result.failures.push('legal audit 50 selected items not verified or eligible');
   if(result.legalAudit50.excludedBad.length) result.failures.push('legal audit 50 excluded tax items mismatch');
   if(result.legalAudit50.bad.length) result.failures.push('legal audit 50 items not verified or eligible');
-  if((result.examMeta.strictMock50Capacity['宅建業法']||0)<60||(result.examMeta.strictMock50Capacity['権利関係']||0)<45||(result.examMeta.strictMock50Capacity['法令制限']||0)<25||(result.examMeta.strictMock50Capacity['税・その他']||0)<20) result.failures.push('strict mock pool below v2.6 minimums');
+  if((result.examMeta.strictMock50Capacity['宅建業法']||0)<60||(result.examMeta.strictMock50Capacity['権利関係']||0)<45||(result.examMeta.strictMock50Capacity['法令制限']||0)<25||(result.examMeta.strictMock50Capacity['税・その他']||0)<20) result.failures.push('strict mock pool below v2.6.1 minimums');
   ['law','rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
   Object.entries(result.minimums.law).forEach(([id,row])=>{if(!row.ok) result.failures.push('law '+id+' below minimum');});
   Object.entries(result.minimums.rights).forEach(([id,row])=>{if(!row.ok) result.failures.push('rights '+id+' below minimum');});
@@ -472,6 +481,11 @@ __qa=(()=>{
   if(result.mockChecks.strictMock50Ready){
     if(result.mockChecks.savedCount!==100||result.mockChecks.total!==50) result.failures.push('mock history broken');
     if(!result.mockChecks.mockRuns.length||result.mockChecks.mockRuns.some(x=>x.wrongLen||x.badLevel||x.badEligible||x.badQuality||x.types.some(t=>t!=='scenario')||x.counts['宅建業法']!==20||x.counts['権利関係']!==14||x.counts['法令制限']!==8||x.counts['税・その他']!==8)) result.failures.push('mock50 composition broken');
+    if(result.mockChecks.uniqueQuestionCount<120) result.failures.push('mock50 unique question count too low');
+    if(result.mockChecks.poolUtilizationRate<0.8) result.failures.push('mock50 pool utilization too low');
+    if(result.mockChecks.distinctMockSignatures<10) result.failures.push('mock50 signatures too few');
+    if((result.mockChecks.uniqueByCat['宅建業法']||0)<50||(result.mockChecks.uniqueByCat['権利関係']||0)<38||(result.mockChecks.uniqueByCat['法令制限']||0)<20||(result.mockChecks.uniqueByCat['税・その他']||0)<16) result.failures.push('mock50 unique by cat too low');
+    if(result.mockChecks.unusedSelectionIds.length>30) result.failures.push('mock50 unused selection ids too many');
   }else{
     if(result.mockChecks.savedCount!==0||result.mockChecks.total!==0) result.failures.push('mock50 blocked state broken');
     if(result.mockChecks.mockRuns.length) result.failures.push('mock50 QA should not generate when strict pool is insufficient');
