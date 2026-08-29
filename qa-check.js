@@ -235,6 +235,7 @@ __qa=(()=>{
     const base=legalAudit50Index.get(id)||{};
     return !q||q.qualityStatus!=='verified'||q.mockEligible!==false||q.source!==base.source;
   });
+  const selectedAuditQuestions=SC.filter(x=>legalAudit50SelectionIds.includes(x.id));
   result.legalAudit50={
     total:legalAudit50Ids.length,
     selectionTotal:legalAudit50SelectionIds.length,
@@ -244,6 +245,8 @@ __qa=(()=>{
     sourceMismatch:audit50SourceMismatch,
     selectionBad:audit50SelectionBad,
     excludedBad:audit50ExcludedBad,
+    selectedByCat:Object.fromEntries(['宅建業法','権利関係','法令制限','税・その他'].map(cat=>[cat,selectedAuditQuestions.filter(x=>x.cat===cat).length])),
+    selectedByLevel:Object.fromEntries([2,3,4].map(level=>[level,selectedAuditQuestions.filter(x=>x.examLevel===level).length])),
     bad:[...audit50SourceMismatch,...audit50SelectionBad,...audit50ExcludedBad]
   };
   result.qualityInference=qualityInference;
@@ -413,8 +416,8 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.5.3') result.failures.push('PROJECT.version is not 2.5.3');
-  if(PROJECT.updated!=='2026-08-29') result.failures.push('PROJECT.updated is not 2026-08-29');
+  if(PROJECT.version!=='2.6') result.failures.push('PROJECT.version is not 2.6');
+  if(PROJECT.updated!=='2026-08-30') result.failures.push('PROJECT.updated is not 2026-08-30');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
   if(result.examMeta.missingQualityStatus.length) result.failures.push('qualityStatus missing');
@@ -422,8 +425,8 @@ __qa=(()=>{
   if(result.qualityInference.sourceOnly!=='needs_review') result.failures.push('inferQualityStatus source-only mismatch');
   if(result.qualityInference.verifiedExplicit!=='verified') result.failures.push('inferQualityStatus explicit verified mismatch');
   if(result.qualityInference.verifiedItemsMissingMeta.length) result.failures.push('verified items missing source or verifiedAt');
-  if(result.legalAudit50.total!==54) result.failures.push('legal audit 50 total mismatch');
-  if(result.legalAudit50.selectionTotal!==50) result.failures.push('legal audit 50 selection total mismatch');
+  if(result.legalAudit50.total<150) result.failures.push('legal audit pool below 150');
+  if(result.legalAudit50.selectionTotal<150) result.failures.push('legal audit pool selection below 150');
   if(result.legalAudit50.duplicates.length) result.failures.push('legal audit 50 duplicates');
   if(result.legalAudit50.missing.length) result.failures.push('legal audit 50 missing ids');
   if(result.legalAudit50.selectionMissing.length) result.failures.push('legal audit 50 selection ids missing');
@@ -431,6 +434,7 @@ __qa=(()=>{
   if(result.legalAudit50.selectionBad.length) result.failures.push('legal audit 50 selected items not verified or eligible');
   if(result.legalAudit50.excludedBad.length) result.failures.push('legal audit 50 excluded tax items mismatch');
   if(result.legalAudit50.bad.length) result.failures.push('legal audit 50 items not verified or eligible');
+  if((result.examMeta.strictMock50Capacity['宅建業法']||0)<60||(result.examMeta.strictMock50Capacity['権利関係']||0)<45||(result.examMeta.strictMock50Capacity['法令制限']||0)<25||(result.examMeta.strictMock50Capacity['税・その他']||0)<20) result.failures.push('strict mock pool below v2.6 minimums');
   ['law','rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
   Object.entries(result.minimums.law).forEach(([id,row])=>{if(!row.ok) result.failures.push('law '+id+' below minimum');});
   Object.entries(result.minimums.rights).forEach(([id,row])=>{if(!row.ok) result.failures.push('rights '+id+' below minimum');});
