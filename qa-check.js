@@ -6,6 +6,8 @@ const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
 const scriptMatch=html.match(/<script>([\s\S]*)<\/script>/);
 if(!scriptMatch) throw new Error('script not found');
 const script=scriptMatch[1];
+const legalAudit50=JSON.parse(fs.readFileSync(path.join(__dirname,'LEGAL_AUDIT_50.json'),'utf8'));
+const legalAudit50Ids=[...(new Set((legalAudit50.questions||[]).map(x=>x.id).filter(Boolean)))];
 
 const ids=[...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]);
 const dupIds=Object.entries(ids.reduce((m,id)=>(m[id]=(m[id]||0)+1,m),{}))
@@ -60,6 +62,8 @@ const context={
   Math,
   Date,
   JSON,
+  legalAudit50,
+  legalAudit50Ids,
   Blob:function(parts){this.parts=parts;},
   URL:{createObjectURL(){return'blob:test';},revokeObjectURL(){}},
   setInterval(){return 1;},
@@ -114,7 +118,7 @@ __qa=(()=>{
     const counts=mock50Counts();
     const ids=new Set();
     const types=new Set();
-    let badLevel=false,badEligible=false,wrongLen=false;
+    let badLevel=false,badEligible=false,badQuality=false,wrongLen=false;
     for(const q of quiz.qs||[]){
       counts[q.cat]=(counts[q.cat]||0)+1;
       types.add(q.type||'');
@@ -122,10 +126,11 @@ __qa=(()=>{
       ids.add(q.id||'');
       if(q.type!=='scenario') badEligible=true;
       if(!q.mockEligible) badEligible=true;
+      if(q.qualityStatus!=='verified') badQuality=true;
       if((q.examLevel||0)<2) badLevel=true;
     }
     wrongLen=(quiz.qs||[]).length!==50;
-    return {counts,types:[...types].sort(),badLevel,badEligible,wrongLen,ids:[...ids]};
+    return {counts,types:[...types].sort(),badLevel,badEligible,badQuality,wrongLen,ids:[...ids]};
   };
 
   result.version={version:PROJECT.version,updated:PROJECT.updated};
@@ -198,6 +203,27 @@ __qa=(()=>{
     byCat:SC.reduce((m,x)=>(m[x.cat]=(m[x.cat]||0)+1,m),{}),
     mock50Ready:(SC.filter(x=>x.cat==='権利関係'&&x.qualityStatus==='verified'&&x.mockEligible&&x.type==='scenario'&&x.examLevel>=2).length>=14)&&(SC.filter(x=>x.cat==='法令制限'&&x.qualityStatus==='verified'&&x.mockEligible&&x.type==='scenario'&&x.examLevel>=2).length>=8)&&(SC.filter(x=>x.cat==='税・その他'&&x.qualityStatus==='verified'&&x.mockEligible&&x.type==='scenario'&&x.examLevel>=2).length>=8)&&(SC.filter(x=>x.cat==='宅建業法'&&x.qualityStatus==='verified'&&x.mockEligible&&x.type==='scenario'&&x.examLevel>=2).length>=20)
   };
+  const qualityInference={
+    sourceOnly:typeof inferQualityStatus==='function'?inferQualityStatus({source:'dummy',verifiedAt:'2026-08-29'}):null,
+    verifiedExplicit:typeof inferQualityStatus==='function'?inferQualityStatus({source:'dummy',verifiedAt:'2026-08-29',qualityStatus:'verified'}):null,
+    verifiedItemsMissingMeta:SC.filter(x=>x.qualityStatus==='verified'&&(!x.source||!x.verifiedAt)).map(x=>x.id)
+  };
+  const audit50Index=new Map((legalAudit50.questions||[]).map(x=>[x.id,x]));
+  const audit50Missing=legalAudit50Ids.filter(id=>!SC.some(x=>x.id===id));
+  const audit50Duplicates=(legalAudit50.questions||[]).map(x=>x.id).reduce((m,id)=>(m[id]=(m[id]||0)+1,m),{});
+  const audit50DupIds=Object.entries(audit50Duplicates).filter(([,n])=>n>1).map(([id])=>id);
+  const audit50Bad=legalAudit50Ids.filter(id=>{
+    const q=SC.find(x=>x.id===id);
+    const base=audit50Index.get(id)||{};
+    return !q||q.qualityStatus!=='verified'||q.mockEligible!==true||(q.examLevel||0)<(base.minimumExamLevel||2);
+  });
+  result.legalAudit50={
+    total:legalAudit50Ids.length,
+    duplicates:audit50DupIds,
+    missing:audit50Missing,
+    bad:audit50Bad
+  };
+  result.qualityInference=qualityInference;
   result.minimums={
     law:Object.fromEntries(Object.entries(thresholds.law).map(([id,n])=>[id,{count:lawCounts[id]||0,ok:(lawCounts[id]||0)>=n}])),
     rights:Object.fromEntries(Object.entries(thresholds.rights).map(([id,n])=>[id,{count:rightsCounts[id]||0,ok:(rightsCounts[id]||0)>=n}])),
@@ -352,7 +378,7 @@ __qa=(()=>{
   quiz.results=quiz.qs.map((q,i)=>({id:q.id||'',cat:q.cat,unit:unitIdOf(q),ok:i<10,unsure:false,q:q.q}));
   finishQuiz();
   const miniMockNotSaved=state.mockHistory.length===0;
-  result.mockChecks={miniMockNotSaved,savedCount,firstEntry,noDuplicateSave:state.mockHistory.length===savedCount,mock50Count:mock50Sample?mock50Sample.counts:null,total:strictMock50Ready?quiz.qs.length:0,mockRuns:mock50Runs,strictMock50Ready,strictMock50Started};
+  result.mockChecks={miniMockNotSaved,savedCount,firstEntry,noDuplicateSave:state.mockHistory.length===0,mock50Count:mock50Sample?mock50Sample.counts:null,total:strictMock50Ready?mock50Runs.length>0?Object.values(mock50Runs[0].counts).reduce((n,v)=>n+v,0):0:0,mockRuns:mock50Runs,strictMock50Ready,strictMock50Started};
 
   state=normalizeState({});
   state.answers=Array.from({length:100},(_,i)=>({date:'2026-08-28',ok:i%2===0,type:'scenario',cat:i<40?'権利関係':i<70?'法令制限':i<90?'税・その他':'宅建業法',term:'',id:'A'+i,unit:'u',diff:'基礎',question:'Q'+i,chosen:'',correct:'',unsure:i<6}));
@@ -364,13 +390,19 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.5.1') result.failures.push('PROJECT.version is not 2.5.1');
+  if(PROJECT.version!=='2.5.2') result.failures.push('PROJECT.version is not 2.5.2');
   if(PROJECT.updated!=='2026-08-29') result.failures.push('PROJECT.updated is not 2026-08-29');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
   if(result.examMeta.missingQualityStatus.length) result.failures.push('qualityStatus missing');
   if(result.examMeta.missingMockEligible.length) result.failures.push('mockEligible missing');
-  if(SC.some(x=>x.source&&x.verifiedAt&&x.qualityStatus==='verified')) result.failures.push('source-tagged question auto verified');
+  if(result.qualityInference.sourceOnly!=='needs_review') result.failures.push('inferQualityStatus source-only mismatch');
+  if(result.qualityInference.verifiedExplicit!=='verified') result.failures.push('inferQualityStatus explicit verified mismatch');
+  if(result.qualityInference.verifiedItemsMissingMeta.length) result.failures.push('verified items missing source or verifiedAt');
+  if(!result.legalAudit50.total||result.legalAudit50.total!==50) result.failures.push('legal audit 50 total mismatch');
+  if(result.legalAudit50.duplicates.length) result.failures.push('legal audit 50 duplicates');
+  if(result.legalAudit50.missing.length) result.failures.push('legal audit 50 missing ids');
+  if(result.legalAudit50.bad.length) result.failures.push('legal audit 50 items not verified or eligible');
   ['law','rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
   Object.entries(result.minimums.law).forEach(([id,row])=>{if(!row.ok) result.failures.push('law '+id+' below minimum');});
   Object.entries(result.minimums.rights).forEach(([id,row])=>{if(!row.ok) result.failures.push('rights '+id+' below minimum');});
@@ -407,7 +439,7 @@ __qa=(()=>{
   if(!result.mockChecks.miniMockNotSaved||!result.mockChecks.noDuplicateSave) result.failures.push('mock history broken');
   if(result.mockChecks.strictMock50Ready){
     if(result.mockChecks.savedCount!==100||result.mockChecks.total!==50) result.failures.push('mock history broken');
-    if(!result.mockChecks.mockRuns.length||result.mockChecks.mockRuns.some(x=>x.wrongLen||x.badLevel||x.badEligible||x.types.some(t=>t!=='scenario')||x.counts['宅建業法']!==20||x.counts['権利関係']!==14||x.counts['法令制限']!==8||x.counts['税・その他']!==8)) result.failures.push('mock50 composition broken');
+    if(!result.mockChecks.mockRuns.length||result.mockChecks.mockRuns.some(x=>x.wrongLen||x.badLevel||x.badEligible||x.badQuality||x.types.some(t=>t!=='scenario')||x.counts['宅建業法']!==20||x.counts['権利関係']!==14||x.counts['法令制限']!==8||x.counts['税・その他']!==8)) result.failures.push('mock50 composition broken');
   }else{
     if(result.mockChecks.savedCount!==0||result.mockChecks.total!==0) result.failures.push('mock50 blocked state broken');
     if(result.mockChecks.mockRuns.length) result.failures.push('mock50 QA should not generate when strict pool is insufficient');
