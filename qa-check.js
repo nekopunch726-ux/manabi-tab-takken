@@ -6,8 +6,12 @@ const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
 const scriptMatch=html.match(/<script>([\s\S]*)<\/script>/);
 if(!scriptMatch) throw new Error('script not found');
 const script=scriptMatch[1];
+const auditScriptMatch=html.match(/<script type="application\/json" id="legalAuditRegistry">([\s\S]*?)<\/script>/);
+if(!auditScriptMatch) throw new Error('legal audit registry script not found');
 const legalAudit50=JSON.parse(fs.readFileSync(path.join(__dirname,'LEGAL_AUDIT_50.json'),'utf8'));
 const legalAudit50Ids=[...(new Set((legalAudit50.questions||[]).map(x=>x.id).filter(Boolean)))];
+const legalAudit50SelectionIds=[...(new Set((legalAudit50.mockSelectionIds||[]).map(x=>x).filter(Boolean)))];
+const legalAudit50Index=new Map((legalAudit50.questions||[]).map(x=>[x.id,x]));
 
 const ids=[...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]);
 const dupIds=Object.entries(ids.reduce((m,id)=>(m[id]=(m[id]||0)+1,m),{}))
@@ -64,6 +68,8 @@ const context={
   JSON,
   legalAudit50,
   legalAudit50Ids,
+  legalAudit50SelectionIds,
+  legalAudit50Index,
   Blob:function(parts){this.parts=parts;},
   URL:{createObjectURL(){return'blob:test';},revokeObjectURL(){}},
   setInterval(){return 1;},
@@ -76,6 +82,7 @@ const context={
   document:{
     body:{appendChild(){}},
     querySelector:s=>getEl(s),
+    getElementById:id=>id==='legalAuditRegistry'?{textContent:auditScriptMatch[1]}:getEl(`#${id}`),
     querySelectorAll(){return [];},
     createElement:()=>stubEl(),
     execCommand(){return true;}
@@ -126,6 +133,7 @@ __qa=(()=>{
       ids.add(q.id||'');
       if(q.type!=='scenario') badEligible=true;
       if(!q.mockEligible) badEligible=true;
+      if(!STRICT_MOCK_50_IDS.has(q.id||'')) badEligible=true;
       if(q.qualityStatus!=='verified') badQuality=true;
       if((q.examLevel||0)<2) badLevel=true;
     }
@@ -208,20 +216,35 @@ __qa=(()=>{
     verifiedExplicit:typeof inferQualityStatus==='function'?inferQualityStatus({source:'dummy',verifiedAt:'2026-08-29',qualityStatus:'verified'}):null,
     verifiedItemsMissingMeta:SC.filter(x=>x.qualityStatus==='verified'&&(!x.source||!x.verifiedAt)).map(x=>x.id)
   };
-  const audit50Index=new Map((legalAudit50.questions||[]).map(x=>[x.id,x]));
   const audit50Missing=legalAudit50Ids.filter(id=>!SC.some(x=>x.id===id));
+  const audit50SelectionMissing=legalAudit50SelectionIds.filter(id=>!legalAudit50Index.has(id));
   const audit50Duplicates=(legalAudit50.questions||[]).map(x=>x.id).reduce((m,id)=>(m[id]=(m[id]||0)+1,m),{});
   const audit50DupIds=Object.entries(audit50Duplicates).filter(([,n])=>n>1).map(([id])=>id);
-  const audit50Bad=legalAudit50Ids.filter(id=>{
+  const audit50SourceMismatch=legalAudit50Ids.filter(id=>{
     const q=SC.find(x=>x.id===id);
-    const base=audit50Index.get(id)||{};
-    return !q||q.qualityStatus!=='verified'||q.mockEligible!==true||(q.examLevel||0)<(base.minimumExamLevel||2);
+    const base=legalAudit50Index.get(id)||{};
+    return !q||q.source!==base.source||q.verifiedAt!==(base.verifiedAt||legalAudit50.rules.verifiedAt)||q.qualityStatus!=='verified';
+  });
+  const audit50SelectionBad=legalAudit50SelectionIds.filter(id=>{
+    const q=SC.find(x=>x.id===id);
+    return !q||q.qualityStatus!=='verified'||q.mockEligible!==true||(q.examLevel||0)<2;
+  });
+  const audit50ExcludedIds=['V24-T-AC-01','V24-T-FI-01','V24-T-RT-01','V24-T-ST-01'];
+  const audit50ExcludedBad=audit50ExcludedIds.filter(id=>{
+    const q=SC.find(x=>x.id===id);
+    const base=legalAudit50Index.get(id)||{};
+    return !q||q.qualityStatus!=='verified'||q.mockEligible!==false||q.source!==base.source;
   });
   result.legalAudit50={
     total:legalAudit50Ids.length,
+    selectionTotal:legalAudit50SelectionIds.length,
     duplicates:audit50DupIds,
     missing:audit50Missing,
-    bad:audit50Bad
+    selectionMissing:audit50SelectionMissing,
+    sourceMismatch:audit50SourceMismatch,
+    selectionBad:audit50SelectionBad,
+    excludedBad:audit50ExcludedBad,
+    bad:[...audit50SourceMismatch,...audit50SelectionBad,...audit50ExcludedBad]
   };
   result.qualityInference=qualityInference;
   result.minimums={
@@ -390,7 +413,7 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.5.2') result.failures.push('PROJECT.version is not 2.5.2');
+  if(PROJECT.version!=='2.5.3') result.failures.push('PROJECT.version is not 2.5.3');
   if(PROJECT.updated!=='2026-08-29') result.failures.push('PROJECT.updated is not 2026-08-29');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
@@ -399,9 +422,14 @@ __qa=(()=>{
   if(result.qualityInference.sourceOnly!=='needs_review') result.failures.push('inferQualityStatus source-only mismatch');
   if(result.qualityInference.verifiedExplicit!=='verified') result.failures.push('inferQualityStatus explicit verified mismatch');
   if(result.qualityInference.verifiedItemsMissingMeta.length) result.failures.push('verified items missing source or verifiedAt');
-  if(!result.legalAudit50.total||result.legalAudit50.total!==50) result.failures.push('legal audit 50 total mismatch');
+  if(result.legalAudit50.total!==54) result.failures.push('legal audit 50 total mismatch');
+  if(result.legalAudit50.selectionTotal!==50) result.failures.push('legal audit 50 selection total mismatch');
   if(result.legalAudit50.duplicates.length) result.failures.push('legal audit 50 duplicates');
   if(result.legalAudit50.missing.length) result.failures.push('legal audit 50 missing ids');
+  if(result.legalAudit50.selectionMissing.length) result.failures.push('legal audit 50 selection ids missing');
+  if(result.legalAudit50.sourceMismatch.length) result.failures.push('legal audit 50 source mismatch');
+  if(result.legalAudit50.selectionBad.length) result.failures.push('legal audit 50 selected items not verified or eligible');
+  if(result.legalAudit50.excludedBad.length) result.failures.push('legal audit 50 excluded tax items mismatch');
   if(result.legalAudit50.bad.length) result.failures.push('legal audit 50 items not verified or eligible');
   ['law','rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
   Object.entries(result.minimums.law).forEach(([id,row])=>{if(!row.ok) result.failures.push('law '+id+' below minimum');});
