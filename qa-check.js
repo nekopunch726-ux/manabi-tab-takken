@@ -71,6 +71,7 @@ const context={
   html,
   script,
   ids,
+  dupIds,
   embeddedAuditRegistry,
   legalAudit50,
   legalAudit50Ids,
@@ -182,7 +183,7 @@ __qa=(()=>{
   result.duplicates={
     questionIds:dup(SC,x=>x.id),
     questionText:dup(SC,x=>x.q),
-    domIds:${JSON.stringify(dupIds)}
+    domIds:dupIds
   };
   result.v22Added={
     total:v22Questions.length,
@@ -449,7 +450,7 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.10.1') result.failures.push('PROJECT.version is not 2.10.1');
+  if(PROJECT.version!=='2.10.2') result.failures.push('PROJECT.version is not 2.10.2');
   if(PROJECT.updated!=='2026-08-30') result.failures.push('PROJECT.updated is not 2026-08-30');
   const uiIds=Object.fromEntries(['startDue','dueCount','reviewScheduleMini','openAI','aiPlanMini','openOther','openReviewHub','openReadHub','openMockHub','openBeginner','openFieldGuide','subjectCards','dailyReadinessLabel','dailyDueCount','dailyNextTitle'].map(id=>[id,ids.includes(id)]));
   const headerSection=html.split('</header>')[0]||html;
@@ -464,6 +465,14 @@ __qa=(()=>{
   const aiOldGuide=html.includes('ホームの「AIおすすめ5問」から開始できます。');
   const aiNewGuide=html.includes('AIコーチの「おすすめ5問へ」から次へ進めます。');
   const removedUiRefs={startDue2:html.includes('startDue2')||script.includes('startDue2'),openAI2:html.includes('openAI2')||script.includes('openAI2')};
+  const directHandlerRegex=/\$\('#([^']+)'\)\.(onclick|onchange|oninput|onsubmit|onblur|onfocus)\s*=/g;
+  const missingIdDirectHandlers=[];
+  let directHandlerMatch;
+  while((directHandlerMatch=directHandlerRegex.exec(script))!==null){
+    const targetId=directHandlerMatch[1];
+    if(!ids.includes(targetId)) missingIdDirectHandlers.push(targetId);
+  }
+  result.missingIdDirectHandlers=[...new Set(missingIdDirectHandlers)];
   if(!result.auditRegistrySync) result.failures.push('embedded audit registry mismatch');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
   if(!uiIds.startDue||!uiIds.dueCount||!uiIds.reviewScheduleMini||!uiIds.openAI||!uiIds.aiPlanMini||!uiIds.openOther||!uiIds.openReviewHub||!uiIds.openReadHub||!uiIds.openMockHub||!uiIds.openBeginner||!uiIds.openFieldGuide||!uiIds.subjectCards||!uiIds.dailyReadinessLabel||!uiIds.dailyDueCount||!uiIds.dailyNextTitle) result.failures.push('ui ids missing');
@@ -474,6 +483,7 @@ __qa=(()=>{
   if(homeHasBackupCard) result.failures.push('backup still in quick cards');
   if(aiOldGuide||!aiNewGuide) result.failures.push('AI import guidance text not updated');
   if(removedUiRefs.startDue2||removedUiRefs.openAI2) result.failures.push('removed ui refs still present');
+  if(result.missingIdDirectHandlers.length) result.failures.push('missing direct handler targets: '+result.missingIdDirectHandlers.join(', '));
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
   if(result.examMeta.missingQualityStatus.length) result.failures.push('qualityStatus missing');
   if(result.examMeta.missingMockEligible.length) result.failures.push('mockEligible missing');
