@@ -67,6 +67,9 @@ const context={
   Math,
   Date,
   JSON,
+  html,
+  script,
+  ids,
   legalAudit50,
   legalAudit50Ids,
   legalAudit50SelectionIds,
@@ -443,9 +446,13 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.8') result.failures.push('PROJECT.version is not 2.8');
+  if(PROJECT.version!=='2.9') result.failures.push('PROJECT.version is not 2.9');
   if(PROJECT.updated!=='2026-08-30') result.failures.push('PROJECT.updated is not 2026-08-30');
+  const uiIds=Object.fromEntries(['startDue','dueBadge','dueCount','reviewScheduleMini','openAI','aiPlanMini'].map(id=>[id,ids.includes(id)]));
+  const removedUiRefs={startDue2:html.includes('startDue2')||script.includes('startDue2'),openAI2:html.includes('openAI2')||script.includes('openAI2')};
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
+  if(!uiIds.startDue||!uiIds.dueBadge||!uiIds.dueCount||!uiIds.reviewScheduleMini||!uiIds.openAI||!uiIds.aiPlanMini) result.failures.push('ui ids missing');
+  if(removedUiRefs.startDue2||removedUiRefs.openAI2) result.failures.push('removed ui refs still present');
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
   if(result.examMeta.missingQualityStatus.length) result.failures.push('qualityStatus missing');
   if(result.examMeta.missingMockEligible.length) result.failures.push('mockEligible missing');
