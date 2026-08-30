@@ -223,11 +223,26 @@ __qa=(()=>{
   const audit50SourceMismatch=legalAudit50Ids.filter(id=>{
     const q=SC.find(x=>x.id===id);
     const base=legalAudit50Index.get(id)||{};
-    return !q||q.source!==base.source||q.verifiedAt!==(base.verifiedAt||legalAudit50.rules.verifiedAt)||q.qualityStatus!=='verified';
+    return !q||
+      q.source!==base.source||
+      q.verifiedAt!==(base.verifiedAt||legalAudit50.rules.verifiedAt)||
+      q.qualityStatus!=='verified'||
+      q.legalBasisStatus!=='primary_verified'||
+      !Array.isArray(q.primaryRefs)||!q.primaryRefs.length||
+      !q.basisVerifiedAt||
+      JSON.stringify(q.primaryRefs)!==JSON.stringify(base.primaryRefs||[])||
+      JSON.stringify(q.supportingRefs||[])!==JSON.stringify(base.supportingRefs||[])||
+      q.basisVerifiedAt!==(base.basisVerifiedAt||legalAudit50.rules.basisVerifiedAt);
   });
   const audit50SelectionBad=legalAudit50SelectionIds.filter(id=>{
     const q=SC.find(x=>x.id===id);
-    return !q||q.qualityStatus!=='verified'||q.mockEligible!==true||(q.examLevel||0)<2;
+    return !q||
+      q.qualityStatus!=='verified'||
+      q.legalBasisStatus!=='primary_verified'||
+      q.mockEligible!==true||
+      (q.examLevel||0)<2||
+      !Array.isArray(q.primaryRefs)||!q.primaryRefs.length||
+      !q.basisVerifiedAt;
   });
   const audit50ExcludedIds=['V24-T-AC-01','V24-T-FI-01','V24-T-RT-01','V24-T-ST-01'];
   const audit50ExcludedBad=audit50ExcludedIds.filter(id=>{
@@ -425,7 +440,7 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.6.1') result.failures.push('PROJECT.version is not 2.6.1');
+  if(PROJECT.version!=='2.7') result.failures.push('PROJECT.version is not 2.7');
   if(PROJECT.updated!=='2026-08-30') result.failures.push('PROJECT.updated is not 2026-08-30');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
@@ -443,7 +458,7 @@ __qa=(()=>{
   if(result.legalAudit50.selectionBad.length) result.failures.push('legal audit 50 selected items not verified or eligible');
   if(result.legalAudit50.excludedBad.length) result.failures.push('legal audit 50 excluded tax items mismatch');
   if(result.legalAudit50.bad.length) result.failures.push('legal audit 50 items not verified or eligible');
-  if((result.examMeta.strictMock50Capacity['宅建業法']||0)<60||(result.examMeta.strictMock50Capacity['権利関係']||0)<45||(result.examMeta.strictMock50Capacity['法令制限']||0)<25||(result.examMeta.strictMock50Capacity['税・その他']||0)<20) result.failures.push('strict mock pool below v2.6.1 minimums');
+  if((result.examMeta.strictMock50Capacity['宅建業法']||0)<60||(result.examMeta.strictMock50Capacity['権利関係']||0)<45||(result.examMeta.strictMock50Capacity['法令制限']||0)<25||(result.examMeta.strictMock50Capacity['税・その他']||0)<20) result.failures.push('strict mock pool below v2.7 minimums');
   ['law','rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
   Object.entries(result.minimums.law).forEach(([id,row])=>{if(!row.ok) result.failures.push('law '+id+' below minimum');});
   Object.entries(result.minimums.rights).forEach(([id,row])=>{if(!row.ok) result.failures.push('rights '+id+' below minimum');});
