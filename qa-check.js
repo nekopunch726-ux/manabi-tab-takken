@@ -12,6 +12,7 @@ const legalAudit50=JSON.parse(fs.readFileSync(path.join(__dirname,'LEGAL_AUDIT_5
 const legalAudit50Ids=[...(new Set((legalAudit50.questions||[]).map(x=>x.id).filter(Boolean)))];
 const legalAudit50SelectionIds=[...(new Set((legalAudit50.mockSelectionIds||[]).map(x=>x).filter(Boolean)))];
 const legalAudit50Index=new Map((legalAudit50.questions||[]).map(x=>[x.id,x]));
+const priorAuditTotal=154;
 
 const ids=[...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]);
 const dupIds=Object.entries(ids.reduce((m,id)=>(m[id]=(m[id]||0)+1,m),{}))
@@ -250,9 +251,11 @@ __qa=(()=>{
     const base=legalAudit50Index.get(id)||{};
     return !q||q.qualityStatus!=='verified'||q.mockEligible!==false||q.source!==base.source;
   });
+  const priorAuditTotal=154;
   const selectedAuditQuestions=SC.filter(x=>legalAudit50SelectionIds.includes(x.id));
   result.legalAudit50={
     total:legalAudit50Ids.length,
+    newlyAdded:Math.max(0,legalAudit50Ids.length-priorAuditTotal),
     selectionTotal:legalAudit50SelectionIds.length,
     duplicates:audit50DupIds,
     missing:audit50Missing,
@@ -440,7 +443,7 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.7') result.failures.push('PROJECT.version is not 2.7');
+  if(PROJECT.version!=='2.8') result.failures.push('PROJECT.version is not 2.8');
   if(PROJECT.updated!=='2026-08-30') result.failures.push('PROJECT.updated is not 2026-08-30');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
@@ -449,7 +452,8 @@ __qa=(()=>{
   if(result.qualityInference.sourceOnly!=='needs_review') result.failures.push('inferQualityStatus source-only mismatch');
   if(result.qualityInference.verifiedExplicit!=='verified') result.failures.push('inferQualityStatus explicit verified mismatch');
   if(result.qualityInference.verifiedItemsMissingMeta.length) result.failures.push('verified items missing source or verifiedAt');
-  if(result.legalAudit50.total<150) result.failures.push('legal audit pool below 150');
+  if(result.legalAudit50.total<300) result.failures.push('legal audit pool below 300');
+  if(result.legalAudit50.total-priorAuditTotal<150) result.failures.push('legal audit new audited questions below 150');
   if(result.legalAudit50.selectionTotal<150) result.failures.push('legal audit pool selection below 150');
   if(result.legalAudit50.duplicates.length) result.failures.push('legal audit 50 duplicates');
   if(result.legalAudit50.missing.length) result.failures.push('legal audit 50 missing ids');
@@ -458,7 +462,7 @@ __qa=(()=>{
   if(result.legalAudit50.selectionBad.length) result.failures.push('legal audit 50 selected items not verified or eligible');
   if(result.legalAudit50.excludedBad.length) result.failures.push('legal audit 50 excluded tax items mismatch');
   if(result.legalAudit50.bad.length) result.failures.push('legal audit 50 items not verified or eligible');
-  if((result.examMeta.strictMock50Capacity['宅建業法']||0)<60||(result.examMeta.strictMock50Capacity['権利関係']||0)<45||(result.examMeta.strictMock50Capacity['法令制限']||0)<25||(result.examMeta.strictMock50Capacity['税・その他']||0)<20) result.failures.push('strict mock pool below v2.7 minimums');
+  if((result.examMeta.strictMock50Capacity['宅建業法']||0)<60||(result.examMeta.strictMock50Capacity['権利関係']||0)<45||(result.examMeta.strictMock50Capacity['法令制限']||0)<25||(result.examMeta.strictMock50Capacity['税・その他']||0)<20) result.failures.push('strict mock pool below v2.8 minimums');
   ['law','rights','limits','tax'].forEach(key=>{if(result.guides[key].missing.length) result.failures.push(key+' guide fields missing');});
   Object.entries(result.minimums.law).forEach(([id,row])=>{if(!row.ok) result.failures.push('law '+id+' below minimum');});
   Object.entries(result.minimums.rights).forEach(([id,row])=>{if(!row.ok) result.failures.push('rights '+id+' below minimum');});
