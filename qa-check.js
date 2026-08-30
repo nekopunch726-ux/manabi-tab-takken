@@ -449,13 +449,23 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.9.1') result.failures.push('PROJECT.version is not 2.9.1');
+  if(PROJECT.version!=='2.10') result.failures.push('PROJECT.version is not 2.10');
   if(PROJECT.updated!=='2026-08-30') result.failures.push('PROJECT.updated is not 2026-08-30');
-  const uiIds=Object.fromEntries(['startDue','dueBadge','dueCount','reviewScheduleMini','openAI','aiPlanMini'].map(id=>[id,ids.includes(id)]));
+  const uiIds=Object.fromEntries(['startDue','dueCount','reviewScheduleMini','openAI','aiPlanMini','openOther','openReviewHub','openReadHub','openMockHub','openBeginner','openFieldGuide','subjectCards','dailyReadinessLabel','dailyDueCount','dailyNextTitle'].map(id=>[id,ids.includes(id)]));
+  const homeSection=html.split('<div id="reviewHubModal"')[0]||html;
+  const quickSection=(homeSection.match(/<div class="quick">([\\s\\S]*?)<\\/div>/)||[])[1]||'';
+  const quickButtonCount=(quickSection.match(/<button /g)||[]).length;
+  const headerHasDict=homeSection.includes('openDictHeader');
+  const homeHasDevCard=homeSection.includes('devPctMini')||homeSection.includes('devBarMini')||homeSection.includes('devNextMini')||homeSection.includes('完成までの進捗');
+  const homeHasBackupCard=quickSection.includes('openBackup');
   const removedUiRefs={startDue2:html.includes('startDue2')||script.includes('startDue2'),openAI2:html.includes('openAI2')||script.includes('openAI2')};
   if(!result.auditRegistrySync) result.failures.push('embedded audit registry mismatch');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
-  if(!uiIds.startDue||!uiIds.dueBadge||!uiIds.dueCount||!uiIds.reviewScheduleMini||!uiIds.openAI||!uiIds.aiPlanMini) result.failures.push('ui ids missing');
+  if(!uiIds.startDue||!uiIds.dueCount||!uiIds.reviewScheduleMini||!uiIds.openAI||!uiIds.aiPlanMini||!uiIds.openOther||!uiIds.openReviewHub||!uiIds.openReadHub||!uiIds.openMockHub||!uiIds.openBeginner||!uiIds.openFieldGuide||!uiIds.subjectCards||!uiIds.dailyReadinessLabel||!uiIds.dailyDueCount||!uiIds.dailyNextTitle) result.failures.push('ui ids missing');
+  if(quickButtonCount!==6) result.failures.push('quick cards not 6');
+  if(headerHasDict) result.failures.push('header dictionary shortcut still present');
+  if(homeHasDevCard) result.failures.push('home development progress still present');
+  if(homeHasBackupCard) result.failures.push('backup still in quick cards');
   if(removedUiRefs.startDue2||removedUiRefs.openAI2) result.failures.push('removed ui refs still present');
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
   if(result.examMeta.missingQualityStatus.length) result.failures.push('qualityStatus missing');
