@@ -9,6 +9,7 @@ const script=scriptMatch[1];
 const auditScriptMatch=html.match(/<script type="application\/json" id="legalAuditRegistry">([\s\S]*?)<\/script>/);
 if(!auditScriptMatch) throw new Error('legal audit registry script not found');
 const legalAudit50=JSON.parse(fs.readFileSync(path.join(__dirname,'LEGAL_AUDIT_50.json'),'utf8'));
+const embeddedAuditRegistry=JSON.parse(auditScriptMatch[1]);
 const legalAudit50Ids=[...(new Set((legalAudit50.questions||[]).map(x=>x.id).filter(Boolean)))];
 const legalAudit50SelectionIds=[...(new Set((legalAudit50.mockSelectionIds||[]).map(x=>x).filter(Boolean)))];
 const legalAudit50Index=new Map((legalAudit50.questions||[]).map(x=>[x.id,x]));
@@ -70,6 +71,7 @@ const context={
   html,
   script,
   ids,
+  embeddedAuditRegistry,
   legalAudit50,
   legalAudit50Ids,
   legalAudit50SelectionIds,
@@ -146,6 +148,7 @@ __qa=(()=>{
   };
 
   result.version={version:PROJECT.version,updated:PROJECT.updated};
+  result.auditRegistrySync=JSON.stringify(embeddedAuditRegistry)===JSON.stringify(legalAudit50);
   result.storageKey=STORAGE_KEY;
   result.counts={
     terms:G.length,
@@ -446,10 +449,11 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.9') result.failures.push('PROJECT.version is not 2.9');
+  if(PROJECT.version!=='2.9.1') result.failures.push('PROJECT.version is not 2.9.1');
   if(PROJECT.updated!=='2026-08-30') result.failures.push('PROJECT.updated is not 2026-08-30');
   const uiIds=Object.fromEntries(['startDue','dueBadge','dueCount','reviewScheduleMini','openAI','aiPlanMini'].map(id=>[id,ids.includes(id)]));
   const removedUiRefs={startDue2:html.includes('startDue2')||script.includes('startDue2'),openAI2:html.includes('openAI2')||script.includes('openAI2')};
+  if(!result.auditRegistrySync) result.failures.push('embedded audit registry mismatch');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
   if(!uiIds.startDue||!uiIds.dueBadge||!uiIds.dueCount||!uiIds.reviewScheduleMini||!uiIds.openAI||!uiIds.aiPlanMini) result.failures.push('ui ids missing');
   if(removedUiRefs.startDue2||removedUiRefs.openAI2) result.failures.push('removed ui refs still present');
