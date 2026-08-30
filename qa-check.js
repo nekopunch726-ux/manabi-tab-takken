@@ -298,7 +298,10 @@ __qa=(()=>{
   result.compatibility={
     storageKeyOk:STORAGE_KEY==='manabi_takken_v1',
     oldStateGetsMockHistory:Array.isArray(normalizeState(oldState).mockHistory),
-    oldBackupRestored:Array.isArray(state.mockHistory)&&state.answers.length===1
+    oldStateGetsPastExamHistory:Array.isArray(normalizeState(oldState).pastExamHistory),
+    oldStateGetsPastExamWeak:Array.isArray(normalizeState(oldState).pastExamWeak),
+    oldStateGetsPastExamDrafts:typeof normalizeState(oldState).pastExamDrafts==='object',
+    oldBackupRestored:Array.isArray(state.mockHistory)&&Array.isArray(state.pastExamHistory)&&state.answers.length===1
   };
 
   state=normalizeState({});
@@ -444,15 +447,42 @@ __qa=(()=>{
   state.answers=Array.from({length:100},(_,i)=>({date:'2026-08-28',ok:i%2===0,type:'scenario',cat:i<40?'権利関係':i<70?'法令制限':i<90?'税・その他':'宅建業法',term:'',id:'A'+i,unit:'u',diff:'基礎',question:'Q'+i,chosen:'',correct:'',unsure:i<6}));
   result.nextAction=buildNextAction().title;
 
+  state=normalizeState({});
+  const pastExam=PAST_EXAMS[0];
+  const almostAllCorrect=pastExam.answers.map((v,i)=>i===0?0:v);
+  const pastGrade=gradePastExamAnswers(pastExam,almostAllCorrect);
+  savePastExamResult(pastGrade,almostAllCorrect);
+  renderPastExamHub();
+  renderPastWeak();
+  renderPastExamMini();
+  startPastWeakRetry();
+  currentPastWeakDraft=currentPastWeakItems.map(item=>Number(item.correct));
+  const retryResult=gradePastWeakRetry();
+  result.pastExam={
+    count:PAST_EXAMS.length,
+    years:PAST_EXAMS.map(x=>x.year),
+    answerLengths:PAST_EXAMS.map(x=>Array.isArray(x.answers)?x.answers.length:0),
+    allPdfUrlsFromRetio:PAST_EXAMS.every(x=>String(x.pdfUrl||'').startsWith('https://www.retio.or.jp/')),
+    noEmbeddedQuestionText:PAST_EXAMS.every(x=>!('questions' in x)&&!('questionText' in x)&&!('choices' in x)&&!('options' in x)),
+    savedHistory:Array.isArray(state.pastExamHistory)&&state.pastExamHistory.length===1,
+    savedWeakCleared:Array.isArray(state.pastExamWeak)&&state.pastExamWeak.length===0,
+    weakRetryCount:currentPastWeakItems.length,
+    miniSummaryUpdated:hasText('#pastExamMiniSummary','採点履歴 1回'),
+    hubRendered:typeof renderPastExamHub==='function'&&ids.includes('pastExamYearList'),
+    retryWorked:!!retryResult&&retryResult.correct===retryResult.total,
+    subjectLabelsOk:PAST_EXAM_SUBJECTS.length===50&&PAST_EXAM_SUBJECTS[0]==='権利関係'&&PAST_EXAM_SUBJECTS[14]==='法令制限'&&PAST_EXAM_SUBJECTS[22]==='税・その他'&&PAST_EXAM_SUBJECTS[25]==='宅建業法'&&PAST_EXAM_SUBJECTS[45]==='5問免除',
+    firstGrade:{score:pastGrade.score,total:pastGrade.total,wrongItems:pastGrade.wrongItems.length}
+  };
+
   const backup=backupJSON();
   const backupObj=JSON.parse(backup);
   restoreFromText(backup);
-  result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),restoreWorks:Array.isArray(state.mockHistory)};
+  result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),hasPastExamHistory:Array.isArray(backupObj.state.pastExamHistory),restoreWorks:Array.isArray(state.mockHistory)&&Array.isArray(state.pastExamHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.10.2') result.failures.push('PROJECT.version is not 2.10.2');
+  if(PROJECT.version!=='2.11') result.failures.push('PROJECT.version is not 2.11');
   if(PROJECT.updated!=='2026-08-30') result.failures.push('PROJECT.updated is not 2026-08-30');
-  const uiIds=Object.fromEntries(['startDue','dueCount','reviewScheduleMini','openAI','aiPlanMini','openOther','openReviewHub','openReadHub','openMockHub','openBeginner','openFieldGuide','subjectCards','dailyReadinessLabel','dailyDueCount','dailyNextTitle'].map(id=>[id,ids.includes(id)]));
+  const uiIds=Object.fromEntries(['startDue','dueCount','reviewScheduleMini','openAI','aiPlanMini','openOther','openReviewHub','openReadHub','openMockHub','openBeginner','openFieldGuide','subjectCards','dailyReadinessLabel','dailyDueCount','dailyNextTitle','openPastExamHub','openPastExamHub2','pastExamMiniSummary','pastExamYearList','pastExamAnswerGrid','pastWeakList'].map(id=>[id,ids.includes(id)]));
   const headerSection=html.split('</header>')[0]||html;
   const bodySection=html.split('</header>')[1]||html;
   const homeSection=bodySection.split('<div id="reviewHubModal"')[0]||bodySection;
@@ -475,7 +505,7 @@ __qa=(()=>{
   result.missingIdDirectHandlers=[...new Set(missingIdDirectHandlers)];
   if(!result.auditRegistrySync) result.failures.push('embedded audit registry mismatch');
   if(STORAGE_KEY!=='manabi_takken_v1') result.failures.push('STORAGE_KEY changed');
-  if(!uiIds.startDue||!uiIds.dueCount||!uiIds.reviewScheduleMini||!uiIds.openAI||!uiIds.aiPlanMini||!uiIds.openOther||!uiIds.openReviewHub||!uiIds.openReadHub||!uiIds.openMockHub||!uiIds.openBeginner||!uiIds.openFieldGuide||!uiIds.subjectCards||!uiIds.dailyReadinessLabel||!uiIds.dailyDueCount||!uiIds.dailyNextTitle) result.failures.push('ui ids missing');
+  if(!uiIds.startDue||!uiIds.dueCount||!uiIds.reviewScheduleMini||!uiIds.openAI||!uiIds.aiPlanMini||!uiIds.openOther||!uiIds.openReviewHub||!uiIds.openReadHub||!uiIds.openMockHub||!uiIds.openBeginner||!uiIds.openFieldGuide||!uiIds.subjectCards||!uiIds.dailyReadinessLabel||!uiIds.dailyDueCount||!uiIds.dailyNextTitle||!uiIds.openPastExamHub||!uiIds.openPastExamHub2||!uiIds.pastExamMiniSummary||!uiIds.pastExamYearList||!uiIds.pastExamAnswerGrid||!uiIds.pastWeakList) result.failures.push('ui ids missing');
   if(quickButtonCount!==6) result.failures.push('quick cards not 6');
   if(headerHasDict) result.failures.push('header dictionary shortcut still present');
   if(homeHasReadinessCard) result.failures.push('home readiness card still present');
@@ -532,8 +562,13 @@ __qa=(()=>{
   if(!result.noContinueMiniMock||!result.noContinueFullMock||!result.noContinueSingleTerm||!result.noContinueRightsGuideCheck||!result.noContinueLimitsGuideCheck||!result.noContinueTaxGuideCheck) result.failures.push('continue UI leaked into excluded flow');
   if(!result.unitPickers.lawOpened||!result.unitPickers.rightsOpened||!result.unitPickers.limitsOpened||!result.unitPickers.taxOpened) result.failures.push('unit picker broken');
   if(!result.guideOpen.lawGuideShown||!result.guideOpen.limitsGuideShown||!result.guideOpen.taxGuideShown) result.failures.push('guide modal broken');
-  if(!result.compatibility.storageKeyOk||!result.compatibility.oldStateGetsMockHistory||!result.compatibility.oldBackupRestored) result.failures.push('compatibility broken');
-  if(!result.backup.hasMockHistory||!result.backup.restoreWorks) result.failures.push('backup broken');
+  if(!result.compatibility.storageKeyOk||!result.compatibility.oldStateGetsMockHistory||!result.compatibility.oldStateGetsPastExamHistory||!result.compatibility.oldStateGetsPastExamWeak||!result.compatibility.oldStateGetsPastExamDrafts||!result.compatibility.oldBackupRestored) result.failures.push('compatibility broken');
+  if(!result.backup.hasMockHistory||!result.backup.hasPastExamHistory||!result.backup.restoreWorks) result.failures.push('backup broken');
+  if(result.pastExam.count!==3||result.pastExam.years.join(',')!=='2025,2024,2023') result.failures.push('past exam years broken');
+  if(result.pastExam.answerLengths.some(x=>x!==50)) result.failures.push('past exam answers broken');
+  if(!result.pastExam.allPdfUrlsFromRetio||!result.pastExam.noEmbeddedQuestionText) result.failures.push('past exam source policy broken');
+  if(!result.pastExam.savedHistory||!result.pastExam.savedWeakCleared||!result.pastExam.retryWorked) result.failures.push('past exam persistence broken');
+  if(!result.pastExam.hubRendered||!result.pastExam.miniSummaryUpdated||!result.pastExam.subjectLabelsOk) result.failures.push('past exam ui broken');
   if(!result.mockChecks.miniMockNotSaved||!result.mockChecks.noDuplicateSave) result.failures.push('mock history broken');
   if(result.mockChecks.strictMock50Ready){
     if(result.mockChecks.savedCount!==100||result.mockChecks.total!==50) result.failures.push('mock history broken');
