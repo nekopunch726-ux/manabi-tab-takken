@@ -488,7 +488,7 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),hasPastExamHistory:Array.isArray(backupObj.state.pastExamHistory),restoreWorks:Array.isArray(state.mockHistory)&&Array.isArray(state.pastExamHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.11.1') result.failures.push('PROJECT.version is not 2.11.1');
+  if(PROJECT.version!=='2.11.2') result.failures.push('PROJECT.version is not 2.11.2');
   if(PROJECT.updated!=='2026-09-01') result.failures.push('PROJECT.updated is not 2026-09-01');
   const uiIds=Object.fromEntries(['startDue','dueCount','reviewScheduleMini','openAI','aiPlanMini','openOther','openReviewHub','openReadHub','openMockHub','openBeginner','openFieldGuide','subjectCards','dailyReadinessLabel','dailyDueCount','dailyNextTitle','openPastExamHub','openPastExamHub2','pastExamMiniSummary','pastExamYearList','pastExamAnswerGrid','pastExamViewer','pastExamCurrentCard','pastExamProgressLabel','pastWeakList'].map(id=>[id,ids.includes(id)]));
   const headerSection=html.split('</header>')[0]||html;
@@ -502,6 +502,8 @@ __qa=(()=>{
   const homeHasBackupCard=quickSection.includes('openBackup');
   const aiOldGuide=html.includes('ホームの「AIおすすめ5問」から開始できます。');
   const aiNewGuide=html.includes('AIコーチの「おすすめ5問へ」から次へ進めます。');
+  const pastExamOldViewerCopy=html.includes('公式PDFを表示中');
+  const pastExamNewViewerCopy=html.includes('この端末では埋め込み表示できない場合があります')&&html.includes('公式PDFを別タブで開く');
   const removedUiRefs={startDue2:html.includes('startDue2')||script.includes('startDue2'),openAI2:html.includes('openAI2')||script.includes('openAI2')};
   const directHandlerRegex=/\$\('#([^']+)'\)\.(onclick|onchange|oninput|onsubmit|onblur|onfocus)\s*=/g;
   const missingIdDirectHandlers=[];
@@ -520,6 +522,7 @@ __qa=(()=>{
   if(homeHasDevCard) result.failures.push('home development progress still present');
   if(homeHasBackupCard) result.failures.push('backup still in quick cards');
   if(aiOldGuide||!aiNewGuide) result.failures.push('AI import guidance text not updated');
+  if(pastExamOldViewerCopy||!pastExamNewViewerCopy) result.failures.push('past exam viewer guidance not updated');
   if(removedUiRefs.startDue2||removedUiRefs.openAI2) result.failures.push('removed ui refs still present');
   if(result.missingIdDirectHandlers.length) result.failures.push('missing direct handler targets: '+result.missingIdDirectHandlers.join(', '));
   if(result.examMeta.missingExamLevel.length) result.failures.push('examLevel missing');
