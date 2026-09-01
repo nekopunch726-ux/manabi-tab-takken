@@ -446,6 +446,36 @@ __qa=(()=>{
   state=normalizeState({});
   state.answers=Array.from({length:100},(_,i)=>({date:'2026-08-28',ok:i%2===0,type:'scenario',cat:i<40?'権利関係':i<70?'法令制限':i<90?'税・その他':'宅建業法',term:'',id:'A'+i,unit:'u',diff:'基礎',question:'Q'+i,chosen:'',correct:'',unsure:i<6}));
   result.nextAction=buildNextAction().title;
+  result.enhancedCoachingBaseline={
+    weakestOverallUnit:weakestOverallUnit(),
+    reviewRetention:reviewRetentionStats(),
+    termMastery:termMasteryStats(),
+    guideMastery:guideMasteryStats(),
+    readiness:buildReadiness()
+  };
+
+  state=normalizeState({});
+  state.answers=[
+    {date:'2026-09-01',ok:false,type:'scenario',cat:'権利関係',id:'V23-R-A-01',unit:'agency',diff:'入門',question:'Q1',chosen:'',correct:'',unsure:false},
+    {date:'2026-09-01',ok:true,type:'scenario',cat:'権利関係',id:'V23-R-A-02',unit:'agency',diff:'入門',question:'Q2',chosen:'',correct:'',unsure:true},
+    {date:'2026-09-01',ok:false,type:'scenario',cat:'権利関係',id:'V23-R-A-03',unit:'agency',diff:'基礎',question:'Q3',chosen:'',correct:'',unsure:false},
+    {date:'2026-09-01',ok:true,type:'scenario',cat:'法令制限',id:'V22-P-Z-02',unit:'zoning',diff:'基礎',question:'Q4',chosen:'',correct:'',unsure:false},
+    {date:'2026-09-01',ok:true,type:'term',cat:'権利関係',term:'代理',question:'代理',chosen:'',correct:'',unsure:false},
+    {date:'2026-09-01',ok:false,type:'guide',cat:'権利関係',unit:'agency',question:'guide',chosen:'',correct:'',unsure:false}
+  ];
+  state.reviews={
+    a:{lastOk:false,unsure:false,due:'2026-09-02'},
+    b:{lastOk:true,unsure:true,due:'2026-09-03'},
+    c:{lastOk:true,unsure:false,due:'2026-09-04'}
+  };
+  const coachingWeak=weakestOverallUnit();
+  const coachingReadiness=buildReadiness();
+  const coachingAction=buildNextAction();
+  result.enhancedCoachingFocused={
+    weakestOverallUnit:coachingWeak,
+    readiness:coachingReadiness,
+    nextAction:coachingAction.title
+  };
 
   state=normalizeState({});
   const pastExam=PAST_EXAMS[0];
@@ -488,7 +518,7 @@ __qa=(()=>{
   result.backup={hasMockHistory:Array.isArray(backupObj.state.mockHistory),hasPastExamHistory:Array.isArray(backupObj.state.pastExamHistory),restoreWorks:Array.isArray(state.mockHistory)&&Array.isArray(state.pastExamHistory)};
 
   result.failures=[];
-  if(PROJECT.version!=='2.11.2') result.failures.push('PROJECT.version is not 2.11.2');
+  if(PROJECT.version!=='2.12') result.failures.push('PROJECT.version is not 2.12');
   if(PROJECT.updated!=='2026-09-01') result.failures.push('PROJECT.updated is not 2026-09-01');
   const uiIds=Object.fromEntries(['startDue','dueCount','reviewScheduleMini','openAI','aiPlanMini','openOther','openReviewHub','openReadHub','openMockHub','openBeginner','openFieldGuide','subjectCards','dailyReadinessLabel','dailyDueCount','dailyNextTitle','openPastExamHub','openPastExamHub2','pastExamMiniSummary','pastExamYearList','pastExamAnswerGrid','pastExamViewer','pastExamCurrentCard','pastExamProgressLabel','pastWeakList'].map(id=>[id,ids.includes(id)]));
   const headerSection=html.split('</header>')[0]||html;
@@ -595,6 +625,11 @@ __qa=(()=>{
     if(!result.mockChecks.strictMock50Started) result.failures.push('mock50 blocked flow broken');
   }
   if(!result.unseenPriority.allUnseenWhenEnough||!result.unseenPriority.oldestSeenFirst||!result.unseenPriority.forwardReverseSeparated||!result.unseenPriority.scenarioIdPriority) result.failures.push('unseen priority broken');
+  if(!result.enhancedCoachingBaseline.readiness||!result.enhancedCoachingBaseline.reviewRetention||!result.enhancedCoachingBaseline.termMastery||!result.enhancedCoachingBaseline.guideMastery) result.failures.push('enhanced coaching metrics missing');
+  if(result.enhancedCoachingFocused.weakestOverallUnit.unitId!=='agency') result.failures.push('weakest overall unit detection broken');
+  if(!String(result.enhancedCoachingFocused.weakestOverallUnit.reason||'').includes('誤答')) result.failures.push('weakest unit reason broken');
+  if(result.enhancedCoachingFocused.nextAction!=='② 代理を5問復習') result.failures.push('unit-based next action broken');
+  if(!String(result.enhancedCoachingFocused.readiness.reason||'').includes('苦手単元')) result.failures.push('readiness reason lacks weak unit context');
   return result;
 })()
 `,context);
